@@ -29,8 +29,8 @@ Quick reference to key assets. Each link is a memory pointing to a stored file.
 
 ## Shared References
 
-- [LinkedIn Voice](references/linkedin-voice.md) — WDAI LinkedIn voice guide; real post examples with reaction counts
-- [Helen's Voice](references/helen-voice.md) — captured Slack voice patterns with real example
+- [LinkedIn Voice](vault/linkedin-voice.md) — WDAI LinkedIn voice guide; real post examples with reaction counts
+- [Helen's Voice](vault/helen-voice.md) — captured Slack voice patterns with real example
 
 ## Tools (Automation)
 
@@ -39,6 +39,6 @@ Quick reference to key assets. Each link is a memory pointing to a stored file.
 ## Upcoming
 
 - [Content Calendar](vault/content-calendar.md) — (Phase 3) source of truth for scheduled content and promo timelines
-- `references/email-templates.md` — shared email template reference; subject line formulas, body structure, CTA patterns (Phase 2 remainder)
+- `vault/email-templates.md` — shared email template reference; subject line formulas, body structure, CTA patterns (Phase 2 remainder)
 - Leader voices: Lauren, Helen, Madina, Sheena — pending self-authoring
 - wdai-visual format files — web-html.md, powerpoint.md, word-docs.md, social-media.md, ai-image-generation.md, chrome-mcp-image-generation.md (pending from Sheena; go directly in skills/wdai-visual/)

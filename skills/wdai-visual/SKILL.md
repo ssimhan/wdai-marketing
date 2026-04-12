@@ -247,4 +247,4 @@ Every WDAI asset should convey:
 
 ## LinkedIn Post Writing
 
-For LinkedIn copy voice, structure, and examples — read `references/linkedin-voice.md`.
+For LinkedIn copy voice, structure, and examples — read `vault/linkedin-voice.md`.

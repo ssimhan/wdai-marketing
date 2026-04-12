@@ -50,10 +50,10 @@
   - Format: subject line formulas, preview text patterns, body structure templates, CTA patterns by event type
   - Status: deferred pending email content confirmation from Sheena; partially seeded in promo planner phases (AI Foundations email subject patterns, membership drive email)
 
-- [ ] Define decision log + meeting minutes format
-  - Confirm format (already in README — validate it works in practice)
-  - Create `/meeting-minutes/raw/` and `/meeting-minutes/summaries/` folders
-  - Backfill: add summary entries for any decisions already made about the vault build itself
+- [x] Define decision log + meeting minutes format
+  - ✅ Format confirmed (README documents the pattern)
+  - ✅ `/meeting-minutes/raw/` and `/meeting-minutes/summaries/` folders initialized
+  - ✅ Backfilled: `meeting-minutes/summaries/2026-04-vault-build-decisions.md`
 
 **Phase 2 is done when:** A cohort brief goes in, multi-channel promo copy comes out, with no manual formatting work.
 

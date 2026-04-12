@@ -100,7 +100,7 @@ Read 10–15 of their recent messages and note:
 
 Write these patterns down explicitly before drafting their post. Never write "in someone's voice" from a description alone — always from their actual words.
 
-See `references/helen-voice.md` for Helen's captured voice patterns (verified from her actual Slack posts).
+See `vault/helen-voice.md` for Helen's captured voice patterns (verified from her actual Slack posts).
 
 ### Channel research for Slack hooks
 
@@ -118,7 +118,7 @@ Surface one phase at a time for review before moving to the next.
 
 ### Phase 1: Seed Posts (Slack)
 
-**Helen's #general post** — always the Phase 1 anchor. See `references/helen-voice.md` for her full voice profile.
+**Helen's #general post** — always the Phase 1 anchor. See `vault/helen-voice.md` for her full voice profile.
 
 Key things to get right:
 - Resurfacing a past post she made is her natural framing: "Resurfacing something I shared in #channel a few weeks back..."
@@ -138,7 +138,7 @@ Key things to get right:
 
 ### Phase 2: Build Posts (LinkedIn)
 
-All WDAI LinkedIn posts follow the voice principles in `references/linkedin-voice.md`. Read that file before drafting any LinkedIn post.
+All WDAI LinkedIn posts follow the voice principles in `vault/linkedin-voice.md`. Read that file before drafting any LinkedIn post.
 
 **WDAI org post:**
 - Open with the unanswered question the community is already circling — not the event logistics

@@ -24,8 +24,8 @@ Load vault context in this order:
 1. /vault/brand-guidelines.md
 2. /skills/wdai-brand/SKILL.md
 3. /skills/wdai-promo-adhoc/SKILL.md
-4. /references/linkedin-voice.md
-5. /references/helen-voice.md (for Helen's posts)
+4. /vault/linkedin-voice.md
+5. /vault/helen-voice.md (for Helen's posts)
 ```
 
 **For leadership content (bylined article, speaker bio):**
@@ -50,12 +50,10 @@ Always load these three:
 ## Repository Structure
 
 ```
-/vault/
+/vault/                      # Brand identity, shared references, and decisions
   brand-guidelines.md       # WDAI mission, vision, values, audience, visual identity, tone
   decision-log.md           # Running log of "why we did it this way"
   content-calendar.md       # (Phase 3 TBD) source of truth for scheduled content
-
-/references/                # Shared across multiple skills
   linkedin-voice.md         # WDAI LinkedIn-specific voice + real post examples
   helen-voice.md            # Helen's personal Slack voice patterns
   email-templates.md        # (Pending) subject line formulas, body structures, CTA patterns
@@ -119,7 +117,7 @@ Always load these three:
 - content-activator: raw signal → activation plan + Google Sheet brief
 - monthly-review: dashboard + data collection walkthrough
 - daily-content-scout: React app (7 Slack passes → ideas channel)
-- *Pending:* `references/email-templates.md` (seeded in promo skills, to be formalized)
+- *Pending:* `vault/email-templates.md` (seeded in promo skills, to be formalized)
 
 **🔲 Phase 3 Pending** — Content Calendar System
 - Decision needed: Notion / Airtable / Google Sheet as source of record
@@ -184,7 +182,7 @@ Summarized decision entries live in `/meeting-minutes/summaries/` (distilled to 
 2. **Skim `/vault/brand-guidelines.md`** to understand WDAI's mission, vision, and tone principles
 3. **Read `/skills/wdai-brand/SKILL.md`** — this is the practical encoding of how to write like WDAI
 4. **Scan `/vault/decision-log.md`** to see what decisions have been made and why
-5. **If you're a leader:** Create your voice skill by copying `/skills/leader-voices/sandhya/SKILL.md` as a template and filling it out
+5. **If you're a leader:** Create your voice skill by copying `/skills/voice-sandhya/SKILL.md` as a template and filling it out
 
 ---
 
@@ -192,7 +190,7 @@ Summarized decision entries live in `/meeting-minutes/summaries/` (distilled to 
 
 1. **Copy the template:**
    ```
-   /skills/leader-voices/SKILL-TEMPLATE.md → /skills/leader-voices/[name]/SKILL.md
+   /skills/voice-sandhya/SKILL.md → /skills/voice-[name]/SKILL.md
    ```
 
 2. **Self-author it** following the template prompts (30–45 minutes)
@@ -233,7 +231,7 @@ Use the following vault context:
 ```
 Use the following vault context:
 - Brand voice: /wdai-marketing/skills/wdai-brand/SKILL.md
-- Promo planner: /wdai-marketing/skills/wdai-promo-planner/SKILL.md
+- Promo planner: /wdai-marketing/skills/wdai-promo-programmatic/SKILL.md (or wdai-promo-adhoc)
 - Content calendar: /wdai-marketing/vault/content-calendar.md
 - Brand guidelines: /wdai-marketing/vault/brand-guidelines.md
 - Decision log: /wdai-marketing/vault/decision-log.md
@@ -243,7 +241,7 @@ Use the following vault context:
 ```
 Use the following vault context:
 - Brand voice: /wdai-marketing/skills/wdai-brand/SKILL.md
-- [Name]'s voice: /wdai-marketing/skills/leader-voices/[name]/SKILL.md
+- [Name]'s voice: /wdai-marketing/skills/voice-[name]/SKILL.md
 - Brand guidelines: /wdai-marketing/vault/brand-guidelines.md
 ```
 

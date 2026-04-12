@@ -95,7 +95,7 @@ This rule applies to everyone — Helen, Sandhya, Carolyn, any community member.
 Draft in phase order, one touchpoint at a time. For each piece:
 - Label clearly: channel, date/timing, and who executes it
 - For Slack posts: include the message text formatted for Slack markdown
-- For LinkedIn: follow the WDAI LinkedIn voice (read `references/linkedin-voice.md`; key traits: community-first, mission-rooted, contrast structure, story-driven, soft CTA, 3–5 hashtags)
+- For LinkedIn: follow the WDAI LinkedIn voice (read `vault/linkedin-voice.md`; key traits: community-first, mission-rooted, contrast structure, story-driven, soft CTA, 3–5 hashtags)
 - For newsletter: brief, campaign-framed, "bring a friend" angle
 - For email: see **Email Announcement** guidance below
 
