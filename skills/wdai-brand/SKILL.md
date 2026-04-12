@@ -107,9 +107,8 @@ Own what we don't know. Acknowledge gaps. This builds more credibility than pret
 ## Anti-Patterns (NEVER Use in WDAI Copy)
 
 - **Generic openers:** "In today's rapidly changing AI landscape..." / "Now more than ever..."
-- **Contrast frames:** "It's not X, it's Y" / "The problem isn't X, it's Y"
 - **Corporate abstractions:** unlock value, drive innovation, leverage, enable, empower (as verb), transform (overused)
-- **Symmetrical rhetoric:** "The challenge isn't technology, it's mindset"
+- **Symmetrical rhetoric:** "The challenge isn't technology, it's mindset" (hollow — both halves need to be real and specific to land)
 - **Vague benefit language:** "elevate," "amplify," "accelerate" (without specificity)
 - **One-size-fits-all:** avoid "everyone," "all women," "anyone"—talk about *your* audience
 - **Tidy conclusions:** "The future belongs to those who..." / "The key is..."
@@ -166,7 +165,7 @@ Before shipping any WDAI content, ask:
 4. **Is the reader clear on what to do?** Should be obvious without extra work
 5. **Did I celebrate someone or something?** Does the copy leave people feeling seen?
 6. **Is the opening a hook, not a preamble?** Does the first sentence answer "why should I care?"
-7. **Did I use contrast frames?** ("not X, it's Y") If yes, delete them.
+7. **Did I use contrast frames?** ("This isn't just X, it's Y") — these are valid on LinkedIn (see `wdai-linkedin-voice.md`). Avoid them in email and general copy where they feel rhetorical rather than grounded.
 
 If any check fails, rewrite before returning.
 

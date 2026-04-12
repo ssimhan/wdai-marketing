@@ -1,196 +1,213 @@
 ---
-name: wdai-promo-planner-programmatic
-description: "Use for standard WDAI cohort launches: AI Basics (15 lessons, 3 weeks), AI Intermediate (10 lessons, 2 weeks), AI Advanced (15 lessons, 3 weeks, M/W/F office hours). Input a cohort brief → output multi-channel promo copy: WDAI LinkedIn post, leader LinkedIn post template, email announcement, and Slack announcement. Always pair with wdai-brand skill for voice."
+name: program-promotion-planner
+description: "Builds a full multi-channel promotion plan for a scheduled WDAI recurring program — AI Foundations cohorts (4–6 week runway) or Show Don't Tell (2–3 week runway). Use this skill whenever Sheena, Sandhya, Carolyn Roth, or any WDAI team member says 'create a promotion plan', 'plan this cohort', 'build the promo for AI Foundations', 'promote Show Don't Tell', 'set up the marketing for [program name]', or any time a cohort start date or SDT session date is known and content needs to be planned. Always ingests scout output, presents the phase plan before drafting, requires a voice pass for any member-attributed post, and never auto-posts. For ad hoc events outside recurring programs (guest speakers, She Builds, chapter events), use wdai-event-promoter instead."
 ---
 
-# Promo Planner — Programmatic Cohorts
+# Program Promotion Planner
 
-Use this skill when launching a new cohort of AI Basics, AI Intermediate, or AI Advanced.
-
----
-
-## Required Input: Cohort Brief
-
-When invoking this skill, provide the following:
-
-```
-course: "AI Basics" | "AI Intermediate" | "AI Advanced"
-cohort_name: e.g. "Summer 2026" or "S26"
-cohort_number: e.g. 7          # total number of cohorts run for this course
-kickoff_date: e.g. "Monday, June 9"
-live_session_schedule: e.g. "M/Th 10am PT for 3 weeks"
-live_session_time: e.g. "10:00 AM PT / 1:00 PM ET"
-luma_url: e.g. "https://lu.ma/..."
-key_hooks: [optional list of 1–3 things that make this cohort notable]
-enrollment_open: true | false   # whether enrollment is still open
-audience_context: [optional — e.g. "targeted at existing members" or "open to public"]
-```
+Builds a phased, multi-channel promotion plan for WDAI recurring programs. Covers **AI Foundations cohorts** (4–6 week runway, multi-channel) and **Show Don't Tell** (2–3 week runway, mostly Slack). The plan always comes first — drafting happens only after the timeline is confirmed.
 
 ---
 
-## Output: Four Pieces of Copy
+## Step 0 — Identify program type and collect inputs
 
-For each cohort, produce all four in order. Label each section clearly.
+Ask for any details not already provided:
+
+- **Program type**: `AI Foundations cohort` or `Show Don't Tell`
+- **Session/start date**
+- **Special context**: guest presenter names (SDT), cohort number, topic focus, anything unusual
+
+If program type is ambiguous, ask. The timing logic, channels, and copy tone differ significantly between types.
+
+Then read the relevant reference file for program-specific details before proceeding:
+- AI Foundations → `references/ai-foundations.md`
+- Show Don't Tell → `references/show-dont-tell.md`
 
 ---
 
-### 1. WDAI LinkedIn Post (Brand Account)
+## Step 1 — Confirm calendar timing
 
-**When:** 1–2 weeks before kickoff.
+Use the Google Calendar MCP to:
+- Confirm the event date and pull full details (description, host)
+- Calculate **days until event** from today
+- Check for other WDAI events in the surrounding 2 weeks (avoid scheduling conflicts)
+
+`LUMA_CALENDAR_ID: ednnph5j2tft0a8qahllu39ua0v174nc@import.calendar.google.com`
+
+---
+
+## Step 2 — Ingest scout output (required, not optional)
+
+Search `#team-marketing-workstream2-content-ideas` (channel ID: `C0AKR6N50T0`) for stories the daily content scout has already flagged in the last 30 days that are relevant to this program.
+
+Search terms to try:
+- For AI Foundations: "cohort", "foundations", "basics", "intermediate", "advanced", "AI tool", "built", "learned"
+- For SDT: "show don't tell", "demo", "presented", "built", presenter names if known
+
+Pull up to 5 strong supporting stories or member quotes. These anchor the promotion — without them, we're promoting a program in the abstract. With them, we're promoting proof.
+
+---
+
+## Step 3 — Check for social proof from previous cycle (conditional)
+
+Search Slack broadly for signals from the most recent completed cycle:
+
+**AI Foundations**: Search for graduation messages, member reflections ("finished the cohort", "what I built", "because of foundations"), or testimonials in the cohort channels (`C06MN2ZSNTH`, `C06S3P1P6TS`, `C09H9NS3CNB`).
+
+**SDT**: Search for reactions, shares, or follow-up conversations about the most recent session. Check #general and #programs-buildtogether for any spillover discussion.
+
+If you find strong social proof (testimonials, build announcements, excited reactions), flag them as potential hooks for the early-phase posts. If nothing surfaces, note it and proceed — the plan can still be built without it.
+
+> Social proof from previous cycles is the highest-converting asset in WDAI promotion. A real quote from a real member beats any copy we write.
+
+---
+
+## Step 4 — Build the phase plan
+
+Refer to the relevant reference file for the full phase-by-phase timeline, channel breakdown, and copy guidelines.
+
+**Present the phase plan to the user BEFORE drafting any copy.** The plan table should show:
+
+| Week | Phase | Touchpoint | Channel | Owner | Notes |
+|------|-------|------------|---------|-------|-------|
+
+Wait for the user to confirm or adjust the plan. Only move to drafting after the plan is approved. This prevents us from writing copy for phases the user wants to cut or rearrange.
+
+---
+
+## Step 5 — Voice passes (required for any member-attributed post)
+
+Before drafting any post attributed to a named member:
+
+1. Search their Slack message history (use their name as search query, look for 15–20 recent messages)
+2. Note: sentence structure, vocabulary, use of emoji, how they talk about their work, what they never say
+3. Draft the post in their voice
+4. Flag it clearly: *"This draft is written in [Name]'s voice based on [N] Slack messages reviewed."*
+
+This rule applies to everyone — Helen, Sandhya, Carolyn, any community member. No exceptions. Never write in someone's voice without doing the search first.
+
+**Hook age rule**: Hooks and references from Slack must be no older than 2–3 weeks. High-traffic channels (#general, cohort channels): max 2 weeks. Quieter channels: max 3 weeks.
+
+---
+
+## Step 6 — Draft all content
+
+Draft in phase order, one touchpoint at a time. For each piece:
+- Label clearly: channel, date/timing, and who executes it
+- For Slack posts: include the message text formatted for Slack markdown
+- For LinkedIn: follow the WDAI LinkedIn voice (read `references/wdai-linkedin-voice.md` in `wdai-event-promoter`; key traits: community-first, mission-rooted, contrast structure, story-driven, soft CTA, 3–5 hashtags)
+- For newsletter: brief, campaign-framed, "bring a friend" angle
+- For email: see **Email Announcement** guidance below
+
+For AI Foundations, Advanced tier requires its own separate CTA in the relevant phase (see `references/ai-foundations.md`). It's a different action (separate Luma opt-in), so it needs its own prompt.
+
+### Email Announcement (AI Foundations only)
+
+Include an email announcement as part of the Phase 1 and/or Phase 4 (final push) touchpoints. Email is distribution, not destination — keep it short, link to Luma.
 
 **Structure:**
-- Line 1: The announcement, specific and direct. Course name, season/cohort, kickoff date.
-- Lines 2–4: What this cohort covers or what members will walk away with. Concrete.
-- Line 5: One proof point — community stat, member outcome, or previous cohort result.
-- Final line: CTA + Luma link.
-
-**Tone:** WDAI brand voice — conviction, specificity, peer-to-peer. No generic opener.
-
-**Format:** Short paragraphs, 1–3 lines each. No bullet lists. End with link.
-
-**Cohort-specific hooks:**
-- **AI Basics:** "zero to experimenting" arc, no technical background needed, the 15-lesson daily email format, live sessions included
-- **AI Intermediate:** Custom AI assistant build, 10 days, hands-on throughout
-- **AI Advanced:** Office hours format (M/W/F), Claude Code focus, for members who've completed Basics or Intermediate
-
-**Example (AI Basics):**
-
-> AI Basics Summer 2026 kicks off June 9th.
->
-> Over 3 weeks, you'll go from "I've heard of ChatGPT" to comparing models, going multimodal, working with data, and actually understanding what AI can and can't do—one lesson a day, delivered to your inbox.
->
-> The last cohort had 200+ members ship their first AI project. Some went from curious to using AI daily at work. A few changed roles.
->
-> Enrollment is open now. Spots fill fast.
-> 👉 [luma link]
-
----
-
-### 2. Leader LinkedIn Post Template
-
-**When:** Same window as WDAI post, or staggered by 2–3 days.
-
-**Purpose:** Personal, first-person post from a WDAI leader promoting the cohort in their own voice. Output a *template* with `[BRACKETS]` for the leader to personalize.
-
-**Structure:**
-- Line 1: Personal hook — what this course meant to the leader, a member they remember, or a moment that stands out.
-- Lines 2–3: What the course is (briefly) + what surprised them or what they're proud of.
-- Line 4: Who this is for (specific, not vague).
-- Final line: CTA + Luma link.
-
-**Tone:** Warm, personal, peer-to-peer. Not a corporate announcement — sounds like a text from someone who's actually excited.
-
-**Note to user:** Pair this template with the leader's voice skill (`/skills/leader-voices/[name]/SKILL.md`) to rewrite in their specific voice before sending.
-
-**Example template (AI Basics):**
-
-> [What made you start WDAI / what you were seeing when you decided to run this course — 1–2 sentences of personal context.]
->
-> AI Basics [Season] starts [date]. It's 15 daily emails over 3 weeks — no technical background needed, just curiosity and 10–15 minutes a day. Live sessions on [days] at [time].
->
-> [One thing you've seen members do after completing the course — specific, not vague.]
->
-> If you've been wanting to actually learn this stuff — not just read about it — this is the one.
-> 👉 [luma link]
-
----
-
-### 3. Email Announcement
-
-**When:** 1–2 weeks before kickoff. Sent to existing Mailchimp audience (non-enrolled members, lapsed members, prospective subscribers).
-
-**Structure:**
-
 ```
-Subject line: [AI [Course]] [Season] cohort kicks off [date] — enrollment open
-Preview text: [One-line hook about what they'll walk away with]
+Subject line: [see formulas below]
+Preview text: [one-line hook — the most compelling specific detail]
 
 Body:
-
-[Greeting — warm, first-name if personalized]
+[Warm greeting]
 
 [Course] [Season] starts [date].
 
-[2–3 sentences on what the cohort covers and what members walk away with. Specific.]
+[2–3 sentences on what the cohort covers and what members walk away with. Specific over vague.]
 
 [1 sentence on the community piece — live sessions, Slack, peer learning.]
 
-[Optional: one member outcome or quote from a previous cohort.]
+[Optional: one member outcome or quote from a previous cohort — from scout/social proof research above.]
 
-[CTA — single, clear]
+[Single CTA]
 [Button: "Reserve your spot →" or "Join [Course] [Season] →"]
 [Luma URL]
 
-[Sign-off — warm, from the team]
 Women Defining AI 💜
 ```
 
 **Subject line formulas by course:**
-- Basics: `[AI Basics] [Season] starts [date] — enrollment open`
-- Intermediate: `[AI Intermediate] [Season]: 10 days to build your custom AI assistant`
-- Advanced: `[AI Advanced] [Season] kicks off [date] — office hours format`
 
-**Tone:** Peer-to-peer. Lead with the news. No preamble, no "We're so excited to announce."
+| Course | Subject |
+|--------|---------|
+| AI Basics | `[AI Basics] [Season] starts [date] — enrollment open` |
+| AI Intermediate | `[AI Intermediate] [Season]: 10 days to build your custom AI assistant` |
+| AI Advanced | `[AI Advanced] [Season] kicks off [date] — office hours format` |
 
----
-
-### 4. Slack Announcement
-
-**When:** 1–2 weeks before kickoff. Post in `#announcements` (or equivalent cohort channel).
-
-**Structure:**
-- Line 1: Bold announcement. Course, season, kickoff date.
-- Line 2–3: What it is + who it's for.
-- Line 4: Live session schedule (specific days/times).
-- Line 5: CTA + link.
-
-**Tone:** Warm community voice. Can use emoji naturally. Shorter than LinkedIn — Slack readers scan.
-
-**Example (AI Intermediate):**
-
-> 📣 **AI Intermediate S26 kicks off Monday, March 9.**
->
-> 10 daily lessons on building your own custom AI assistant — from personalizing an LLM to adding knowledge, tools, and getting user feedback.
->
-> For members who've completed AI Basics or have equivalent hands-on experience.
->
-> Live sessions Mon 3/9, Thu 3/12, Mon 3/16, Thu 3/19 at 10am PT / 1pm ET.
->
-> Enrollment → [luma link]
+**Tone:** Peer-to-peer. Lead with the news. No "We're so excited to announce."
 
 ---
 
-## Course Quick-Reference
+## Step 7 — SDT: Post-session feedback loop (SDT only)
 
-| Course | Length | Format | Live sessions | Key outcome |
-|--------|--------|--------|--------------|-------------|
-| AI Basics | 15 lessons / 3 weeks | Daily email M–F | M/Th | Go from zero to experimenting across models, modalities, data |
-| AI Intermediate | 10 lessons / 2 weeks | Daily email M–F | M/Th | Build a custom AI assistant end-to-end |
-| AI Advanced | 15 lessons / 3 weeks | Daily email M/W/F | M/W/F (office hours) | Claude Code, agents, advanced prompting |
+After the session, Carolyn drops a structured recap into a Slack thread. This feeds the adhoc-content-activator for follow-on content.
+
+Include this template in the SDT plan output for Carolyn to fill in post-session:
+
+```
+📝 SDT Session Recap — [Date]
+
+Presenters & what they built:
+1. [Name] — [one-line description of their build/demo]
+2. [Name] — [one-line description of their build/demo]
+3. [Name] — [one-line description of their build/demo]
+
+Standout moment or quote (optional):
+
+Any member reactions worth capturing (optional):
+
+Next steps / who to follow up with (optional):
+```
+
+Remind Carolyn: this recap is what makes it possible to turn the session into lasting content. The adhoc-content-activator can turn it into LinkedIn posts, internal spotlights, or newsletter features — but only if we capture it while it's fresh.
 
 ---
 
-## Promo Timeline (Standard)
+## Step 8 — Present all drafts for review
 
-| When | What |
-|------|------|
-| 2 weeks before kickoff | WDAI LinkedIn post + email announcement |
-| 10 days before | Leader LinkedIn post |
-| 1 week before | Slack announcement to existing community |
-| 2 days before | Email reminder (subject: "Starting Monday — [Course] [Season]") |
-| Day of kickoff | Slack reminder: "We're live today!" |
+Surface all drafts to the user. Never post anything automatically. Present in phase order with clear labels.
+
+For each draft, note:
+- What editing is needed before sending
+- Whether a voice pass was done (and for whose voice)
+- Whether the user needs to tag someone, add a Luma link, or confirm registration details
 
 ---
 
-## Anti-Patterns for Cohort Promo
+## Rules (always apply)
+
+- Phase plan **before** drafting. Always.
+- Voice pass **before** any member-attributed post. Always.
+- Hooks no older than 2–3 weeks. If nothing recent exists, write fresh.
+- Never auto-post. All drafts are for human review.
+- Ingest scout output in Step 2. It's not optional.
+- For SDT: always include the post-session recap template in the output.
+
+---
+
+## Promo Anti-Patterns
 
 - Never open with "We're so excited to announce..." — lead with the fact
 - Never say "Join our community" as the CTA — say what they're joining and when
 - Don't say "limited spots" unless it's actually true
 - Don't describe the course as "immersive" or "transformative" — show outcomes instead
 - Don't use bullet lists on LinkedIn — kills the scroll
+- Don't front-load urgency into the launch announcement — save strongest social proof and CTAs for Phases 3–4
 
 ---
 
-*Pair with: `wdai-brand` skill for voice, leader voice skill for personalized leader posts.*
-*Last updated: April 2026*
+## Channel IDs
+
+```
+GENERAL              = C05EVMG7CRG
+CONTENT_IDEAS        = C0AKR6N50T0   ← scout output lives here
+AIF_BASICS           = C06MN2ZSNTH
+AIF_INTERMEDIATE     = C06S3P1P6TS
+AIF_ADVANCED         = C09H9NS3CNB
+AIF_MENTORS          = C09J5AV8WFN
+GTMOPS_LINKEDIN      = C0884K20BGE
+GTMOPS_NEWSLETTER    = C08901A3Y80
+LUMA_CALENDAR_ID     = ednnph5j2tft0a8qahllu39ua0v174nc@import.calendar.google.com
+```

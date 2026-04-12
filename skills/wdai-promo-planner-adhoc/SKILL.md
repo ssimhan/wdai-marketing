@@ -1,213 +1,293 @@
 ---
-name: wdai-promo-planner-adhoc
-description: "Use for non-cohort WDAI events and initiatives: workshops, masterclasses, guest speaker sessions, community events, one-off announcements, milestone celebrations. Input an event brief → output multi-channel promo copy: WDAI LinkedIn post, leader LinkedIn post template, email announcement, Slack announcement. Always pair with wdai-brand skill for voice."
+name: wdai-event-promoter
+description: "Executes a phased promotion campaign for any WDAI event outside the recurring programming calendar — guest speakers, chapter events, She Builds, IWD, community milestones, membership drives, partnerships, and any ad hoc event with a confirmed date. Use whenever Sheena, Sandhya, Helen, or any WDAI team member says 'promote this event', 'build posts for [event]', 'help me promote [speaker]', 'we're promoting this', or shares an event that is NOT an AI Foundations cohort or Show Don't Tell (use program-promotion-planner for those). Always ingests scout output, presents the phase plan before drafting, and requires a voice pass for any member-attributed post. Covers Slack (seed + day-before), LinkedIn (WDAI org + member), email (milestones and membership drives), and member outreach DM asks. Does NOT auto-post — all drafts surface for human review."
 ---
 
-# Promo Planner — Ad-Hoc Events & Initiatives
+# WDAI Event Promoter
 
-Use this skill for anything that isn't a standard AI Basics / Intermediate / Advanced cohort launch. That includes:
-- Workshops (single-session, hands-on)
-- Masterclasses (guest expert, topic-specific)
-- Community events (AMAs, meetups, panels)
-- Milestone announcements (member count, partnerships, awards)
-- Open enrollment windows or membership drives
-- Regional events (UK, other chapters)
+Executes a complete promotion campaign for any WDAI event outside the recurring programming calendar. This includes guest speaker sessions, chapter events, She Builds, IWD activations, community milestones, membership drives, external partnerships, and any other ad hoc event with a confirmed date and Luma link.
+
+**Not for recurring programs.** AI Foundations cohorts (Basics, Intermediate, Advanced) and Show Don't Tell run on a fixed schedule — use `program-promotion-planner` for those.
+
+**What this skill produces:**
+- A confirmed 3-phase plan (channels, dates, who posts) presented BEFORE any drafting
+- Phase 1 (Seed): Internal Slack posts to warm the community
+- Phase 2 (Build): LinkedIn posts (WDAI org + community member) + Slack registration nudge
+- Phase 3 (Close): LinkedIn speaker spotlight + day-before Slack reminder
+- Email announcement (milestones and membership drives only — see guidance below)
+- Member outreach DM drafts for any community-attributed posts
+- Content calendar brief formatted for manual entry into the WDAI Google Sheet
+
+**What this skill does NOT do:**
+- Post anything automatically — all content surfaces as drafts for human review
+- Write directly to Google Sheets (outputs a structured brief instead)
+- Build a plan from scratch without event details confirmed
 
 ---
 
-## Required Input: Event Brief
+## Step 0: Ingest Scout Output
 
-When invoking this skill, provide the following:
+Before anything else, check whether the daily content scout has run recently. Search `#team-marketing-workstream2-content-ideas` (channel ID: `C0AKR6N50T0`) for scout posts from the last 7 days.
+
+If found, read them and note any items that could serve as hooks for this event — member stories, builds, or conversations that connect to the event topic. These organic hooks are often stronger than anything we'd invent. Keep them available throughout the drafting process; don't treat this as a checkbox.
+
+---
+
+## Step 1: Gather Event Details
+
+Confirm the following before building the phase plan. If anything is missing, ask.
+
+- **Event type**: guest speaker / chapter event / She Builds / IWD / milestone / membership drive / partnership / other
+- **Event date and time** (with timezone)
+- **Speaker name** and their LinkedIn URL or title (if applicable)
+- **Organization / benchmark / tool** being featured (if applicable)
+- **What's counterintuitive or surprising** about their work — this is the hook
+- **Luma registration link** (if applicable)
+- **Members-only or open?**
+- **Who is organizing** (usually Helen)
+- **Any community member** who has already posted about a related topic in Slack (potential hook or outreach candidate)
+
+**Event-type notes:**
+- **Milestones** (member count, partnerships, awards): no Luma link needed; email is a primary channel alongside LinkedIn
+- **Membership drives**: email is a primary channel; include open/close dates and any seasonal hook
+- **She Builds / IWD**: confirm whether there's a submission component or just an attendance CTA
+
+---
+
+## Step 2: Build the Phase Plan — Present BEFORE Drafting
+
+Build the phase plan and present it to the user for approval. Do not start drafting posts until the plan is confirmed.
+
+**Standard 3-phase structure** (adjust dates based on actual event date):
+
+| Phase | Window | Channels | Purpose |
+|-------|--------|----------|---------|
+| Phase 1: Seed | 2–3 weeks before | Slack #general, relevant topic channel | Warm community organically; no hard sell |
+| Phase 2: Build | 1–2 weeks before | LinkedIn (WDAI org + community member), Slack #general nudge | Drive awareness and registrations |
+| Phase 3: Close | Week of event | LinkedIn speaker spotlight, Slack day-before reminder | Convert stragglers; build anticipation |
+
+**Milestone and membership drive adjustments:**
+- Milestones: no phases needed — single announcement across LinkedIn + email + Slack simultaneously
+- Membership drives: extend Phase 2 through the close date; add a midpoint reminder and a close reminder
+
+For each post in the plan, specify:
+- Platform and channel
+- Who is posting (WDAI org, Helen, or named community member)
+- Approximate go-live date
+- Hook angle (one sentence)
+
+Present as a table. Wait for the user to approve or adjust before moving to Step 3.
+
+---
+
+## Step 3: Research Before Drafting
+
+### Voice research for member-attributed posts (non-negotiable)
+
+For every post attributed to a named community member — LinkedIn or Slack — search their Slack history before writing a single word:
 
 ```
-event_type: "workshop" | "masterclass" | "ama" | "meetup" | "panel" | "milestone" | "membership_drive" | "other"
-event_name: e.g. "Claude Code Masterclass: Build Your First Agent"
-date: e.g. "Thursday, April 17"
-time: e.g. "11:00 AM PT / 2:00 PM ET"
-duration: e.g. "90 minutes"
-speaker_or_host: [name + title/org if relevant]
-topic_summary: [1–3 sentences on what attendees will learn or experience]
-who_it_is_for: [who this is best suited for — specific, not "anyone"]
-luma_url or registration_url: [link]
-key_hooks: [optional — what's notable, surprising, or timely about this event]
-audience_context: [optional — "open to public" | "members only" | "leaders only"]
+from:<@UserID> [search their posts]
 ```
 
----
+Read 10–15 of their recent messages and note:
+- How they open messages (casual vs. formal, emoji use)
+- Sentence length and rhythm (punchy vs. flowing)
+- Personal identifiers they use (job title, "mom of X", "solo practitioner", etc.)
+- What they genuinely care about (their actual interests, not their job description)
+- How they close — soft invite, link drop, direct ask
+- Emoji use (which ones, how often)
 
-## Output: Four Pieces of Copy
+Write these patterns down explicitly before drafting their post. Never write "in someone's voice" from a description alone — always from their actual words.
 
-For each event, produce all four in order. Label each section clearly.
+See `references/helen-voice.md` for Helen's captured voice patterns (verified from her actual Slack posts).
 
----
+### Channel research for Slack hooks
 
-### 1. WDAI LinkedIn Post (Brand Account)
-
-**When:** 1–2 weeks before the event (or immediately for milestone announcements).
-
-**Structure:**
-- Line 1: The event, specific and direct. Name, date, what it is.
-- Lines 2–3: What attendees will walk away with. Concrete — skill, tool, output, insight.
-- Line 4 (optional): Speaker credential or proof point (one sentence, not a bio).
-- Final line: CTA + link.
-
-**Tone:** Conviction without hype. No "incredible opportunity" or "you don't want to miss this." Let the content speak.
-
-**Format:** Short paragraphs, 1–3 lines each. No bullet lists. End with link.
-
-**By event type:**
-
-- **Workshops:** Lead with the skill/tool being taught. Specificity is the hook ("You'll leave with a working Claude Code agent" > "You'll learn about AI tools")
-- **Masterclasses:** Lead with the speaker's credibility anchor, then the topic. Not a bio — one telling detail.
-- **Panels/AMAs:** Lead with the question or tension being explored. Make it feel like a conversation worth being in.
-- **Milestones:** Lead with the number or achievement. Brief reflection on what it means. Gratitude, not chest-thumping.
-- **Membership drives:** Lead with the "why now" — what's happening in the community that makes this a good moment to join.
-
-**Example (workshop):**
-
-> Claude Code Masterclass: Build Your First Agent — Thursday, April 17.
->
-> In 90 minutes, you'll go from zero to a working AI agent: set up Claude Code, write your first prompt chain, and debug it live. No prior coding experience required — just a laptop and curiosity.
->
-> Led by [Name], who's been building with Claude Code since its beta launch.
->
-> Open to all WDAI members. Spots are limited.
-> 👉 [link]
-
-**Example (milestone):**
-
-> 1,000 members.
->
-> When we started WDAI in 2023, it was a study group. A few friends figuring out AI together.
->
-> A thousand women and nonbinary leaders later — building in public, asking questions without fear, shipping their first agents — we're still figuring it out. Just not alone anymore.
->
-> Thank you for being part of this.
+For any Phase 1 post tied to a Slack channel, search that channel to find recent activity:
+- Look for conversations within the last 2–3 weeks (nothing older — stale hooks feel forced)
+- In higher-traffic channels, stick closer to 2 weeks; in quieter channels, 3 weeks is the outer limit
+- If the channel is quiet, acknowledge it honestly: "This channel has been a bit quiet but I didn't want anyone to miss this"
+- If another team member has already dropped the Luma link in a relevant thread, do not add to that thread — it's overkill
 
 ---
 
-### 2. Leader LinkedIn Post Template
+## Step 4: Draft Posts Phase by Phase
 
-**When:** Same window as WDAI post or staggered 2–3 days.
+Surface one phase at a time for review before moving to the next.
 
-**Purpose:** Personal, first-person promotion from a WDAI leader in their own voice. Output a template with `[BRACKETS]` for personalization.
+### Phase 1: Seed Posts (Slack)
 
-**Structure:**
-- Line 1: Personal connection to this topic or event — why the leader cares.
-- Lines 2–3: What the event is + the one thing that makes it worth showing up for.
-- Line 4: Who should come (specific).
-- Final line: CTA + link.
+**Helen's #general post** — always the Phase 1 anchor. See `references/helen-voice.md` for her full voice profile.
 
-**Note to user:** Pair this template with the leader's voice skill (`/skills/leader-voices/[name]/SKILL.md`) to rewrite in their specific voice before sending.
+Key things to get right:
+- Resurfacing a past post she made is her natural framing: "Resurfacing something I shared in #channel a few weeks back..."
+- She connects the event to a personal moment with her kids — specific detail, specific age
+- She names why she's excited in her own casual way, then drops the link without ceremony
+- She tags the relevant community member in a follow-up message (not in the main post)
+- She always closes with 💜
 
-**Example template (masterclass):**
+**Topical channel post** — search the most relevant topic channel for a recent hook. Write from whoever is posting (usually a marketing team member — verify their actual role and don't position them as something they're not).
 
-> [Why this topic matters to you personally — 1–2 sentences. What you've seen, built, or struggled with that makes this feel relevant.]
->
-> On [date] we're hosting [event name] with [speaker name]. [One sentence on what attendees will actually do or learn — the concrete thing, not the vibe.]
->
-> This is for [specific audience — "members who've completed AI Basics" or "founders building with AI" or "anyone who's been wanting to try Claude Code but hasn't started"].
->
-> Come ready to build.
-> 👉 [link]
+**What to avoid in Phase 1:**
+- Reviving posts or threads older than 6 months as hooks
+- Adding the Luma link to a thread where it's already been dropped
+- Announcing the event with a structured bullet-point format — these posts should feel organic, not promotional
 
 ---
 
-### 3. Email Announcement
+### Phase 2: Build Posts (LinkedIn)
 
-**When:** 1–2 weeks before event (or immediately for milestone/membership drives).
+All WDAI LinkedIn posts follow the voice principles in `references/wdai-linkedin-voice.md`. Read that file before drafting any LinkedIn post.
 
-**Structure:**
+**WDAI org post:**
+- Open with the unanswered question the community is already circling — not the event logistics
+- Use the contrast structure: "This isn't just [X]. It's [Y]."
+- Name the speaker with their LinkedIn tag — not their Slack handle
+- Reveal the counterintuitive finding as the payoff
+- CTA: Luma link for members, womendefiningai.org for non-members
+- End with a soft, inviting close — never "don't miss this" urgency
 
+**Community member LinkedIn post:**
+- Always research their voice first (Step 3)
+- Frame from their genuine personal experience — not a first-person rewrite of the WDAI org post
+- Lower the barrier explicitly: "no credentials required", "wherever you are in your journey"
+- Soft CTA — a genuine invite, not a conversion push
+
+**Slack registration nudge:**
+- Short (3 sentences max), from a named community leader (Sandhya, Madina, etc.)
+- Personal tie to the event topic — why does *this person* care?
+- Do voice research before writing (Step 3 applies here too)
+- Not a copy of the LinkedIn post
+
+---
+
+### Phase 3: Close Posts
+
+**LinkedIn speaker spotlight (WDAI org, ~1 week before):**
+- Shift from "here's the event" to "here's who you're learning from"
+- Lead with what makes this speaker's work distinctive — not their credentials
+- You may need 1–2 sentences of speaker background from the organizer (flag this if missing)
+- Reveal or reinforce the counterintuitive finding
+- Soft CTA to register — "Members: come ready" not "Last chance"
+
+**Day-before Slack reminder (Helen or WDAI):**
+- One sentence. Tomorrow + time + speaker + Luma link. That's it.
+- Example: "Tomorrow at 9am PT — [Speaker] from [Org] joins us. Register if you haven't: [link] 💜"
+- Do not rewrite the Phase 1 post. This is a tap on the shoulder, not a pitch.
+
+---
+
+### Email Announcements (Milestones and Membership Drives)
+
+Email is not a default channel for ad-hoc events — use it only for milestones and membership drives where it carries genuine weight.
+
+**Milestone email:**
 ```
-Subject line: [varies by type — see formulas below]
-Preview text: [One-line hook — the most compelling specific detail]
+Subject: [Number/achievement] — a note from us
+Preview: [One warm sentence about what this milestone means]
 
 Body:
+[Warm, brief reflection on reaching this milestone — personal, not corporate]
+[What it represents for the mission]
+[One member quote or specific moment that captures the community's spirit]
+[Soft close — gratitude, not CTA]
 
-[Greeting]
-
-[Event name and date — first sentence. No preamble.]
-
-[2–3 sentences on what this is and what attendees walk away with. Specific over vague.]
-
-[Who it's for — 1 sentence. Helps self-select.]
-
-[Optional: speaker credential or community proof point — 1 sentence max.]
-
-[CTA — single, clear]
-[Button: "Save your spot →" or "Register →"]
-[Link]
-
-[Sign-off]
 Women Defining AI 💜
 ```
 
-**Subject line formulas by event type:**
+**Membership drive email:**
+```
+Subject: Doors open: join WDAI [Season]
+Preview: [One-line hook about what's happening in the community right now]
 
-| Type | Formula |
-|------|---------|
-| Workshop | `[Workshop] [Topic] — [Date]` |
-| Masterclass | `[Name] is joining us: [Topic] — [Date]` |
-| Panel/AMA | `Live: [Question or Topic] — [Date]` |
-| Milestone | `[Number/achievement]: a note from us` |
-| Membership drive | `Doors open: join WDAI [Season]` |
+Body:
+[Lead with what's live in the community right now — specific programs, events, or member builds]
+[2–3 sentences on what membership includes. Concrete over abstract.]
+[Price + "bring a friend" angle]
+[Single CTA]
+[Button: "Join WDAI →"]
+[Link]
 
-**Tone:** Same as always — lead with the news. No "We're thrilled to invite you" opener.
+Women Defining AI 💜
+```
 
----
-
-### 4. Slack Announcement
-
-**When:** 1 week before for events; immediately for milestones. Post in `#announcements` or relevant channel.
-
-**Structure:**
-- Line 1: Bold announcement. What it is, when.
-- Line 2: The one-sentence pitch.
-- Line 3 (optional): Who it's for / any requirements.
-- Final line: CTA + link.
-
-**Tone:** Community voice. Emoji okay. Keep it short — Slack readers don't read walls of text.
-
-**Example (AMA):**
-
-> 📣 **AMA with [Name] — [Date] at [Time] PT**
->
-> [Name] is [one compelling credential]. She's joining us to answer your questions about [topic].
->
-> Open to all members. Drop your questions in [#channel] before the session.
->
-> 👉 [link]
-
-**Example (milestone):**
-
-> 💜 **1,000 members.**
->
-> Thank you for being here. We're celebrating this week — details in #announcements.
+**Tone for both:** Peer-to-peer. No "We're thrilled to share." No corporate softening.
 
 ---
 
-## Promo Timeline by Event Type
+## Step 5: Member Outreach DM Drafts
 
-| Event type | Start promo | Reminder |
-|------------|------------|---------|
-| Workshop | 2 weeks before | 3 days before + day-of Slack |
-| Masterclass | 2 weeks before | 1 week + 2 days before |
-| Panel/AMA | 1–2 weeks before | Day-of Slack |
-| Milestone | Day of | — |
-| Membership drive | At open | Midpoint + close reminder |
+For any post attributed to a community member, also draft the DM Sheena will send to ask them. The DM should:
+- Open with a warm, specific reference to something they actually said or did in the community (from the voice research in Step 3)
+- Briefly explain what's being promoted and why they came to mind
+- Paste the draft post inline
+- Make clear they can edit as much as they want or pass entirely
+- End without pressure
+
+Sheena sends these DMs directly — do not send them automatically.
 
 ---
 
-## Anti-Patterns for Ad-Hoc Promo
+## Step 6: Content Calendar Brief
+
+After all posts are drafted and approved, output a structured brief for manual entry into the WDAI Google Sheet (`WDAI_Content_Calendar` — Google Sheets, not writable directly).
+
+**LinkedIn Content Planner tab** — one row per LinkedIn post:
+
+| Field | Notes |
+|-------|-------|
+| POST DATE | Planned go-live date |
+| SUBJECT / TOPIC | Short topic label |
+| HOOK | First 1–3 lines of post |
+| FULL POST DRAFT | Full copy |
+| CALL TO ACTION | CTA text + link |
+| HASHTAGS | 3–5 hashtags |
+| POSTED BY | @WDAI org or member name |
+| STATUS | Draft / Pending info / Ready |
+
+**Master Overview tab** — one row per planned post:
+
+| Field | Notes |
+|-------|-------|
+| MONTH | Month of post |
+| DATE | Day number |
+| DAY | Day of week |
+| EVENT / MILESTONE | Short label + phase |
+| EVENT DETAILS | Date, time, link |
+| LINKEDIN POST SUBJECT | Topic label |
+| LINKEDIN GIST | 1-sentence bullet summary |
+| LINKEDIN STATUS | Draft / Ready |
+| CONTENT STATUS | In Progress / Complete |
+
+Format as two separate tables the user can copy-paste directly.
+
+---
+
+## Promo Anti-Patterns
 
 - Never lead with "We're excited to announce..." — lead with the event or the insight
 - Don't use "you don't want to miss this" — let the content earn the RSVP
 - Don't call every event "incredible" or "game-changing" — specificity builds more credibility
 - Don't write a speaker bio in the post — one credibility anchor is enough
 - For milestone posts: don't be corporate or triumphalist — be warm and specific
+- Don't add the Luma link to a thread where it's already been posted
 
 ---
 
-*Pair with: `wdai-brand` skill for voice, leader voice skill for personalized leader posts.*
-*Last updated: April 2026*
+## Constants
+
+```
+CONTENT_IDEAS_CHANNEL_ID = C0AKR6N50T0
+LUMA_CALENDAR_ID = ednnph5j2tft0a8qahllu39ua0v174nc@import.calendar.google.com
+GENERAL_CHANNEL_ID = C05EVMG7CRG
+SHARE_DEMOS_CHANNEL_ID = C05HM9DB7BL
+SHARE_ARTICLES_CHANNEL_ID = C05G7AZFQ4E
+TOPIC_EDUCATION_CHANNEL_ID = C05H61KL397
+```
+
+---
+
+## Watchdog Note
+
+This skill handles promotion for confirmed events. A separate lightweight daily scheduled task scans the Luma calendar for events within the next 21 days and flags any that don't yet have a promotion plan started. If you're running this skill, someone has already decided to promote the event — you don't need to find it.
