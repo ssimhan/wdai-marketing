@@ -106,12 +106,12 @@ Select the appropriate reference file based on output format:
 
 | Format | Reference File | When to Use |
 |--------|---------------|-------------|
-| HTML/React/Web | [references/web-html.md](references/web-html.md) | Websites, landing pages, HTML artifacts, React components |
-| PowerPoint | [references/powerpoint.md](references/powerpoint.md) | .pptx presentations, slide decks |
-| Word Documents | [references/word-docs.md](references/word-docs.md) | .docx reports, letters, formal documents |
-| Social Media | [references/social-media.md](references/social-media.md) | Social graphics, banners, posts |
-| AI Image Generation (Manual) | [references/ai-image-generation.md](references/ai-image-generation.md) | Prompts for Imagen, DALL-E, Midjourney, Stable Diffusion |
-| **AI Image Generation (Automated)** | [references/chrome-mcp-image-generation.md](references/chrome-mcp-image-generation.md) | **Hands-free image generation via Chrome MCP + Google AI Studio** |
+| HTML/React/Web | [web-html.md](web-html.md) | Websites, landing pages, HTML artifacts, React components |
+| PowerPoint | [powerpoint.md](powerpoint.md) | .pptx presentations, slide decks |
+| Word Documents | [word-docs.md](word-docs.md) | .docx reports, letters, formal documents |
+| Social Media | [social-media.md](social-media.md) | Social graphics, banners, posts |
+| AI Image Generation (Manual) | [ai-image-generation.md](ai-image-generation.md) | Prompts for Imagen, DALL-E, Midjourney, Stable Diffusion |
+| **AI Image Generation (Automated)** | [chrome-mcp-image-generation.md](chrome-mcp-image-generation.md) | **Hands-free image generation via Chrome MCP + Google AI Studio** |
 
 **Always read the relevant reference file before creating content in that format.**
 
@@ -130,7 +130,7 @@ When Claude has Chrome MCP enabled, it can automatically generate WDAI-branded i
 
 1. **Navigate:** Go to aistudio.google.com via Chrome MCP
 2. **Select:** Choose Images tab → Nano Banana model (free)
-3. **Prompt:** Use prompts from `references/chrome-mcp-image-generation.md`
+3. **Prompt:** Use prompts from `chrome-mcp-image-generation.md`
 4. **Generate:** Click Run, wait ~7 seconds
 5. **Download:** Save to workspace folder
 6. **Integrate:** Add to presentation/document/website
@@ -142,7 +142,7 @@ When building WDAI content, include this in requests:
 Generate WDAI hero image using Chrome MCP before creating the presentation
 ```
 
-See [references/chrome-mcp-image-generation.md](references/chrome-mcp-image-generation.md) for full prompt library and workflow details.
+See [chrome-mcp-image-generation.md](chrome-mcp-image-generation.md) for full prompt library and workflow details.
 
 ## Logo Usage
 
@@ -245,84 +245,6 @@ Every WDAI asset should convey:
 
 ---
 
-## LinkedIn Post Writing (WDAI Company Page)
+## LinkedIn Post Writing
 
-When writing LinkedIn posts for the WDAI company page, apply these principles to ensure posts feel celebratory, authentic, and mission-driven — not corporate or stale.
-
-### Voice & Tone
-
-- **Lead with energy**: Open with a bold, declarative statement that celebrates what women can do or what WDAI stands for. Avoid soft, neutral openers.
-  - Strong: "Women don't just deserve a seat at the table. They build the table."
-  - Weak: "We're excited to share that member X built something amazing..."
-- **Celebratory, not promotional**: Posts should feel like a genuine celebration, not a press release.
-- **Conversational and human**: Write like a person, not a brand.
-- **Mission-first**: Every post should connect back to what WDAI champions — women building with AI, learning by doing, and enabling each other.
-
-### Structure for Member Spotlight Posts
-
-1. **Bold opening** — A mission-driven statement about women, AI, or WDAI's purpose
-2. **What the member built/did** — Concrete and specific, with their name tagged (@Name)
-3. **The "give back" moment** — If the member contributed back to the community, let them say it in their own words (direct quote)
-4. **What WDAI makes possible** — One or two sentences connecting the moment to the broader mission
-5. **Member quote as CTA** — Use their own words to invite others in (e.g., "come join us")
-6. **Content CTA** — Direct viewers to the attached video/demo/content
-7. **Website link** — www.womendefiningai.org for the external audience
-8. **Hashtags** — #WomenDefiningAI + relevant event/topic hashtags
-
-### Using Direct Quotes
-
-Always prefer direct quotes from the member over paraphrasing. Quotes feel authentic, carry more emotional weight, and let the member's voice come through. They are especially powerful for:
-- The "why I gave back" moment
-- The "what would you say to other women" closing invitation
-
-When introducing a quote as a response to a question, frame it naturally:
-- "When we asked [Name] what she would say to other women who haven't gotten started yet:"
-- Not: "In [Name]'s words:" (too generic)
-
-### Internal vs. External Audiences
-
-WDAI posts are public. When a project or resource is **internal-only** (e.g., a member showcase, Slack channel, internal tool):
-- Do NOT link to the internal resource
-- Direct external viewers to join WDAI at www.womendefiningai.org
-- Frame the internal resource as a benefit of membership: something they'll get access to when they join
-
-### Framing Attached Content Accurately
-
-Be precise about what is attached — accuracy builds trust:
-- A **demo video** → "Watch the demo below" (not "Watch her story")
-- A **personal story video** → "Watch her story below"
-- A **presentation** → "See the slides below"
-
-### Example Post Structure
-
-```
-[Bold mission-driven opening statement] 🛠️
-
-[Event context], member @[Name] [built/created/launched] [what they made] — [brief description of what it does and why it matters].
-
-[Transition sentence revealing what this moment says about the community.]
-
-"[Direct quote from member: why they gave back / what motivated them]"
-
-[1–2 sentences on what WDAI makes possible — connect to mission.]
-
-When we asked [Name] what she would say to [relevant audience]:
-
-"[Direct quote inviting others in — ideally ending with encouragement to begin]"
-
-Watch the [demo/video] below. 👇
-
-🔗 www.womendefiningai.org
-
-#WomenDefiningAI #[EventHashtag] #WomenInAI #LearningByDoing
-```
-
-### Hashtag Guidelines
-
-Always include:
-- `#WomenDefiningAI` (every post)
-- `#WomenInAI` (member content)
-- Event-specific tags (e.g., `#SheBuilds`, `#InternationalWomensDay`)
-- Topic tags (e.g., `#LearningByDoing`, `#AI`)
-
-Limit to 4–5 hashtags total.
+For LinkedIn copy voice, structure, and examples — read `references/linkedin-voice.md`.

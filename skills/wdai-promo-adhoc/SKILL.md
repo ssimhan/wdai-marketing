@@ -138,7 +138,7 @@ Key things to get right:
 
 ### Phase 2: Build Posts (LinkedIn)
 
-All WDAI LinkedIn posts follow the voice principles in `references/wdai-linkedin-voice.md`. Read that file before drafting any LinkedIn post.
+All WDAI LinkedIn posts follow the voice principles in `references/linkedin-voice.md`. Read that file before drafting any LinkedIn post.
 
 **WDAI org post:**
 - Open with the unanswered question the community is already circling — not the event logistics

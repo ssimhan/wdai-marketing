@@ -20,8 +20,8 @@ Ask for any details not already provided:
 If program type is ambiguous, ask. The timing logic, channels, and copy tone differ significantly between types.
 
 Then read the relevant reference file for program-specific details before proceeding:
-- AI Foundations → `references/ai-foundations.md`
-- Show Don't Tell → `references/show-dont-tell.md`
+- AI Foundations → `ai-foundations.md`
+- Show Don't Tell → `show-dont-tell.md`
 
 ---
 
@@ -95,11 +95,11 @@ This rule applies to everyone — Helen, Sandhya, Carolyn, any community member.
 Draft in phase order, one touchpoint at a time. For each piece:
 - Label clearly: channel, date/timing, and who executes it
 - For Slack posts: include the message text formatted for Slack markdown
-- For LinkedIn: follow the WDAI LinkedIn voice (read `references/wdai-linkedin-voice.md` in `wdai-event-promoter`; key traits: community-first, mission-rooted, contrast structure, story-driven, soft CTA, 3–5 hashtags)
+- For LinkedIn: follow the WDAI LinkedIn voice (read `references/linkedin-voice.md`; key traits: community-first, mission-rooted, contrast structure, story-driven, soft CTA, 3–5 hashtags)
 - For newsletter: brief, campaign-framed, "bring a friend" angle
 - For email: see **Email Announcement** guidance below
 
-For AI Foundations, Advanced tier requires its own separate CTA in the relevant phase (see `references/ai-foundations.md`). It's a different action (separate Luma opt-in), so it needs its own prompt.
+For AI Foundations, Advanced tier requires its own separate CTA in the relevant phase (see `ai-foundations.md`). It's a different action (separate Luma opt-in), so it needs its own prompt.
 
 ### Email Announcement (AI Foundations only)
 

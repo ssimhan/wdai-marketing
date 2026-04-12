@@ -7,8 +7,8 @@ description: "Runs WDAI's monthly marketing performance review and outputs a bra
 
 Gathers data from every WDAI marketing channel and produces a standalone interactive HTML dashboard — one file, shareable with the team, ready for the monthly marketing meeting.
 
-**Read `references/data-collection.md` before starting data collection.**
-**Read `references/dashboard-spec.md` before generating the HTML.**
+**Read `data-collection.md` before starting data collection.**
+**Read `dashboard-spec.md` before generating the HTML.**
 
 ---
 
@@ -24,7 +24,7 @@ Confirm:
 
 ## Step 1 — LinkedIn: Collect analytics via Chrome
 
-Read `references/data-collection.md` → LinkedIn section for exact navigation steps and what to capture at each URL.
+Read `data-collection.md` → LinkedIn section for exact navigation steps and what to capture at each URL.
 
 **Collect:**
 
@@ -52,7 +52,7 @@ Log all captured data before moving to the next step. If LinkedIn is not accessi
 
 ## Step 2 — Newsletter: Collect Mailchimp data via Chrome
 
-Read `references/data-collection.md` → Mailchimp section.
+Read `data-collection.md` → Mailchimp section.
 
 **Collect for each campaign sent in the reporting period:**
 - Campaign name and send date
@@ -143,7 +143,7 @@ Write 3–5 recommendations based on actual patterns in the data. Label them cle
 
 ## Step 8 — Generate the HTML dashboard
 
-Read `references/dashboard-spec.md` for the full HTML structure, WDAI brand styles, Chart.js patterns, and the collapsible drill-down component.
+Read `dashboard-spec.md` for the full HTML structure, WDAI brand styles, Chart.js patterns, and the collapsible drill-down component.
 
 The dashboard must:
 - Be a single standalone `.html` file (all CSS and JS inline or from CDN)
