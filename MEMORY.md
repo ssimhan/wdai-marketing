@@ -2,10 +2,11 @@
 
 Quick reference to key assets. Each link is a memory pointing to a stored file.
 
-## Core Foundations
+## Core Brand
 
 - [Brand Guidelines](vault/brand-guidelines.md) — mission, vision, values, audience, visual identity (colors, typography, style)
-- [WDAI Brand Voice Skill](skills/wdai-brand/SKILL.md) — how to write as WDAI; voice characteristics, anti-patterns, format-specific rules
+- [WDAI Voice Skill](skills/wdai-brand/SKILL.md) — how to write as WDAI; voice characteristics, anti-patterns, format-specific rules
+- [WDAI Visual Skill](skills/wdai-visual/SKILL.md) — CSS/design identity; colors, typography, patterns, logo, image generation for HTML/PPT/docs/graphics
 - [Decision Log](vault/decision-log.md) — strategic decisions and rationale behind WDAI marketing approach
 
 ## Leader Voices
@@ -14,13 +15,27 @@ Quick reference to key assets. Each link is a memory pointing to a stored file.
 
 ## Promo Planners
 
-- [Programmatic Promo Planner](skills/wdai-promo-planner-programmatic/SKILL.md) — AI Basics / Intermediate / Advanced cohort launches → LinkedIn, email, Slack copy
-- [Ad-Hoc Promo Planner](skills/wdai-promo-planner-adhoc/SKILL.md) — workshops, masterclasses, events, milestones → LinkedIn, email, Slack copy
+- [Programmatic Promo Planner](skills/wdai-promo-planner-programmatic/SKILL.md) — AI Basics / Intermediate / Advanced cohort launches + Show Don't Tell; plan-before-draft workflow
+  - [AI Foundations reference](skills/wdai-promo-planner-programmatic/references/ai-foundations.md) — timeline, owners, Advanced opt-in rules, email subject lines, course quick-reference
+  - [Show Don't Tell reference](skills/wdai-promo-planner-programmatic/references/show-dont-tell.md) — SDT cadence, Carolyn's voice, post-session loop
+- [Ad-Hoc Event Promoter](skills/wdai-promo-planner-adhoc/SKILL.md) — guest speakers, She Builds, IWD, milestones, membership drives; plan-before-draft workflow
+  - [Helen's voice reference](skills/wdai-promo-planner-adhoc/references/helen-voice.md) — captured Slack voice patterns with real example
+  - [WDAI LinkedIn voice reference](skills/wdai-promo-planner-adhoc/references/wdai-linkedin-voice.md) — LinkedIn-specific voice guide; real post examples with reaction counts
 
-## Upcoming (Phase 2)
-- [Email Template Skill](skills/wdai-email-template/SKILL.md) — (in progress) outreach email structure
-- [Content Calendar](vault/content-calendar.md) — (coming) source of truth for scheduled content and promo timelines
+## Content Operations
 
-## Process
+- [Ad-Hoc Content Activator](skills/adhoc-content-activator/SKILL.md) — turns any raw content signal (Slack paste, scout result, member story) into activation plan + Google Sheet brief
+- [Monthly Marketing Review](skills/monthly-marketing-review/SKILL.md) — gathers LinkedIn/Mailchimp/Slack/Calendar data; produces WDAI-branded HTML dashboard
+  - [Dashboard spec](skills/monthly-marketing-review/references/dashboard-spec.md) — full HTML/CSS/JS structure for the report dashboard
+  - [Data collection guide](skills/monthly-marketing-review/references/data-collection.md) — Chrome navigation steps for LinkedIn analytics and Mailchimp
 
-- README — how to use the vault, onboarding, maintenance responsibility matrix
+## Tools (Automation)
+
+- [Daily Content Scout](tools/daily-content-scout/README.md) — React app; 7 Slack keyword passes → tagged opportunities → posts to #team-marketing-workstream2-content-ideas
+
+## Upcoming
+
+- [Content Calendar](vault/content-calendar.md) — (Phase 3) source of truth for scheduled content and promo timelines
+- Leader voices: Lauren, Helen, Madina, Sheena — pending self-authoring
+- Email template skill — (Phase 2 remainder)
+- wdai-visual reference files — web-html.md, powerpoint.md, word-docs.md, social-media.md, ai-image-generation.md, chrome-mcp-image-generation.md (pending from Sheena)
