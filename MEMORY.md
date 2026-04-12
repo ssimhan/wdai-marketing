@@ -12,9 +12,12 @@ Quick reference to key assets. Each link is a memory pointing to a stored file.
 
 - [Sandhya's Voice Skill](skills/leader-voices/sandhya/SKILL.md) — personal writing voice for bylined content
 
-## Upcoming (Phase 2)
+## Promo Planners
 
-- [Promo Planner Skill](skills/wdai-promo-planner/SKILL.md) — (in progress) multi-channel campaign templates
+- [Programmatic Promo Planner](skills/wdai-promo-planner-programmatic/SKILL.md) — AI Basics / Intermediate / Advanced cohort launches → LinkedIn, email, Slack copy
+- [Ad-Hoc Promo Planner](skills/wdai-promo-planner-adhoc/SKILL.md) — workshops, masterclasses, events, milestones → LinkedIn, email, Slack copy
+
+## Upcoming (Phase 2)
 - [Email Template Skill](skills/wdai-email-template/SKILL.md) — (in progress) outreach email structure
 - [Content Calendar](vault/content-calendar.md) — (coming) source of truth for scheduled content and promo timelines
 

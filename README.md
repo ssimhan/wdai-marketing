@@ -210,7 +210,8 @@ Use the following vault context:
 | Skill | Purpose | Status |
 |---|---|---|
 | `wdai-brand` | All WDAI-attributed content; baseline voice | ✅ Live |
-| `wdai-promo-planner` | Multi-channel cohort launch campaigns | 🔲 In design |
+| `wdai-promo-planner-programmatic` | AI Basics / Intermediate / Advanced cohort launches | ✅ Live |
+| `wdai-promo-planner-adhoc` | Workshops, masterclasses, events, milestones | ✅ Live |
 | `wdai-email-template` | Structured email templates for outreach | 🔲 In design |
 | `leader-voices/sandhya` | Sandhya's personal voice for bylined work | ✅ Live |
 | `leader-voices/[lauren]` | Lauren's personal voice | 🔲 Pending |
