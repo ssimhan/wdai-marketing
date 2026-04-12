@@ -11,21 +11,22 @@
 
 **Tasks:**
 
-- [ ] Draft `brand-guidelines.md`
-  - Mission statement (current, agreed-upon version)
-  - Audience definition — who WDAI serves, who the marketing is talking to
-  - Visual identity — colors (hex), typography, approved asset inventory or links
-  - Tone principles — 3–5 short rules that CC can apply without needing a full voice skill
+- [x] Draft `brand-guidelines.md`
+  - ✅ Mission statement (from foundation-platform repo)
+  - ✅ Audience definition (from foundation-platform)
+  - ✅ Visual identity (colors with hex, typography, asset links)
+  - ✅ Tone principles (8 core characteristics + anti-patterns)
 
-- [ ] Build `wdai-brand` voice skill
-  - Based on brand guidelines above
-  - Model: follow the structure of `sandhya-voice` SKILL.md — voice characteristics, anti-patterns, format by content type
-  - Test: draft a cohort announcement using only this skill. If it sounds generically corporate, iterate.
+- [x] Build `wdai-brand` voice skill
+  - ✅ 8 voice characteristics + anti-patterns + format-specific rules
+  - ✅ Self-check calibration + quick reference table
+  - ✅ Fixed contrast-framing conflict (valid for LinkedIn, marked per platform)
 
-- [ ] Initialize repo structure
-  - Create all folders per the README structure (even if empty)
-  - Write the first version of `README.md`
-  - Write the first entry in `decision-log.md` — document the decision to build this vault and why
+- [x] Initialize repo structure
+  - ✅ Folder structure created and organized
+  - ✅ README.md built with skills index and onboarding guide
+  - ✅ decision-log.md with initial entries documenting build rationale
+  - ✅ Vault restructured for clarity: flat references/, consistent skill naming
 
 **Phase 1 is done when:** CC can draft an on-brand WDAI announcement with no additional briefing beyond the brand skill.
 
@@ -36,16 +37,18 @@
 
 **Tasks:**
 
-- [ ] Reconcile promo planner skills
-  - Review `wdai-promo-planner` (current version) against Sheena's version
-  - Decision: one canonical skill with stream-aware logic, or two separate skills (programmatic / ad-hoc)?
-  - Log the decision in `decision-log.md`
-  - Ship the reconciled skill to `/skills/wdai-promo-planner/SKILL.md`
+- [x] Reconcile promo planner skills
+  - ✅ Compared my version vs. Sheena's; detailed feature matrix created
+  - ✅ Decision: two separate skills (Option B) — token-efficient, obvious disambiguation
+  - ✅ Logged decision in `decision-log.md`
+  - ✅ Shipped: `skills/wdai-promo-programmatic/` + `skills/wdai-promo-adhoc/`
+  - ✅ Integrated Sheena's workflow as base; added email sections + anti-patterns
 
-- [ ] Build `wdai-email-template` skill
-  - Input format: cohort brief (name, dates, audience, key hooks, CTA)
-  - Output format: subject line + preview text + body structure (greeting, context, program details, CTA, sign-off)
-  - Test with a real cohort brief before committing
+- [x] Build email template guidance
+  - Approach: shared reference document (`references/email-templates.md`) rather than standalone skill
+  - Rationale: both promo planners reference email copy as part of their workflow; a shared reference avoids duplication and maintains single source of truth
+  - Format: subject line formulas, preview text patterns, body structure templates, CTA patterns by event type
+  - Status: deferred pending email content confirmation from Sheena; partially seeded in promo planner phases (AI Foundations email subject patterns, membership drive email)
 
 - [ ] Define decision log + meeting minutes format
   - Confirm format (already in README — validate it works in practice)
@@ -136,7 +139,9 @@
 | Decision | Options | Status |
 |---|---|---|
 | Content calendar system of record | Notion / Airtable / Google Sheet | 🔲 Not decided |
-| Promo planner: one skill or two? | Canonical split vs. stream-aware logic | 🔲 Pending Sheena review |
+| Promo planner: one skill or two? | Canonical split vs. stream-aware logic | ✅ Decided: TWO skills (programmatic + ad-hoc); token-efficient |
+| Email template: skill or reference? | Standalone skill vs. shared reference doc | ✅ Decided: shared `references/email-templates.md` (both planners reference it) |
+| Vault folder structure | Nested references/ vs. flat references/ | ✅ Decided: flat `references/` at root level, skill-specific files in skill folders |
 | Meeting minutes summarizer | Manual (someone on team) vs. CC-assisted | 🔲 Not decided |
 | Leader voice skill deadline | [Date TBD] | 🔲 Not set |
 

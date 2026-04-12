@@ -8,29 +8,41 @@ This is the **single source of truth** for how WDAI communicates. When starting 
 
 ## Quick Start
 
-**For a new cohort launch:**
+**For a new cohort launch (programmatic course):**
 ```
-Use vault context:
-- Brand voice: /skills/wdai-brand/SKILL.md
-- Promo planner: /skills/wdai-promo-planner/SKILL.md
-- Brand guidelines: /vault/brand-guidelines.md
-- Decision log: /vault/decision-log.md
+Load vault context in this order:
+1. /vault/brand-guidelines.md
+2. /skills/wdai-brand/SKILL.md
+3. /skills/wdai-promo-programmatic/SKILL.md
+4. /skills/wdai-promo-programmatic/ai-foundations.md (if AI Foundations cohort)
+5. /skills/wdai-promo-programmatic/show-dont-tell.md (if Show Don't Tell event)
 ```
 
-**For leadership content in a specific voice:**
+**For event/milestone promotion (ad-hoc):**
 ```
-Use vault context:
-- Brand voice: /skills/wdai-brand/SKILL.md
-- [Name]'s voice: /skills/leader-voices/[name]/SKILL.md
-- Brand guidelines: /vault/brand-guidelines.md
+Load vault context in this order:
+1. /vault/brand-guidelines.md
+2. /skills/wdai-brand/SKILL.md
+3. /skills/wdai-promo-adhoc/SKILL.md
+4. /references/linkedin-voice.md
+5. /references/helen-voice.md (for Helen's posts)
+```
+
+**For leadership content (bylined article, speaker bio):**
+```
+Load vault context in this order:
+1. /vault/brand-guidelines.md
+2. /skills/wdai-brand/SKILL.md (foundation)
+3. /skills/voice-[name]/SKILL.md (their personal voice)
+4. /vault/decision-log.md (optional: for context on WDAI's approach)
 ```
 
 **For any marketing task:**
 ```
-Always start with:
-- Brand voice: /skills/wdai-brand/SKILL.md
-- Brand guidelines: /vault/brand-guidelines.md
-- Decision log: /vault/decision-log.md (if you need context on *why* something works a certain way)
+Always load these three:
+1. /vault/brand-guidelines.md (mission, audience, visual identity)
+2. /skills/wdai-brand/SKILL.md (voice + tone)
+3. /vault/decision-log.md (context on why decisions were made)
 ```
 
 ---
@@ -40,50 +52,84 @@ Always start with:
 ```
 /vault/
   brand-guidelines.md       # WDAI mission, vision, values, audience, visual identity, tone
-  decision-log.md           # Running log of "why did we do it this way"
-  content-calendar.md       # (Coming soon) source of truth for scheduled content
+  decision-log.md           # Running log of "why we did it this way"
+  content-calendar.md       # (Phase 3 TBD) source of truth for scheduled content
+
+/references/                # Shared across multiple skills
+  linkedin-voice.md         # WDAI LinkedIn-specific voice + real post examples
+  helen-voice.md            # Helen's personal Slack voice patterns
+  email-templates.md        # (Pending) subject line formulas, body structures, CTA patterns
 
 /skills/
   /wdai-brand/
-    SKILL.md                # WDAI brand voice — use for all WDAI-attributed content
-  /wdai-promo-planner/
-    SKILL.md                # (Coming soon) multi-channel promo copy from cohort brief
-  /wdai-email-template/
-    SKILL.md                # (Coming soon) email structure for outreach & campaigns
-  /leader-voices/
-    /sandhya/
-      SKILL.md              # Sandhya's personal writing voice
-    /[name]/
-      SKILL.md              # One folder per leader
+    SKILL.md                # WDAI brand voice — baseline for all WDAI content
+  /wdai-visual/
+    SKILL.md                # WDAI visual identity (colors, typography, logo, patterns)
+  /wdai-promo-programmatic/
+    SKILL.md                # AI Basics / Intermediate / Advanced cohort launch workflows
+    ai-foundations.md       # Timeline, owners, Advanced tier opt-in, email templates
+    show-dont-tell.md       # SDT monthly cadence, Carolyn's voice, post-session loop
+  /wdai-promo-adhoc/
+    SKILL.md                # Event / speaker / milestone / membership drive promotion
+  /content-activator/
+    SKILL.md                # Raw content signal → activation plan + Google Sheet brief
+  /monthly-review/
+    SKILL.md                # Monthly marketing performance dashboard + analysis
+    dashboard-spec.md       # Full HTML/CSS/JS for the interactive dashboard
+    data-collection.md      # Chrome navigation + Slack/Google Calendar MCP steps
+  /voice-sandhya/
+    SKILL.md                # Sandhya's personal writing voice
+  /voice-[name]/            # (Pending) One file per leader voice
+    SKILL.md
+
+/tools/
+  /daily-content-scout/
+    README.md               # How the React app works
+    app.jsx                 # React app: 7 Slack passes → ideas channel
 
 /meeting-minutes/
-  /raw/                     # Granola transcript exports (archive, CC does not read)
-  /summaries/               # Distilled decision entries (this is what CC reads)
+  /raw/                     # (Future) Granola transcript exports (archive)
+  /summaries/               # (Future) Distilled decision entries
 ```
 
 ---
 
-## How Each Skill Is Used
+## Skills Overview
 
-### `wdai-brand`
-Use for any content published under WDAI's name or the platform as a whole: website copy, email campaigns, cohort announcements, social posts, guides, landing pages. This is the **baseline voice**—all other skills build on top of it.
+| Skill | Use For | Input | Output |
+|---|---|---|---|
+| **wdai-brand** | Any WDAI-attributed content (announcements, email, social, web) | Topic + context | Draft copy in WDAI voice |
+| **wdai-visual** | Design + image generation for presentations, web, docs, graphics | Format type (HTML/PPT/Word/social/image) + brief | Design spec + image prompts |
+| **wdai-promo-programmatic** | AI Basics / Intermediate / Advanced cohort launches | Cohort brief (dates, audience, hooks, email CTA) | 4-phase multi-channel promo plan |
+| **wdai-promo-adhoc** | Speaker events, She Builds, IWD, milestones, membership drives | Event brief (date, speaker, type, Luma link) | 2-phase multi-channel promo plan |
+| **content-activator** | Turn raw content signals → structured activation plan | Slack paste, scout result, or member story | Activation plan + Google Sheet brief |
+| **monthly-review** | Monthly marketing dashboard + KPI analysis | Data collection (step-by-step from skills) | Interactive HTML dashboard report |
+| **voice-[name]** | Bylined content in a specific leader's voice | Topic + context | Draft copy in that leader's voice |
 
-**When you need this:** Always. It's the foundation.
+### Phase Status
 
-### `wdai-promo-planner` (Phase 2)
-Use when launching a cohort, workshop, or event. Inputs a cohort brief (dates, audience, program name, key hooks). Outputs multi-channel promo copy for LinkedIn (WDAI page + individual leaders), email, and Slack.
+**✅ Phase 1 Complete** — Identity Layer
+- brand-guidelines.md: mission, vision, values, audience, visual identity
+- wdai-brand skill: 8 voice characteristics, anti-patterns, format-specific rules
+- decision-log.md: documented rationale for vault approach
 
-**When you need this:** Cohort launch planning, event promotion, campaign rollout.
+**✅ Phase 2 Complete** — Promo Infrastructure
+- Two separate promo skills: programmatic (cohorts) + ad-hoc (events/speakers)
+- wdai-visual skill: colors, typography, logo, patterns, image generation guidance
+- content-activator: raw signal → activation plan + Google Sheet brief
+- monthly-review: dashboard + data collection walkthrough
+- daily-content-scout: React app (7 Slack passes → ideas channel)
+- *Pending:* `references/email-templates.md` (seeded in promo skills, to be formalized)
 
-### `wdai-email-template` (Phase 2)
-Use for structured outreach emails: cohort invitations, announcements, follow-ups. Takes the same cohort brief format as the promo planner.
+**🔲 Phase 3 Pending** — Content Calendar System
+- Decision needed: Notion / Airtable / Google Sheet as source of record
+- Schema TBD: required vs. optional fields, DRI ownership
+- Promo skill integration: calendar query as context input
 
-**When you need this:** Any email campaign or outreach that needs consistent structure.
-
-### Leader Voice Skills (`/leader-voices/[name]/SKILL.md`)
-Use when drafting content in a specific leader's voice — LinkedIn posts, speaker bios, personal announcements, bylined articles. Each skill is self-authored by the leader and reflects their actual voice, style, and preferences.
-
-**When you need this:** Content attributed to a specific leader by name.
+**🔲 Phase 4 Pending** — Vault Go-Live
+- Slack integration: which channels CC monitors for context
+- Leader voice skills rollout: email template to Lauren, Helen, Madina, Sheena
+- End-to-end test: intake form → calendar → promo plan → draft → meeting minutes
 
 ---
 

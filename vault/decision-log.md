@@ -4,6 +4,40 @@ A running record of structural and strategic decisions that shape how WDAI does 
 
 ---
 
+## [2026-04-12] Flatten Vault Directory Structure
+
+**Decision:** Move from nested `skill/references/` subdirectories to a flat `references/` at the top level. Skill-specific reference files stay in their skill folder; shared files live at `references/`.
+
+**Rationale:**
+- Clarity: two-level max nesting is easier for both agents and humans to navigate
+- Disambiguates shared vs. skill-only content — simple rule: "Is this used by >1 skill? Move to `references/`"
+- Reduces duplication: captured Helen's voice and LinkedIn voice as shared references (not embedded in each promo skill)
+- Removes visual noise: skill folders are now compact and focused
+
+**What Changed:**
+- `wdai-promo-planner-programmatic/` → `wdai-promo-programmatic/` (shorter, consistent naming)
+- `wdai-promo-planner-adhoc/` → `wdai-promo-adhoc/`
+- `leader-voices/sandhya/` → `voice-sandhya/` (drop grouping folder; future voices follow same flat pattern)
+- `monthly-marketing-review/` → `monthly-review/`
+- `adhoc-content-activator/` → `content-activator/`
+- Skill-specific ref files moved out of `references/` subdirs into skill folders directly:
+  - `ai-foundations.md`, `show-dont-tell.md`, `dashboard-spec.md`, `data-collection.md`
+- Shared ref files promoted to top-level `references/`:
+  - `helen-voice.md`, `linkedin-voice.md`, `email-templates.md` (to build)
+- Removed duplicate LinkedIn post writing section from `wdai-visual/SKILL.md`; pointed to shared `references/linkedin-voice.md`
+
+**Affects:**
+- Vault maintainability (new skills added following flat pattern, not nested)
+- Onboarding clarity (structure is visibly obvious to new team members and agents)
+- Reference file discovery (shared content not hidden inside skill folders)
+- Internal path references in all 5 promo/monthly/content activator skills (updated)
+
+**Who:** Claude Code
+
+**Status:** ✅ Complete. Structure now flat, all paths updated, MEMORY.md refreshed.
+
+---
+
 ## [2026-04-12] Build a Marketing Context Vault
 
 **Decision:** Create a centralized, version-controlled vault of WDAI's brand identity, voice, and marketing infrastructure. This serves as the single source of truth for Claude Code and the team on how to do marketing work at WDAI.
@@ -30,18 +64,27 @@ A running record of structural and strategic decisions that shape how WDAI does 
 
 **Who:** Sandhya (led vault design + Phase 1 build), with input from Helen, Lauren, Sheena (voice profiles), Madina (if in scope)
 
-**Status:** Phase 1 (Identity Layer) in progress
-- ✅ Repo structure created
+**Status:** ✅ Phase 1 + Phase 2 substantially complete; restructured in Phase 2b
+
+Phase 1 (Identity Layer):
+- ✅ Repo structure created (and later flattened for clarity)
 - ✅ Brand guidelines drafted (from foundation-platform copy)
 - ✅ WDAI brand skill written (modeled on actual WDAI voice)
-- 🔲 Sandhya voice skill moved to `/skills/leader-voices/sandhya/`
-- 🔲 First decision log entry written (this one)
+- ✅ Sandhya voice skill built (`skills/voice-sandhya/SKILL.md`)
+- ✅ Decision log created with entries
+
+Phase 2 (Promo Infrastructure):
+- ✅ Promo planners reconciled → two separate skills (programmatic + ad-hoc)
+- ✅ wdai-visual skill + linkedin-voice reference created
+- ✅ Ad-hoc content activator skill created
+- ✅ Monthly marketing review skill + dashboard spec + data collection guide created
+- ✅ Daily content scout (React app) created in `tools/`
+- 🔲 Email templates reference doc — seeded in promo skills, to be formalized in `references/email-templates.md`
 
 **Next Decision Points:**
-- Should promo planner be one skill or split by cohort stream (programmatic/ad-hoc)?
-- Which system of record for content calendar (Notion/Airtable/Google Sheet)?
-- When to collect leader voice skills (immediate or staggered)?
-- Whether to integrate Slack announcements or keep vault URL-only
+- Which system of record for content calendar: Notion / Airtable / Google Sheet?
+- When to collect leader voice skills (immediate or staggered)? → Recommend staggered after Phase 3 kicks off
+- Whether to integrate Slack announcements or keep vault URL-only?
 
 ---
 
