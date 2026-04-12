@@ -59,56 +59,107 @@
 
 ---
 
-### Phase 3 · Content Calendar System — Operations Layer
-**Dependency:** Phase 2 complete.
+---
 
-**Tasks:**
+## Build Philosophy
 
-- [ ] Choose system of record
-  - Options: Notion, Airtable, Google Sheet
-  - Criteria: has a named owner, simple intake form, queryable by CC, low maintenance overhead
-  - **Open decision** — needs a call or async decision with the team
+Each phase is broken into **blocks** (logical groupings of work) and **chunks** (1–2 hour units of focused work). Never start a chunk without a clear done condition. Never scope a chunk larger than 2 hours — split it instead.
 
-- [ ] Define calendar schema
-  - Required inputs per entry: program name, cohort dates, speaker confirmations, platform cadence (LinkedIn / email / Slack), promo window start date
-  - Optional: notes, linked decision log entry, assigned DRI
-
-- [ ] Build intake form or template
-  - The thing that gets filled out when a new program is confirmed — feeds directly into the calendar
-
-- [ ] Connect calendar to promo planner
-  - Document how CC should query the calendar as context input for the promo skill
-  - Add example prompt to README
-
-**Phase 3 is done when:** A new cohort enters the intake form and the promo plan is generatable with only that input + the vault skills.
+```
+Phase → Block → Chunk (1–2h each)
+```
 
 ---
 
-### Phase 4 · Vault Go-Live — Tools Layer
-**Dependency:** Phases 1–3 complete.
+### Phase 3 · Content Calendar Foundation — *Make It Work*
+**Dependency:** Phase 2 complete.
+**Decision:** Markdown as source of truth, synced from Luma API. HTML viewer in repo. CC reads markdown as context. Google Calendar sync is a future optional step.
 
-**Tasks:**
+**Block A: Luma Sync Script**
+- [ ] Chunk 1: Explore Luma API — authenticate, list events, map fields to calendar schema
+- [ ] Chunk 2: Define markdown calendar schema (program name, dates, Luma event ID, type, status, promo window)
+- [ ] Chunk 3: CLI script `calendar sync` — fetches Luma events, writes/updates `vault/content-calendar.md`
 
-- [ ] Slack integration
-  - Connect vault to WDAI workspace
-  - Document which channels CC should be aware of for context (e.g. #marketing, #cohort-ops, #announcements)
-  - Test: CC drafts a Slack announcement into the right channel with correct tone
+**Block B: HTML Viewer**
+- [ ] Chunk 1: Design viewer layout — timeline view, status badges, channel columns
+- [ ] Chunk 2: Build static HTML viewer (`tools/content-calendar/index.html`) that renders from the markdown
 
-- [ ] Leader voice skills rollout
-  - Send `SKILL-TEMPLATE.md` to all leaders with instructions (see rollout plan below)
-  - Track completion status in this doc (table below)
-  - Set a deadline — skills not submitted by [date TBD] default to brand voice only
+**Block C: CC Integration**
+- [ ] Chunk 1: Update promo planner skills to accept calendar as context input; add example prompt to README
+- [ ] Chunk 2: End-to-end test — sync Luma → read calendar → generate promo plan with no extra input
 
-- [ ] README final review
-  - Confirm all paths in the README match actual repo structure
-  - Confirm skills reference table is complete
-  - Confirm decision log has entries covering all major vault decisions
+**Phase 3 is done when:** `calendar sync` runs, markdown updates, HTML renders it, and CC generates a promo plan from calendar context alone.
 
-- [ ] End-to-end test
-  - New cohort → intake form → calendar entry → promo plan generated → copy drafted in brand voice + leader voice → meeting minutes logged
-  - If any step breaks, fix before calling Phase 4 done
+---
 
-**Phase 4 is done when:** A new volunteer can onboard using only the README and vault contents, no handoff call needed.
+### Phase 4 · Promo Planning Pipeline — *Make It Work → Right*
+**Dependency:** Phase 3 complete.
+
+**Block A: Structured Plan Output**
+- [ ] Chunk 1: Define plan output schema — channel, moment label, scheduled date, assigned leader/DRI, copy status
+- [ ] Chunk 2: Update promo planner skills to emit structured output (not just freeform markdown)
+
+**Block B: Calendar Write-Back**
+- [ ] Chunk 1: CLI script `calendar update-plan` — writes approved plan moments back into `content-calendar.md`
+- [ ] Chunk 2: Per-moment draft copy stored in repo (`drafts/<event-slug>/<moment-slug>.md`)
+
+**Block C: Vault Cleanup**
+- [ ] Chunk 1: Leader voice skills rollout — send template to Lauren, Helen, Madina, Sheena
+- [ ] Chunk 2: README final review — confirm all paths, skills index, decision log complete
+
+**Phase 4 is done when:** Promo plan generates → moments written back to calendar → per-moment drafts stored in repo.
+
+---
+
+### Phase 5 · Approval Workflow — *Make It Right*
+**Dependency:** Phase 4 complete.
+**Decision:** GitHub PRs as the approval mechanism — version-controlled, auditable, leader-accessible without needing CLI access.
+
+**Block A: PR-Based Review**
+- [ ] Chunk 1: Script `calendar submit-for-review` — opens a GitHub PR per event with all draft copy files, tagged by channel owner/leader
+- [ ] Chunk 2: PR template — structured checklist per channel (Slack ✓, LinkedIn ✓, Email ✓), with leader name in reviewer list
+- [ ] Chunk 3: Approval status synced back to `content-calendar.md` when PR is merged
+
+**Block B: Voice Skill Feedback Loop** *(requires leader voice skills from Phase 4)*
+- [ ] Chunk 1: When a leader edits copy in a PR, extract the delta — what they changed and why — as a candidate voice skill update
+- [ ] Chunk 2: Script to surface suggested voice skill updates for Sandhya to review and merge
+- [ ] Note: This block depends on leader voice skills being live. Do not start until at least 2 leader skills are complete.
+
+**Phase 5 is done when:** Draft copy → GitHub PR → leader reviews/edits → merged → calendar marked approved → voice skill updates surfaced.
+
+---
+
+### Phase 6 · Distribution — *Make It Fast*
+**Dependency:** Phase 5 complete (approved copy exists).
+
+**Block A: Mailchimp**
+- [ ] Chunk 1: Wire approved email drafts from `drafts/` into `mailchimp-cc` pipeline — use existing `campaign update` command
+- [ ] Chunk 2: Test end-to-end: approved draft → Mailchimp campaign updated + scheduled
+
+**Block B: LinkedIn**
+- [ ] Chunk 1: LinkedIn API integration — authenticate, post on behalf of WDAI org
+- [ ] Chunk 2: Script `distribute linkedin` — posts approved LinkedIn drafts at scheduled time
+
+**Block C: Slack**
+- [ ] Chunk 1: Slack API integration — authenticate, identify target channels per moment
+- [ ] Chunk 2: Script `distribute slack` — posts approved Slack drafts to correct channels
+
+**Phase 6 is done when:** Approved copy auto-posts to Mailchimp, LinkedIn, and Slack at scheduled times.
+
+---
+
+### Phase 7 · Full Automation — *Make It Fast*
+**Dependency:** Phase 6 complete.
+
+**Block A: Cron Job**
+- [ ] Chunk 1: Cron job — Luma event created/updated → `calendar sync` runs automatically
+- [ ] Chunk 2: Cron job — scheduled distribution moments trigger `distribute` commands at correct times
+
+**Block B: Monitoring**
+- [ ] Chunk 1: Pipeline status view in HTML viewer — per-event status (synced / planned / drafted / approved / sent)
+- [ ] Chunk 2: Failed post alerts — Slack DM to Sandhya if any distribution step fails
+
+**Phase 7 is done when:** Luma event created → calendar syncs → promo plan generated → drafts created → PR opened → approved → posted. Zero manual steps required.
 
 ---
 
@@ -138,11 +189,14 @@
 
 | Decision | Options | Status |
 |---|---|---|
-| Content calendar system of record | Notion / Airtable / Google Sheet | 🔲 Not decided |
+| Content calendar system of record | Notion / Airtable / Google Sheet / Markdown | ✅ Decided: markdown in repo, synced from Luma API |
+| Google Calendar sync | Built-in vs. optional later | ✅ Decided: optional future step via `mailchimp-cc` CLI |
+| Approval workflow | Slack / GitHub PR / email | ✅ Decided: GitHub PRs — auditable, leader-accessible |
+| Voice skill feedback loop | Manual update vs. CC-assisted delta extraction | ✅ Decided: CC-assisted in Phase 5 Block B, after leader skills are live |
 | Promo planner: one skill or two? | Canonical split vs. stream-aware logic | ✅ Decided: TWO skills (programmatic + ad-hoc); token-efficient |
-| Email template: skill or reference? | Standalone skill vs. shared reference doc | ✅ Decided: shared `references/email-templates.md` (both planners reference it) |
-| Vault folder structure | Nested references/ vs. flat references/ | ✅ Decided: flat `references/` at root level, skill-specific files in skill folders |
-| Meeting minutes summarizer | Manual (someone on team) vs. CC-assisted | 🔲 Not decided |
+| Email template: skill or reference? | Standalone skill vs. shared reference doc | ✅ Decided: shared `vault/email-templates.md` (both planners reference it) |
+| Vault folder structure | Nested references/ vs. flat vault/ | ✅ Decided: merged into flat `vault/` — all shared context in one place |
+| Meeting minutes summarizer | Manual vs. CC-assisted | 🔲 Not decided |
 | Leader voice skill deadline | [Date TBD] | 🔲 Not set |
 
 ---
@@ -152,15 +206,19 @@
 ```
 Phase 1 (Identity)
   └── Phase 2 (Promo Infrastructure)
-        └── Phase 3 (Content Calendar)
-              └── Phase 4 (Go-Live)
-                    ├── Slack integration
-                    └── Leader voice skills (can run parallel to Phases 2–3)
+        └── Phase 3 (Content Calendar Foundation)   ← current
+              └── Phase 4 (Promo Planning Pipeline)
+                    └── Phase 5 (Approval Workflow)
+                          └── Phase 6 (Distribution)
+                                └── Phase 7 (Full Automation)
+
+Leader voice skills — collect in parallel from Phase 4 onward
+Voice skill feedback loop (Phase 5 Block B) — requires ≥2 leader skills complete
 ```
 
-Leader voice skills can be collected in parallel — don't wait for Phase 4 to send the template out.
+Leader voice skills can be collected in parallel — don't wait for Phase 5 to send the template out.
 
 ---
 
 *Owner: Sandhya Simhan*
-*Last updated: April 2026*
+*Last updated: April 2026 — expanded to 7-phase automation pipeline*
