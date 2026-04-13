@@ -1,7 +1,12 @@
 # Plan: Phase 3, Block A — Luma Calendar Sync
 
 **Date:** 2026-04-12
-**Status:** Approved — ready to build
+**Status:** Built — pending phase closeout
+
+## Phase Closeout Checklist
+
+- [ ] **Real API smoke test** — run `npm run calendar:sync` with a live `LUMA_API_KEY` and confirm `vault/content-calendar.md` is written with real WDAI events
+- [ ] **Audit** — run `/audit` on the built code before marking phase complete
 
 ---
 
