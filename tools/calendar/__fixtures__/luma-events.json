@@ -1,0 +1,42 @@
+{
+  "entries": [
+    {
+      "api_id": "entry-mock-001",
+      "event": {
+        "api_id": "evt-mock-001",
+        "name": "AI Basics W27 — Cohort Launch",
+        "description_md": "A 6-week cohort for professionals learning to apply AI in their work.",
+        "start_at": "2026-05-04T17:00:00Z",
+        "end_at": "2026-06-13T18:00:00Z",
+        "timezone": "America/New_York",
+        "slug": "ai-basics-w27",
+        "url": "https://lu.ma/ai-basics-w27",
+        "cover_url": null,
+        "meeting_url": "https://meet.google.com/mock-link",
+        "visibility": "public",
+        "geo_address_json": null
+      },
+      "tags": ["ai-basics", "cohort"]
+    },
+    {
+      "api_id": "entry-mock-002",
+      "event": {
+        "api_id": "evt-mock-002",
+        "name": "Show Don't Tell — May Session",
+        "description_md": "Monthly storytelling workshop with Carolyn Roth.",
+        "start_at": "2026-05-15T18:00:00Z",
+        "end_at": "2026-05-15T19:30:00Z",
+        "timezone": "America/New_York",
+        "slug": "show-dont-tell-may",
+        "url": "https://lu.ma/show-dont-tell-may",
+        "cover_url": null,
+        "meeting_url": "https://meet.google.com/mock-link-2",
+        "visibility": "public",
+        "geo_address_json": null
+      },
+      "tags": ["show-dont-tell"]
+    }
+  ],
+  "has_more": false,
+  "next_cursor": null
+}
