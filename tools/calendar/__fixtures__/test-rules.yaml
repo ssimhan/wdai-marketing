@@ -1,0 +1,7 @@
+event_types:
+  ai-basics:
+    dri: "Sheena"
+    moments:
+      - channel: linkedin-wdai
+        days_before: 14
+        label: "Announce open enrollment"
