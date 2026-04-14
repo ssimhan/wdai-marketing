@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mapLumaEvent } from '../mapper.js'
-import type { LumaEvent } from '../types.js'
+import type { LumaEvent, PromoRules, OverridesMap } from '../types.js'
 
 const mockEvent: LumaEvent = {
   api_id: 'entry-001',
@@ -47,5 +47,37 @@ describe('mapLumaEvent', () => {
   it('sets default copy_status to Not started', () => {
     const entry = mapLumaEvent(mockEvent)
     expect(entry.copy_status).toBe('🔲 Not started')
+  })
+})
+
+const testRules: PromoRules = {
+  'ai-basics': {
+    dri: 'Sheena',
+    moments: [
+      { channel: 'linkedin-wdai', days_before: 14, label: 'Announce open enrollment' },
+    ],
+  },
+}
+
+describe('mapLumaEvent with rules', () => {
+  it('sets dri from matching event type rule', () => {
+    const entry = mapLumaEvent(mockEvent, testRules)
+    expect(entry.dri).toBe('Sheena')
+  })
+
+  it('computes scheduled_at from event start_at minus days_before', () => {
+    const entry = mapLumaEvent(mockEvent, testRules)
+    expect(entry.channel_plan[0].scheduled_at).toBe('2026-04-20T17:00:00.000Z')
+  })
+
+  it('override dri wins over rule dri', () => {
+    const overrides: OverridesMap = { 'evt-001': { dri: 'Helen' } }
+    const entry = mapLumaEvent(mockEvent, testRules, overrides)
+    expect(entry.dri).toBe('Helen')
+  })
+
+  it('no matching rule leaves channel_plan empty', () => {
+    const entry = mapLumaEvent({ ...mockEvent, tags: ['unknown'] }, testRules)
+    expect(entry.channel_plan).toEqual([])
   })
 })
