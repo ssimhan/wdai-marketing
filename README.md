@@ -81,6 +81,15 @@ Always load these three:
     SKILL.md
 
 /tools/
+  /calendar/
+    sync.ts                 # CLI entry point: fetch → map → render → write
+    luma-client.ts          # Luma API client with mock mode
+    mapper.ts               # LumaEvent → CalendarEntry transformer
+    writer.ts               # CalendarEntry[] → markdown generator
+    types.ts                # Type definitions for Luma and calendar entries
+    __fixtures__/
+      luma-events.json      # Mock fixture for local testing
+    __tests__/              # Full test coverage (vitest)
   /daily-content-scout/
     README.md               # How the React app works
     app.jsx                 # React app: 7 Slack passes → ideas channel
@@ -119,10 +128,16 @@ Always load these three:
 - daily-content-scout: React app (7 Slack passes → ideas channel)
 - *Pending:* `vault/email-templates.md` (seeded in promo skills, to be formalized)
 
-**🔲 Phase 3 Pending** — Content Calendar System
-- Decision needed: Notion / Airtable / Google Sheet as source of record
-- Schema TBD: required vs. optional fields, DRI ownership
-- Promo skill integration: calendar query as context input
+**🟡 Phase 3 In Progress** — Content Calendar System
+- **Block A Complete (2026-04-14)**: Luma Calendar Sync
+  - TypeScript CLI script fetches WDAI events from Luma API → `vault/content-calendar.md`
+  - Mock mode works locally; real API mode gated by LUMA_API_KEY secret
+  - Daily GitHub Actions cron (6am UTC) auto-syncs calendar if events change
+  - Full TDD coverage: 14 tests passing, 1 skipped (live API gated)
+- **Block B Pending**: Promo Planner Integration
+  - Calendar-driven promo timeline generation
+  - DRI inference from event type
+  - Channel planning UI + manual overrides
 
 **🔲 Phase 4 Pending** — Vault Go-Live
 - Slack integration: which channels CC monitors for context
@@ -131,15 +146,29 @@ Always load these three:
 
 ---
 
-## Content Calendar (Coming Soon)
+## Content Calendar
 
-`/vault/content-calendar.md` will be the single source of truth for:
+**Status:** Live (Phase 3 Block A)
+
+`/vault/content-calendar.md` is the single source of truth for:
 - Program dates and cohort launches
-- Promo timelines and platform cadences
-- Key announcements and milestone dates
+- Event types (AI Basics, AI Intermediate, AI Advanced, Show Don't Tell, etc.)
 - DRI (directly responsible individual) for each initiative
+- Promo window opens (14 days before event start, by default)
+- Copy status tracking (Not started → In progress → Approved → Sent)
 
-Once live, you'll load this context when planning content sprints or responding to "what should we announce when?" questions.
+**How it's generated:**
+```bash
+npm run calendar:sync:mock          # Local: uses mock fixture
+LUMA_API_KEY=<key> npm run calendar:sync  # Live: fetches from Luma API
+```
+
+**Automation:**
+Daily GitHub Actions workflow (6am UTC) syncs real WDAI events from Luma → commits updated calendar if changed.
+
+**Usage in Claude Code:**
+Load this when planning content sprints or responding to "what should we announce when?" questions.
+See Phase 4 for promo timeline generation from calendar entries.
 
 ---
 
@@ -274,4 +303,4 @@ Use the following vault context:
 
 ---
 
-*Last updated: April 2026 by Sandhya Simhan*
+*Last updated: 2026-04-14 (Phase 3 Block A complete) by Sandhya Simhan*
