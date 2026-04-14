@@ -128,21 +128,37 @@ Always load these three:
 - daily-content-scout: React app (7 Slack passes → ideas channel)
 - *Pending:* `vault/email-templates.md` (seeded in promo skills, to be formalized)
 
-**🟡 Phase 3 In Progress** — Content Calendar System
-- **Block A Complete (2026-04-14)**: Luma Calendar Sync
+**✅ Phase 3 Complete (2026-04-14)** — Content Calendar System
+- **Block A**: Luma Calendar Sync
   - TypeScript CLI script fetches WDAI events from Luma API → `vault/content-calendar.md`
   - Mock mode works locally; real API mode gated by LUMA_API_KEY secret
   - Daily GitHub Actions cron (6am UTC) auto-syncs calendar if events change
-  - Full TDD coverage: 14 tests passing, 1 skipped (live API gated)
-- **Block B Pending**: Promo Planner Integration
-  - Calendar-driven promo timeline generation
-  - DRI inference from event type
-  - Channel planning UI + manual overrides
+  - TDD coverage: 32 tests passing, 1 skipped (live API gated)
+- **Block B**: HTML Viewer + Promo Rules System
+  - Self-contained `vault/content-calendar.html` with three-tab viewer (By Date, By Event, How to Edit)
+  - `promo-rules.yaml` defines per-event-type DRI + channel timeline rules
+  - `overrides.yaml` allows per-event customization without overwriting rules
+  - Mapper enriches calendar entries with DRI and structured channel moments
+  - Rules-loader with graceful fallback for missing config files
+- **Block C**: CC Integration
+  - Promo skills updated to load `content-calendar.md` as context
+  - README shows how to reference calendar in prompts
+- **Open items (start next session)**: Fill in `promo-rules.yaml`, run live API smoke test
 
 **🔲 Phase 4 Pending** — Vault Go-Live
 - Slack integration: which channels CC monitors for context
 - Leader voice skills rollout: email template to Lauren, Helen, Madina, Sheena
 - End-to-end test: intake form → calendar → promo plan → draft → meeting minutes
+
+**🔲 Phase 5 Pending** — Copy Status Workflow
+- Copy status field (Not started → In progress → Approved → Sent) in calendar
+- Promo status dashboard
+
+**🔲 Phase 6 Pending** — Advanced Features (TBD)
+- Automated email generation, optional Slack posting, analytics integration
+
+**🔲 Phase 7 Pending** — Team Onboarding & Handoff
+- Documentation, voice skill templates, maintenance runbook
 
 ---
 
