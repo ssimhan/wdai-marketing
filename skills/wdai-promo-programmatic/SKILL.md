@@ -9,6 +9,16 @@ Builds a phased, multi-channel promotion plan for WDAI recurring programs. Cover
 
 ---
 
+## Context to Load Before Using This Skill
+
+1. `/vault/brand-guidelines.md` — mission, audience, voice
+2. `/vault/content-calendar.md` — upcoming events, DRI assignments, channel plans
+3. This skill file
+
+Loading the calendar lets you reference real event dates, promo windows, and channel plans when generating copy — no need to repeat that information in your prompt.
+
+---
+
 ## Step 0 — Identify program type and collect inputs
 
 Ask for any details not already provided:

@@ -261,7 +261,7 @@ Use the following vault context:
 Use the following vault context:
 - Brand voice: /wdai-marketing/skills/wdai-brand/SKILL.md
 - Promo planner: /wdai-marketing/skills/wdai-promo-programmatic/SKILL.md (or wdai-promo-adhoc)
-- Content calendar: /wdai-marketing/vault/content-calendar.md
+- Content calendar: /wdai-marketing/vault/content-calendar.md  ← load this for real event dates + channel plans
 - Brand guidelines: /wdai-marketing/vault/brand-guidelines.md
 - Decision log: /wdai-marketing/vault/decision-log.md
 ```
