@@ -38,7 +38,7 @@ export function mapLumaEvent(raw: LumaEvent): CalendarEntry {
     promo_window_start: subtractDays(event.start_at, 14),
     dri: '',
     copy_status: '🔲 Not started',
-    channel_plan: '',
+    channel_plan: [],
     notes: event.description_md?.slice(0, 200) ?? '',
   }
 }

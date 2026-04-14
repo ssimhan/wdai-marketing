@@ -40,6 +40,41 @@ export type CopyStatus =
   | '✅ Approved'
   | '📤 Sent'
 
+export type PromoChannel =
+  | 'linkedin-wdai'
+  | 'linkedin-personal'
+  | 'email'
+  | 'slack'
+
+export interface PromoMoment {
+  channel: PromoChannel
+  dri: string           // who posts/sends this
+  scheduled_at: string  // ISO 8601 — computed: event.start_at minus days_before
+  label: string         // e.g., "Announce open enrollment"
+}
+
+// Rules config shape (from promo-rules.yaml)
+export interface EventTypeRule {
+  dri: string
+  moments: Array<{
+    channel: PromoChannel
+    days_before: number
+    label: string
+  }>
+}
+export type PromoRules = Partial<Record<string, EventTypeRule>>
+
+// Overrides (from overrides.yaml) — keyed by luma_id
+export interface EventOverride {
+  dri?: string
+  moments?: Array<{
+    channel: PromoChannel
+    days_before: number
+    label: string
+  }>
+}
+export type OverridesMap = Record<string, EventOverride>
+
 export interface CalendarEntry {
   // From Luma
   luma_id: string
@@ -57,6 +92,6 @@ export interface CalendarEntry {
   promo_window_start: string  // ISO 8601 — default: start_at minus 14 days
   dri: string                 // Directly Responsible Individual — default: ""
   copy_status: CopyStatus
-  channel_plan: string        // Free text; populated by promo planner in Phase 4
+  channel_plan: PromoMoment[] // populated from promo-rules.yaml / overrides.yaml
   notes: string               // From Luma description_md, truncated
 }

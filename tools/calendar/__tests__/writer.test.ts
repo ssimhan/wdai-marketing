@@ -16,7 +16,7 @@ const entry: CalendarEntry = {
   promo_window_start: '2026-04-20T17:00:00Z',
   dri: 'Sheena',
   copy_status: '🔲 Not started',
-  channel_plan: '',
+  channel_plan: [],
   notes: 'A 6-week cohort.',
 }
 
