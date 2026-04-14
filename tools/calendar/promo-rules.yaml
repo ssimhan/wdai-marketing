@@ -1,0 +1,25 @@
+# Per-event-type promo rules — fill in via Slack MCP before Phase 3 is complete
+# channel options: linkedin-wdai | linkedin-personal | email | slack
+
+event_types:
+  ai-basics:
+    dri: ""
+    moments: []
+  ai-intermediate:
+    dri: ""
+    moments: []
+  ai-advanced:
+    dri: ""
+    moments: []
+  show-dont-tell:
+    dri: ""
+    moments: []
+  she-builds:
+    dri: ""
+    moments: []
+  speaker-event:
+    dri: ""
+    moments: []
+  other:
+    dri: ""
+    moments: []
