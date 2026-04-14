@@ -1,4 +1,4 @@
-import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment } from './types.js'
+import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment, PromoMomentRule } from './types.js'
 
 const TAG_TO_TYPE: Record<string, EventType> = {
   'ai-basics': 'ai-basics',
@@ -24,7 +24,7 @@ function subtractDays(isoDate: string, days: number): string {
 
 function buildMoments(
   startAt: string,
-  rawMoments: Array<{ channel: PromoMoment['channel']; days_before: number; label: string }>,
+  rawMoments: PromoMomentRule[],
   dri: string,
 ): PromoMoment[] {
   return rawMoments.map(m => ({

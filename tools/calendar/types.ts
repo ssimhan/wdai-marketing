@@ -53,25 +53,24 @@ export interface PromoMoment {
   label: string         // e.g., "Announce open enrollment"
 }
 
+// Shared shape for a moment rule in config files
+export interface PromoMomentRule {
+  channel: PromoChannel
+  days_before: number
+  label: string
+}
+
 // Rules config shape (from promo-rules.yaml)
 export interface EventTypeRule {
   dri: string
-  moments: Array<{
-    channel: PromoChannel
-    days_before: number
-    label: string
-  }>
+  moments: PromoMomentRule[]
 }
 export type PromoRules = Partial<Record<string, EventTypeRule>>
 
 // Overrides (from overrides.yaml) — keyed by luma_id
 export interface EventOverride {
   dri?: string
-  moments?: Array<{
-    channel: PromoChannel
-    days_before: number
-    label: string
-  }>
+  moments?: PromoMomentRule[]
 }
 export type OverridesMap = Record<string, EventOverride>
 
