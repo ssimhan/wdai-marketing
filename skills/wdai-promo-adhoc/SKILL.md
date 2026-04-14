@@ -25,6 +25,16 @@ Executes a complete promotion campaign for any WDAI event outside the recurring 
 
 ---
 
+## Context to Load Before Using This Skill
+
+1. `/vault/brand-guidelines.md` — mission, audience, voice
+2. `/vault/content-calendar.md` — upcoming events, DRI assignments, channel plans
+3. This skill file
+
+Loading the calendar lets you reference real event dates, promo windows, and channel plans when generating copy — no need to repeat that information in your prompt.
+
+---
+
 ## Step 0: Ingest Scout Output
 
 Before anything else, check whether the daily content scout has run recently. Search `#team-marketing-workstream2-content-ideas` (channel ID: `C0AKR6N50T0`) for scout posts from the last 7 days.

@@ -1,4 +1,4 @@
-import type { LumaEvent, CalendarEntry, EventType } from './types.js'
+import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment, PromoMomentRule } from './types.js'
 
 const TAG_TO_TYPE: Record<string, EventType> = {
   'ai-basics': 'ai-basics',
@@ -22,12 +22,40 @@ function subtractDays(isoDate: string, days: number): string {
   return d.toISOString()
 }
 
-export function mapLumaEvent(raw: LumaEvent): CalendarEntry {
+function buildMoments(
+  startAt: string,
+  rawMoments: PromoMomentRule[],
+  dri: string,
+): PromoMoment[] {
+  return rawMoments.map(m => ({
+    channel: m.channel,
+    dri,
+    scheduled_at: subtractDays(startAt, m.days_before),
+    label: m.label,
+  }))
+}
+
+export function mapLumaEvent(
+  raw: LumaEvent,
+  rules?: PromoRules,
+  overrides?: OverridesMap,
+): CalendarEntry {
   const { event, tags } = raw
+  const eventType = classifyEventType(tags)
+  const rule = rules?.[eventType]
+  const override = overrides?.[event.api_id]
+
+  // Priority: override > rule > default ('')
+  const dri = override?.dri ?? rule?.dri ?? ''
+
+  // Priority: override moments > rule moments > []
+  const rawMoments = override?.moments ?? rule?.moments ?? []
+  const channel_plan = buildMoments(event.start_at, rawMoments, dri)
+
   return {
     luma_id: event.api_id,
     name: event.name,
-    event_type: classifyEventType(tags),
+    event_type: eventType,
     start_at: event.start_at,
     end_at: event.end_at,
     timezone: event.timezone,
@@ -36,9 +64,9 @@ export function mapLumaEvent(raw: LumaEvent): CalendarEntry {
     visibility: event.visibility,
     tags,
     promo_window_start: subtractDays(event.start_at, 14),
-    dri: '',
+    dri,
     copy_status: '🔲 Not started',
-    channel_plan: '',
+    channel_plan,
     notes: event.description_md?.slice(0, 200) ?? '',
   }
 }

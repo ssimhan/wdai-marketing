@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { renderCalendar } from '../writer.js'
-import type { CalendarEntry } from '../types.js'
+import type { CalendarEntry, PromoMoment } from '../types.js'
 
 const entry: CalendarEntry = {
   luma_id: 'evt-001',
@@ -16,7 +16,7 @@ const entry: CalendarEntry = {
   promo_window_start: '2026-04-20T17:00:00Z',
   dri: 'Sheena',
   copy_status: '🔲 Not started',
-  channel_plan: '',
+  channel_plan: [],
   notes: 'A 6-week cohort.',
 }
 
@@ -43,5 +43,28 @@ describe('renderCalendar', () => {
   it('includes last synced timestamp', () => {
     const md = renderCalendar([entry], '2026-04-12T10:00:00Z')
     expect(md).toContain('Apr 12, 2026')
+  })
+
+  it('renders placeholder when channel_plan is empty', () => {
+    const md = renderCalendar([entry], '2026-04-12T10:00:00Z')
+    expect(md).toContain('*(No channel plan')
+  })
+})
+
+const moment: PromoMoment = {
+  channel: 'linkedin-wdai',
+  dri: 'Sheena',
+  scheduled_at: '2026-04-20T17:00:00Z',
+  label: 'Announce open enrollment',
+}
+
+const entryWithPlan: CalendarEntry = { ...entry, channel_plan: [moment] }
+
+describe('renderCalendar with channel plan', () => {
+  it('renders channel plan as a markdown table', () => {
+    const md = renderCalendar([entryWithPlan], '2026-04-12T10:00:00Z')
+    expect(md).toContain('| Channel |')
+    expect(md).toContain('linkedin-wdai')
+    expect(md).toContain('Announce open enrollment')
   })
 })

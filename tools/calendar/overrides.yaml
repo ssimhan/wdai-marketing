@@ -1,0 +1,13 @@
+# Per-event manual overrides — keyed by Luma event api_id
+# These win over promo-rules.yaml for that specific event.
+#
+# Example:
+# overrides:
+#   evt-abc123:
+#     dri: "Helen"
+#     moments:
+#       - channel: linkedin-personal
+#         days_before: 7
+#         label: "Custom post for this event"
+
+overrides: {}

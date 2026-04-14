@@ -1,5 +1,41 @@
 # Project History
 
+## 2026-04-14 — Phase 3 Blocks B & C Complete: HTML Viewer + CC Integration
+
+### Accomplishments
+
+- **HTML Calendar Viewer** — Self-contained `vault/content-calendar.html` with three tabs (By Date, By Event, How to Edit); week-grouped chronological moments with filter chips
+- **Promo Rules System** — `promo-rules.yaml` defines per-event-type DRI + channel timeline rules; `overrides.yaml` allows per-event customization
+- **Rules Loader** — Synchronous YAML parser with graceful fallback (missing files don't crash); DRY file-load pattern extracted
+- **Mapper Enrichment** — Updated `mapLumaEvent()` to accept optional `(rules?, overrides?)` params; priority logic (override > rule > default)
+- **Markdown Channel Plan** — Writer renders `PromoMoment[]` as `| Channel | DRI | Date | Moment |` markdown table
+- **Sync Orchestration** — `sync.ts` loads both config files and writes both `.md` and `.html` outputs in one run
+- **CC Integration** — Promo skills updated to load `content-calendar.md` as context; README shows example prompt
+- **Type System** — Added `PromoMoment`, `PromoRules`, `PromoMomentRule`, `OverridesMap` types; extracted shared `PromoMomentRule` to reduce duplication
+- **Test Coverage** — 33 tests passing (19 new), 1 skipped (live API gate)
+
+### Key Learnings
+
+- **Type-driven refactoring** — Extracting `PromoMomentRule` eliminated DRY violation in EventTypeRule/EventOverride definitions
+- **Stateful generators** — `_uid` counter for HTML IDs works for single-run generation; acceptable for this use case with `resetUid()`
+- **Multi-output orchestration** — Pure function writers make it trivial to generate multiple output formats from one data shape
+- **Date formatting traps** — `fmtDow()` must use two separate `toLocaleDateString()` calls to avoid comma in "Mon, Apr 20" → "Mon Apr 20"
+
+### Metrics
+
+- **Lines of Code**: ~800 (non-test), ~200 (test)
+- **Test Coverage**: 33 tests total (32 passing, 1 skipped)
+- **Files Created**: 8 (rules-loader, html-writer, YAML configs, test files)
+- **Files Modified**: 7 (types, mapper, writer, sync, skills, README, BUGS)
+- **Commits**: 8 (including cleanup)
+
+### Deferred to Next Session
+
+- **Fill in `tools/calendar/promo-rules.yaml`** — Use Slack MCP to draft DRI + moments per event type (ai-basics, ai-intermediate, ai-advanced, show-dont-tell, she-builds, speaker-event)
+- **Live API smoke test** — Run `LUMA_API_KEY=<key> npm run calendar:sync` and verify HTML viewer displays real events
+
+---
+
 ## 2026-04-14 — Phase 3 Block A Complete: Luma Calendar Sync
 
 ### Accomplishments
