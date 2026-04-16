@@ -97,3 +97,14 @@ export interface CalendarEntry {
 
 // Slack Block Kit types
 export type SlackBlock = Record<string, unknown>
+
+// Approval status for promo plan
+export type ApprovalStatus = 'pending' | 'approved' | 'changes_requested'
+
+export interface PromoStatus {
+  luma_id: string
+  approval_status: ApprovalStatus
+  approved_by?: string
+  approved_at?: string
+  notes?: string
+}
