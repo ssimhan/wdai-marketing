@@ -109,3 +109,11 @@ export interface PromoStatus {
   approved_at?: string
   notes?: string
 }
+
+// Channel metadata for rendering
+export const CHANNEL_LABELS: Record<PromoChannel, string> = {
+  'linkedin-wdai': 'LinkedIn · WDAI',
+  'linkedin-personal': 'LinkedIn · Personal',
+  email: 'Email',
+  slack: 'Slack',
+}

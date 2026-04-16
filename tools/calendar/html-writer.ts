@@ -1,4 +1,5 @@
 import type { CalendarEntry, PromoMoment, EventType, ApprovalStatus } from './types.js'
+import { CHANNEL_LABELS } from './types.js'
 
 // ── Date helpers ──
 
@@ -25,12 +26,13 @@ function fmtShort(iso: string): string {
 }
 
 // ── Channel + type metadata ──
-// Add new channels/types here only — CSS classes, labels, and HTML rendering all derive from these.
+// Add new channels/types here only — CSS classes and HTML rendering all derive from these.
+// Labels are sourced from CHANNEL_LABELS in types.ts.
 const CHANNEL_META: Record<string, { label: string; css: string }> = {
-  'linkedin-wdai':     { label: 'LinkedIn · WDAI',     css: 'ch-linkedin-wdai'     },
-  'linkedin-personal': { label: 'LinkedIn · Personal', css: 'ch-linkedin-personal' },
-  'email':             { label: 'Email',               css: 'ch-email'             },
-  'slack':             { label: 'Slack',               css: 'ch-slack'             },
+  'linkedin-wdai':     { label: CHANNEL_LABELS['linkedin-wdai'],     css: 'ch-linkedin-wdai'     },
+  'linkedin-personal': { label: CHANNEL_LABELS['linkedin-personal'], css: 'ch-linkedin-personal' },
+  'email':             { label: CHANNEL_LABELS.email,                css: 'ch-email'             },
+  'slack':             { label: CHANNEL_LABELS.slack,                css: 'ch-slack'             },
 }
 const TYPE_META: Record<EventType, { dot: string; pill: string }> = {
   'ai-basics':       { dot: 'dot-ai-basics',       pill: 'pill-ai-basics'       },

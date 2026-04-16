@@ -71,7 +71,7 @@ describe('formatSlackMessage', () => {
       b.type === 'section' && b.text?.text?.includes('Channel Plan')
     )
     expect(planBlock).toBeDefined()
-    expect(planBlock?.text?.text).toContain('LinkedIn (WDAI)')
+    expect(planBlock?.text?.text).toContain('LinkedIn · WDAI')
     expect(planBlock?.text?.text).toContain('Announce open enrollment')
     expect(planBlock?.text?.text).toContain('Email')
     expect(planBlock?.text?.text).toContain('Member invite')

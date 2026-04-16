@@ -1,4 +1,5 @@
 import type { CalendarEntry, SlackBlock } from './types.js'
+import { CHANNEL_LABELS } from './types.js'
 
 const SLACK_TIMEOUT_MS = 10000 // 10 seconds
 
@@ -81,13 +82,7 @@ export function formatSlackMessage(entries: CalendarEntry[]): { blocks: SlackBlo
 }
 
 function formatChannelLabel(channel: string): string {
-  const labels: Record<string, string> = {
-    'linkedin-wdai': 'LinkedIn (WDAI)',
-    'linkedin-personal': 'LinkedIn (Personal)',
-    email: 'Email',
-    slack: 'Slack',
-  }
-  return labels[channel] || channel
+  return CHANNEL_LABELS[channel as keyof typeof CHANNEL_LABELS] || channel
 }
 
 export async function sendSlackNotification(
