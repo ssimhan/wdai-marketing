@@ -144,21 +144,21 @@
 **Goal:** Track per-event approval status in flat files. Calendar viewer shows status badges.
 
 **Success Criteria:**
-- [ ] Status YAML file per event stores approval state + history
-- [ ] `readStatus()` / `writeStatus()` functions with tests
+- [x] Status YAML file per event stores approval state + history
+- [x] `readStatus()` / `writeStatus()` functions with tests
 - [ ] `CalendarEntry` gains `approval_status` field
 - [ ] HTML viewer shows "Pending" / "Approved" badges
 - [ ] Status persists across syncs (not overwritten)
 
-### Chunk B1: Status Data Model + Reader/Writer (~1.5 hours)
+### Chunk B1: Status Data Model + Reader/Writer (~1.5 hours) ✅
 
 **Files:**
-- Modify: `tools/calendar/types.ts` (add `ApprovalStatus`, `PromoStatus` types)
-- Create: `tools/calendar/status.ts`
-- Create: `tools/calendar/__tests__/status.test.ts`
+- Modify: `tools/calendar/types.ts` (add `ApprovalStatus`, `PromoStatus` types) ✅
+- Create: `tools/calendar/status.ts` ✅
+- Create: `tools/calendar/__tests__/status.test.ts` ✅
 
 **What to build:**
-1. Add types:
+1. Add types: ✅
    ```typescript
    type ApprovalStatus = 'pending' | 'approved' | 'changes_requested'
    interface PromoStatus {
@@ -169,13 +169,13 @@
      notes?: string
    }
    ```
-2. Write test: `readAllStatuses('path/to/dir')` returns `Map<string, PromoStatus>` from YAML files
-3. Write test: `writeStatus('path/to/dir', status)` writes a YAML file named `<luma_id>.yaml`
-4. Write test: missing status dir returns empty map (graceful fallback)
-5. Implement using `loadYaml` pattern from `rules-loader.ts`
-6. Status files live in `vault/status/` directory
-7. Verify: `npm test`
-8. Commit: `feat(status): approval status model with flat-file reader/writer`
+2. Write test: `readAllStatuses('path/to/dir')` returns `Map<string, PromoStatus>` from YAML files ✅
+3. Write test: `writeStatus('path/to/dir', status)` writes a YAML file named `<luma_id>.yaml` ✅
+4. Write test: missing status dir returns empty map (graceful fallback) ✅
+5. Implement using `loadYaml` pattern from `rules-loader.ts` ✅
+6. Status files live in `vault/status/` directory ✅
+7. Verify: `npm test` ✅
+8. Commit: `feat(status): approval status model with flat-file reader/writer` ✅
 
 ### Chunk B2: Status Integration into Pipeline + Viewer (~2 hours)
 
