@@ -2,8 +2,8 @@ import { readFileSync, writeFileSync, existsSync, statSync } from 'fs'
 import type { LumaEvent, LumaListResponse } from './types.js'
 
 const BASE_URL    = 'https://public-api.luma.com'
-const FIXTURE_PATH = 'tools/calendar/__fixtures__/luma-events.json'
-const CACHE_PATH   = 'tools/calendar/__fixtures__/luma-events-cache.json'
+const FIXTURE_PATH = new URL('./__fixtures__/luma-events.json', import.meta.url).pathname
+const CACHE_PATH   = new URL('./__fixtures__/luma-events-cache.json', import.meta.url).pathname
 
 /** Cache TTL in milliseconds (default: 1 hour). Override via LUMA_CACHE_TTL_MS env var. */
 const CACHE_TTL_MS = Number(process.env.LUMA_CACHE_TTL_MS ?? 60 * 60 * 1000)
