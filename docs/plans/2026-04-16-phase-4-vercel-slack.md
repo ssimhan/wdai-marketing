@@ -250,14 +250,14 @@
 - [ ] Endpoint verifies Slack signature, updates status file via GitHub API
 - [ ] Git push triggers redeploy → calendar shows updated status
 
-### Chunk D1: Interactive Buttons in Messages (~1 hour)
+### Chunk D1: Interactive Buttons in Messages (~1 hour) ✅
 
 **Files:**
-- Modify: `tools/calendar/slack-notifier.ts` (add action buttons to Block Kit)
-- Modify: `tools/calendar/__tests__/slack-notifier.test.ts`
+- Modify: `tools/calendar/slack-notifier.ts` (add action buttons to Block Kit) ✅
+- Modify: `tools/calendar/__tests__/slack-notifier.test.ts` ✅
 
 **What to build:**
-1. Update `formatSlackMessage()` to append an `actions` block per event:
+1. Update `formatSlackMessage()` to append an `actions` block per event: ✅
    ```json
    {
      "type": "actions",
@@ -267,9 +267,9 @@
      ]
    }
    ```
-2. Test: formatted message includes actions block with correct `value` fields
-3. Verify: `npm test`
-4. Commit: `feat(slack): add Approve/Edit buttons to notification messages`
+2. Test: formatted message includes actions block with correct `value` fields ✅
+3. Verify: `npm test` ✅
+4. Commit: `feat(slack): add Approve/Edit buttons to notification messages` ✅
 
 ### Chunk D2: Vercel Serverless Endpoint (~2 hours)
 
