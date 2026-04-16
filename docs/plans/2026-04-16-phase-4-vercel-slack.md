@@ -202,7 +202,7 @@
 
 ---
 
-## Block C: Vercel Deployment + Auth (needs Vercel access)
+## Block C: Vercel Deployment + Auth (needs Vercel access) — DEFERRED
 
 **Goal:** Content calendar live on the web, gated by magic-link auth for the team.
 
@@ -211,6 +211,8 @@
 - [ ] Vercel Authentication enabled with whitelisted team emails
 - [ ] Auto-redeploys on push to `main`
 - [ ] `vercel.json` configures the project correctly
+
+**Status:** Deferred until Phase 4 Phase 2 — requires manual Vercel setup (org connection, auth config)
 
 ### Chunk C1: Vercel Project Setup (~1 hour, mostly manual)
 
@@ -240,15 +242,17 @@
 
 ---
 
-## Block D: Slack Interactive Approval (needs Vercel live)
+## Block D: Slack Interactive Approval (needs Vercel live) — PARTIAL
 
 **Goal:** Approve/Edit buttons on Slack messages. Button clicks update status in the repo.
 
 **Success Criteria:**
-- [ ] Slack messages include "Approve" and "Edit Plan" buttons
-- [ ] Button clicks hit Vercel serverless endpoint
-- [ ] Endpoint verifies Slack signature, updates status file via GitHub API
-- [ ] Git push triggers redeploy → calendar shows updated status
+- [x] Slack messages include "Approve" and "Edit Plan" buttons (D1 ✅)
+- [ ] Button clicks hit Vercel serverless endpoint (D2 — deferred)
+- [ ] Endpoint verifies Slack signature, updates status file via GitHub API (D2 — deferred)
+- [ ] Git push triggers redeploy → calendar shows updated status (D2 — deferred)
+
+**Status:** D1 (buttons) complete. D2 (serverless handler) deferred until Vercel setup.
 
 ### Chunk D1: Interactive Buttons in Messages (~1 hour) ✅
 
@@ -302,31 +306,35 @@
 
 ---
 
-## Execution Order (optimized for today)
+## Execution Order (COMPLETED — Session 2026-04-16)
 
-**Can do right now (no external dependencies):**
-1. Chunk A1 — Slack message formatter
-2. Chunk A2 — Change detection
-3. Chunk B1 — Status data model
+**Completed (no external dependencies):**
+1. ✅ Chunk A1 — Slack message formatter
+2. ✅ Chunk A2 — Change detection
+3. ✅ Chunk B1 — Status data model
 
-**Can do after creating Slack app (~10 min manual setup):**
-4. Chunk A3 — Webhook sender + sync integration
-5. Chunk A4 — GitHub Actions update
+**Completed (Slack webhook ready):**
+4. ✅ Chunk A3 — Webhook sender + sync integration
+5. ✅ Chunk A4 — GitHub Actions update
 
-**Can do after Slack notifications are working:**
-6. Chunk B2 — Status integration into viewer
-7. Chunk D1 — Interactive buttons in messages
+**Completed (status tracking):**
+6. ✅ Chunk B2 — Status integration into viewer
+7. ✅ Chunk D1 — Interactive buttons in messages
 
-**Needs Vercel project connected:**
-8. Chunk C1 — Vercel project setup
-9. Chunk D2 — Serverless endpoint for approval
+**Deferred (Vercel setup required):**
+8. ⏳ Chunk C1 — Vercel project setup
+9. ⏳ Chunk D2 — Serverless endpoint for approval
 
 ---
 
 ## Updated Roadmap (Phases 4–7)
 
 ### Phase 4: Vercel + Slack Approval Loop (target: May 1)
-- Blocks A–D above
+- ✅ Blocks A, B, D1 — **COMPLETED** (Session 2026-04-16)
+  - Slack notifications with change detection ✅
+  - Approval status tracking with visual badges ✅
+  - Interactive buttons on Slack messages ✅
+- ⏳ Blocks C, D2 — **DEFERRED** (requires Vercel setup and manual configuration)
 
 ### Phase 5: Copy Generation + Per-Leader Approval
 - AI drafts copy per channel using existing skills
