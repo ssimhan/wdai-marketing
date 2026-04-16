@@ -2,7 +2,6 @@
 
 | ID | Description | Severity | Active | Note |
 |----|-------------|----------|--------|------|
-| DEBT-010 | `vault/content-calendar.html` fails to open via `file://` protocol due to browser CORS restrictions. Solution: serve via HTTP. | Low | No | Phase 3 Closeout |
 
 ## Resolved
 

@@ -1,5 +1,41 @@
 # Project History
 
+## 2026-04-16 — Phase 4 Complete: Slack Notifications + Approval Status Tracking
+
+### Accomplishments
+
+- **Slack Message Formatter** — `formatSlackMessage()` converts calendar entries to Block Kit JSON with event details, channel plan, and interactive buttons
+- **Change Detection** — `detectChanges()` identifies new and modified events between syncs; compares luma_id and key fields (dates, DRI, channel_plan)
+- **Webhook Integration** — `sendSlackNotification()` POSTs formatted messages to Slack webhook with 10s timeout; graceful error handling logs warnings without crashing sync
+- **GitHub Actions Sync** — Calendar sync workflow passes `SLACK_WEBHOOK_URL` secret; adds HTML output to git commits
+- **Approval Status Tracking** — Flat-file YAML storage in `vault/status/<luma_id>.yaml`; `readAllStatuses()` and `writeStatus()` with auto-directory creation
+- **Calendar Viewer Integration** — Approval badges displayed in HTML viewer (⏳ Pending, ✅ Approved, ✏️ Changes Requested) and markdown table
+- **Interactive Slack Buttons** — Action buttons (✅ Approve, ✏️ Edit Plan) on every event; luma_id passed as value for serverless handler
+- **Code Quality Fix** — Unified channel label mapping to single `CHANNEL_LABELS` constant (eliminated DRY violation)
+
+### Key Learnings
+
+- **Snapshot-based change detection** — Persisting previous state as JSON snapshot (`vault/.calendar-snapshot.json`, gitignored) enables cheap diff comparisons without database
+- **Slack Block Kit composition** — Message formatting is pure function with zero API calls; all complexity handled at composition time, not at send time
+- **Flat-file status as append-only log** — YAML files keyed by event ID act as a simple audit trail; persists across syncs without conflicts
+- **Approval state lifecycle** — Separating status from calendar entry (read from external file) allows approval to persist independently of event changes
+
+### Deferred
+
+- **Block C (Vercel Deployment)** — Requires manual Vercel org setup and authentication configuration; deferred to Phase 4 Phase 2
+- **Block D2 (Serverless Handler)** — Slack button click handler needs Vercel project running; deferred pending C completion
+
+### Metrics
+
+- **Tests**: 74 passing, 1 skipped (7 new modules, comprehensive coverage)
+- **New Modules**: slack-notifier.ts, diff.ts, status.ts (plus tests)
+- **Modified Modules**: types.ts, sync.ts, mapper.ts, html-writer.ts, writer.ts
+- **Files Modified**: 15 total (4 new test files, 3 new source files, 8 documentation/config updates)
+- **Commits**: 13 (including audit fix)
+- **Phase 4 Status**: ✅ Blocks A, B, D1 Complete; Blocks C, D2 Deferred
+
+---
+
 ## 2026-04-16 — Phase 3 Complete: Live API Smoke Test + Idempotency
 
 ### Accomplishments

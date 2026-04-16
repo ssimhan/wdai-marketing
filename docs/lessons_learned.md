@@ -1,5 +1,46 @@
 # Lessons Learned
 
+## 2026-04-16 — Phase 4 Closeout: Slack Integration + Approval Tracking
+
+### Architectural Insights
+
+**Snapshot-based Change Detection for Flat-File Systems**
+When you need to detect changes between runs without a database, persist the previous state as a JSON snapshot. On the next run, compare the current state to the snapshot using a simple comparison function (`detectChanges()`). This is cheap, git-friendly (gitignore the snapshot), and works offline. The cost is losing history — if you need an audit trail, separate the status/approval data into individual files keyed by entity ID.
+
+**Composable Message Formatting as Pure Functions**
+Slack message formatting is a pure function that takes a list of entries and returns Block Kit JSON. This allows:
+- Easy testing (mock data in, assertion on output)
+- Decoupling from network (no API calls inside the formatter)
+- Reusability (same JSON can be sent via webhook, stored, or inspected)
+Block Kit structure is hierarchical (header → section → section → actions → divider), so building it programmatically is cleaner than string templates.
+
+**Approval State as Orthogonal Concern**
+Separate approval status from calendar entries by storing it in external files (`vault/status/<luma_id>.yaml`). This allows:
+- Status to persist across event changes (date move, DRI update, etc. don't touch the approval)
+- Non-destructive merges during sync (old statuses are simply re-read, not overwritten)
+- Independent lifecycle (approval workflow is independent of event workflow)
+
+### Spec-Crafting for AI Agents
+
+**When specifying external integrations, nail down the error handling strategy upfront.** For Slack webhooks: "POST with 10s timeout. If the POST fails, log a warning but don't crash the sync. The sync continues."
+
+**For approval workflows, clarify the state lifecycle.** Next time, say: "Approval status is stored in flat files, keyed by event ID. Once set, status persists across syncs unless explicitly changed. Unsynced events default to 'pending'."
+
+### What Went Well
+
+- TDD caught the DRY violation early (duplicated channel labels) — audit surfaced it, fix was trivial
+- Change detection logic is pure and easily testable (10 tests, all passing)
+- Flat-file approach means zero infrastructure setup (no database, no microservices)
+- Slack notifications integrate seamlessly with existing sync pipeline (single call in sync.ts)
+
+### Code Quality
+
+- DRY principle maintained: unified `CHANNEL_LABELS` across slack-notifier and html-writer
+- Error handling is robust: timeouts, graceful failures, proper logging
+- No premature abstractions: each module has a single job (formatter, differ, status reader/writer, sender)
+
+---
+
 ## 2026-04-16 — Phase 3 Closeout: Live API Smoke Test + Idempotency
 
 ### Architectural Insights
