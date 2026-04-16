@@ -94,3 +94,6 @@ export interface CalendarEntry {
   channel_plan: PromoMoment[] // populated from promo-rules.yaml / overrides.yaml
   notes: string               // From Luma description_md, truncated
 }
+
+// Slack Block Kit types
+export type SlackBlock = Record<string, unknown>
