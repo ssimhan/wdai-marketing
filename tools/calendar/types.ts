@@ -91,6 +91,7 @@ export interface CalendarEntry {
   promo_window_start: string  // ISO 8601 — default: start_at minus 14 days
   dri: string                 // Directly Responsible Individual — default: ""
   copy_status: CopyStatus
+  approval_status: ApprovalStatus // default: 'pending'
   channel_plan: PromoMoment[] // populated from promo-rules.yaml / overrides.yaml
   notes: string               // From Luma description_md, truncated
 }

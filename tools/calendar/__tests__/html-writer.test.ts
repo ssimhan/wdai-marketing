@@ -16,6 +16,7 @@ const entry: CalendarEntry = {
   promo_window_start: '2026-04-20T17:00:00Z',
   dri: 'Sheena',
   copy_status: '🔲 Not started',
+  approval_status: 'pending',
   channel_plan: [
     { channel: 'linkedin-wdai', dri: 'Sheena', scheduled_at: '2026-04-20T17:00:00Z', label: 'Announce open enrollment' }
   ],
@@ -55,5 +56,28 @@ describe('renderCalendarHtml', () => {
   it('synced date appears in header', () => {
     const html = renderCalendarHtml([entry], '2026-04-14T10:00:00Z')
     expect(html).toContain('Apr 14, 2026')
+  })
+
+  it('renders approval status badge for pending status', () => {
+    const html = renderCalendarHtml([entry], '2026-04-14T10:00:00Z')
+    expect(html).toContain('⏳')
+    expect(html).toContain('Pending')
+    expect(html).toContain('badge-pending')
+  })
+
+  it('renders approval status badge for approved status', () => {
+    const approvedEntry: CalendarEntry = { ...entry, approval_status: 'approved' }
+    const html = renderCalendarHtml([approvedEntry], '2026-04-14T10:00:00Z')
+    expect(html).toContain('✅')
+    expect(html).toContain('Approved')
+    expect(html).toContain('badge-approved')
+  })
+
+  it('renders approval status badge for changes_requested status', () => {
+    const changesEntry: CalendarEntry = { ...entry, approval_status: 'changes_requested' }
+    const html = renderCalendarHtml([changesEntry], '2026-04-14T10:00:00Z')
+    expect(html).toContain('✏️')
+    expect(html).toContain('Changes Requested')
+    expect(html).toContain('badge-changes-requested')
   })
 })

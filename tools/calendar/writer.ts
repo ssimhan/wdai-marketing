@@ -9,7 +9,7 @@ function formatDate(iso: string): string {
 // summaryRow and detailBlock share the same field set.
 // If you add a new CalendarEntry field, update BOTH functions and the header row in renderCalendar().
 function summaryRow(e: CalendarEntry): string {
-  return `| [${e.name}](#${e.luma_id}) | ${e.event_type} | ${formatDate(e.start_at)} | ${formatDate(e.promo_window_start)} | ${e.dri || '—'} | ${e.copy_status} |`
+  return `| [${e.name}](#${e.luma_id}) | ${e.event_type} | ${formatDate(e.start_at)} | ${formatDate(e.promo_window_start)} | ${e.dri || '—'} | ${e.copy_status} | ${e.approval_status} |`
 }
 
 function renderChannelPlanMd(moments: PromoMoment[]): string {
@@ -37,6 +37,7 @@ function detailBlock(e: CalendarEntry): string {
     `**Promo Window Opens:** ${formatDate(e.promo_window_start)}`,
     `**DRI:** ${e.dri || '—'}`,
     `**Copy Status:** ${e.copy_status}`,
+    `**Approval Status:** ${e.approval_status}`,
     '',
     '### Channel Plan',
     renderChannelPlanMd(e.channel_plan),
@@ -58,8 +59,8 @@ export function renderCalendar(entries: CalendarEntry[], syncedAt: string): stri
     '',
     '## Upcoming Events',
     '',
-    '| Event | Type | Start | Promo Window | DRI | Copy Status |',
-    '|-------|------|-------|--------------|-----|-------------|',
+    '| Event | Type | Start | Promo Window | DRI | Copy Status | Approval Status |',
+    '|-------|------|-------|--------------|-----|-------------|-----------------|',
     ...entries.map(summaryRow),
     '',
     '---',

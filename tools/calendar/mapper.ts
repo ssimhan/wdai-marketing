@@ -1,4 +1,4 @@
-import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment, PromoMomentRule } from './types.js'
+import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment, PromoMomentRule, PromoStatus } from './types.js'
 
 const TAG_TO_TYPE: Record<string, EventType> = {
   'ai-basics': 'ai-basics',
@@ -39,11 +39,13 @@ export function mapLumaEvent(
   raw: LumaEvent,
   rules?: PromoRules,
   overrides?: OverridesMap,
+  statuses?: Map<string, PromoStatus>,
 ): CalendarEntry {
   const { event, tags } = raw
   const eventType = classifyEventType(tags)
   const rule = rules?.[eventType]
   const override = overrides?.[event.api_id]
+  const status = statuses?.get(event.api_id)
 
   // Priority: override > rule > default ('')
   const dri = override?.dri ?? rule?.dri ?? ''
@@ -66,6 +68,7 @@ export function mapLumaEvent(
     promo_window_start: subtractDays(event.start_at, 14),
     dri,
     copy_status: '🔲 Not started',
+    approval_status: status?.approval_status ?? 'pending',
     channel_plan,
     notes: event.description_md?.slice(0, 200) ?? '',
   }

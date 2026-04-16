@@ -1,4 +1,4 @@
-import type { CalendarEntry, PromoMoment, EventType } from './types.js'
+import type { CalendarEntry, PromoMoment, EventType, ApprovalStatus } from './types.js'
 
 // ── Date helpers ──
 
@@ -79,6 +79,16 @@ function driChip(dri: string): string {
   return dri
     ? `<span class="dri-chip">${dri}</span>`
     : `<span class="dri-empty">—</span>`
+}
+
+function approvalBadge(status: ApprovalStatus): string {
+  const badges: Record<ApprovalStatus, { emoji: string; label: string; css: string }> = {
+    pending: { emoji: '⏳', label: 'Pending', css: 'badge-pending' },
+    approved: { emoji: '✅', label: 'Approved', css: 'badge-approved' },
+    changes_requested: { emoji: '✏️', label: 'Changes Requested', css: 'badge-changes-requested' },
+  }
+  const badge = badges[status]
+  return `<span class="approval-badge ${badge.css}">${badge.emoji} ${badge.label}</span>`
 }
 
 // ── ID counter for expand/collapse pairs ──
@@ -181,6 +191,7 @@ function renderEventView(entries: CalendarEntry[]): string {
         <div class="event-meta">
           <span class="event-type-pill ${pillCss}">${e.event_type}</span>
           <span class="event-date-range">${dateRange}</span>
+          ${approvalBadge(e.approval_status)}
           ${e.dri ? `<span class="dri-chip">${e.dri}</span>` : `<span class="dri-empty">No DRI</span>`}
         </div>
         <span class="chevron">▶</span>
@@ -336,6 +347,14 @@ const CSS = `
       font-size: 12px; color: var(--navy); font-weight: 500; display: inline-block;
     }
     .dri-empty { color: var(--muted); font-style: italic; font-size: 12px; }
+
+    .approval-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap;
+    }
+    .badge-pending { background: #fef3c7; color: #92400e; }
+    .badge-approved { background: #d1fae5; color: #065f46; }
+    .badge-changes-requested { background: #fed7aa; color: #9a3412; }
 
     /* ── DATE VIEW ── */
     .week-group { margin-bottom: 28px; }

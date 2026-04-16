@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mapLumaEvent } from '../mapper.js'
-import type { LumaEvent, PromoRules, OverridesMap } from '../types.js'
+import type { LumaEvent, PromoRules, OverridesMap, PromoStatus } from '../types.js'
 
 const mockEvent: LumaEvent = {
   api_id: 'entry-001',
@@ -79,5 +79,56 @@ describe('mapLumaEvent with rules', () => {
   it('no matching rule leaves channel_plan empty', () => {
     const entry = mapLumaEvent({ ...mockEvent, tags: ['unknown'] }, testRules)
     expect(entry.channel_plan).toEqual([])
+  })
+})
+
+describe('mapLumaEvent with approval status', () => {
+  it('sets default approval_status to pending when no status provided', () => {
+    const entry = mapLumaEvent(mockEvent)
+    expect(entry.approval_status).toBe('pending')
+  })
+
+  it('reads approval_status from provided statuses map', () => {
+    const statuses: Map<string, PromoStatus> = new Map([
+      [
+        'evt-001',
+        {
+          luma_id: 'evt-001',
+          approval_status: 'approved',
+          approved_by: 'Sheena',
+        },
+      ],
+    ])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, statuses)
+    expect(entry.approval_status).toBe('approved')
+  })
+
+  it('preserves pending status if event not in statuses map', () => {
+    const statuses: Map<string, PromoStatus> = new Map([
+      [
+        'evt-002',
+        {
+          luma_id: 'evt-002',
+          approval_status: 'approved',
+        },
+      ],
+    ])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, statuses)
+    expect(entry.approval_status).toBe('pending')
+  })
+
+  it('reads changes_requested status', () => {
+    const statuses: Map<string, PromoStatus> = new Map([
+      [
+        'evt-001',
+        {
+          luma_id: 'evt-001',
+          approval_status: 'changes_requested',
+          notes: 'Update the messaging.',
+        },
+      ],
+    ])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, statuses)
+    expect(entry.approval_status).toBe('changes_requested')
   })
 })
