@@ -52,6 +52,25 @@ export function formatSlackMessage(entries: CalendarEntry[]): { blocks: SlackBlo
       })
     }
 
+    // Action buttons
+    blocks.push({
+      type: 'actions',
+      elements: [
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '✅ Approve' },
+          action_id: 'approve_plan',
+          value: entry.luma_id,
+        },
+        {
+          type: 'button',
+          text: { type: 'plain_text', text: '✏️ Edit Plan' },
+          action_id: 'edit_plan',
+          value: entry.luma_id,
+        },
+      ],
+    })
+
     // Divider between entries
     blocks.push({
       type: 'divider',

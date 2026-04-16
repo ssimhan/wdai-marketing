@@ -107,6 +107,54 @@ describe('formatSlackMessage', () => {
     const dividers = result?.blocks?.filter((b: any) => b.type === 'divider')
     expect(dividers?.length).toBeGreaterThanOrEqual(2)
   })
+
+  it('includes action buttons for each entry', () => {
+    const result = formatSlackMessage([mockEntry])
+    expect(result?.blocks).toBeDefined()
+
+    const actionsBlocks = result?.blocks?.filter((b: any) => b.type === 'actions')
+    expect(actionsBlocks?.length).toBeGreaterThan(0)
+
+    const actionBlock = actionsBlocks?.[0] as any
+    expect(actionBlock.elements).toBeDefined()
+    expect(Array.isArray(actionBlock.elements)).toBe(true)
+  })
+
+  it('action buttons have correct action_id and luma_id as value', () => {
+    const result = formatSlackMessage([mockEntry])
+    const actionsBlocks = result?.blocks?.filter((b: any) => b.type === 'actions')
+    const actionBlock = actionsBlocks?.[0] as any
+    const elements = actionBlock.elements
+
+    expect(elements.length).toBeGreaterThanOrEqual(2)
+
+    const approveButton = elements.find((e: any) => e.action_id === 'approve_plan')
+    const editButton = elements.find((e: any) => e.action_id === 'edit_plan')
+
+    expect(approveButton).toBeDefined()
+    expect(editButton).toBeDefined()
+
+    expect(approveButton.value).toBe('evt-001')
+    expect(editButton.value).toBe('evt-001')
+  })
+
+  it('approve button has checkmark emoji', () => {
+    const result = formatSlackMessage([mockEntry])
+    const actionsBlocks = result?.blocks?.filter((b: any) => b.type === 'actions')
+    const actionBlock = actionsBlocks?.[0] as any
+    const approveButton = actionBlock.elements.find((e: any) => e.action_id === 'approve_plan')
+
+    expect(approveButton.text.text).toContain('✅')
+  })
+
+  it('edit button has pencil emoji', () => {
+    const result = formatSlackMessage([mockEntry])
+    const actionsBlocks = result?.blocks?.filter((b: any) => b.type === 'actions')
+    const actionBlock = actionsBlocks?.[0] as any
+    const editButton = actionBlock.elements.find((e: any) => e.action_id === 'edit_plan')
+
+    expect(editButton.text.text).toContain('✏️')
+  })
 })
 
 describe('sendSlackNotification', () => {
