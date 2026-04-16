@@ -25,12 +25,13 @@ jobs:
       - name: Run calendar sync
         env:
           LUMA_API_KEY: ${{ secrets.LUMA_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: npm run calendar:sync
 
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add vault/content-calendar.md
+          git add vault/content-calendar.md vault/content-calendar.html
           git diff --cached --quiet || git commit -m "chore(calendar): sync from Luma [skip ci]"
           git push
