@@ -1,4 +1,6 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
+dotenv.config({ path: '.env.local' })
+dotenv.config()
 import { writeFileSync } from 'fs'
 import { fetchAllEvents } from './luma-client.js'
 import { mapLumaEvent } from './mapper.js'

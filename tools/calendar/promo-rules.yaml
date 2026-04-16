@@ -1,25 +1,122 @@
-# Per-event-type promo rules — fill in via Slack MCP before Phase 3 is complete
+# Per-event-type promo rules — filled from Slack channel cadence research
 # channel options: linkedin-wdai | linkedin-personal | email | slack
+# DRIs sourced from #team-marketing + wdai-promo-planner skill (April 2026)
 
 event_types:
   ai-basics:
-    dri: ""
-    moments: []
+    dri: "Sandhya"
+    moments:
+      - channel: linkedin-wdai
+        days_before: 14
+        label: "Announce open enrollment"
+      - channel: slack
+        days_before: 10
+        label: "Enrollment announcement in #general"
+      - channel: email
+        days_before: 7
+        label: "Email outreach to prior cohort"
+      - channel: linkedin-personal
+        days_before: 5
+        label: "Programs lead voice post"
+      - channel: slack
+        days_before: 2
+        label: "Final enrollment reminder"
+
   ai-intermediate:
-    dri: ""
-    moments: []
+    dri: "Sandhya"
+    moments:
+      - channel: linkedin-wdai
+        days_before: 14
+        label: "Announce open enrollment"
+      - channel: slack
+        days_before: 10
+        label: "Enrollment announcement in #general"
+      - channel: email
+        days_before: 7
+        label: "Email outreach to prior cohort"
+      - channel: linkedin-personal
+        days_before: 5
+        label: "Programs lead voice post"
+      - channel: slack
+        days_before: 2
+        label: "Final enrollment reminder"
+
   ai-advanced:
-    dri: ""
-    moments: []
+    dri: "Sandhya"
+    moments:
+      - channel: linkedin-wdai
+        days_before: 14
+        label: "Announce open enrollment"
+      - channel: slack
+        days_before: 10
+        label: "Enrollment announcement in #general"
+      - channel: email
+        days_before: 7
+        label: "Email outreach to prior cohort"
+      - channel: linkedin-personal
+        days_before: 5
+        label: "Programs lead voice post"
+      - channel: slack
+        days_before: 2
+        label: "Final enrollment reminder"
+
   show-dont-tell:
-    dri: ""
-    moments: []
+    dri: "Sheena"
+    moments:
+      - channel: slack
+        days_before: 14
+        label: "Seed in topic channels and #general"
+      - channel: linkedin-wdai
+        days_before: 10
+        label: "LinkedIn event announcement"
+      - channel: linkedin-personal
+        days_before: 7
+        label: "Member build story post"
+      - channel: slack
+        days_before: 3
+        label: "Final countdown in #general"
+
   she-builds:
-    dri: ""
-    moments: []
+    dri: "Sheena"
+    moments:
+      - channel: slack
+        days_before: 10
+        label: "Announce in #she-builds and #general"
+      - channel: linkedin-wdai
+        days_before: 7
+        label: "LinkedIn event announcement"
+      - channel: slack
+        days_before: 2
+        label: "Final reminder"
+
   speaker-event:
-    dri: ""
-    moments: []
+    dri: "Sheena"
+    moments:
+      - channel: slack
+        days_before: 21
+        label: "Seed in relevant topic channels"
+      - channel: linkedin-wdai
+        days_before: 14
+        label: "LinkedIn awareness post"
+      - channel: linkedin-personal
+        days_before: 10
+        label: "Leader or member personal post"
+      - channel: linkedin-wdai
+        days_before: 7
+        label: "LinkedIn consideration post"
+      - channel: slack
+        days_before: 3
+        label: "Final Slack countdown"
+
   other:
-    dri: ""
-    moments: []
+    dri: "Sheena"
+    moments:
+      - channel: slack
+        days_before: 14
+        label: "Announce event in #general"
+      - channel: linkedin-wdai
+        days_before: 10
+        label: "LinkedIn announcement"
+      - channel: slack
+        days_before: 3
+        label: "Final reminder"

@@ -1,5 +1,29 @@
 # Project History
 
+## 2026-04-16 — Phase 3 Complete: Live API Smoke Test + Idempotency
+
+### Accomplishments
+
+- **promo-rules.yaml filled** — DRI + channel moment timelines defined for all event types (ai-basics, ai-intermediate, ai-advanced, show-dont-tell, she-builds, speaker-event, other)
+- **Live API smoke test passed** — 197 real Luma events fetched; `vault/content-calendar.md` and `.html` both rendered correctly
+- **Cache-aside layer added** — `luma-client.ts` now caches API responses to `__fixtures__/luma-events-cache.json`; TTL defaults to 1 hour, configurable via `LUMA_CACHE_TTL_MS`; `LUMA_FORCE=true` bypasses cache; cache file gitignored
+- **dotenv override chain fixed** — `sync.ts` now loads `.env.local` before `.env` so local secrets win
+- **`/plan` workflow updated** — Added "Environment & Secrets Setup" checklist to Infrastructure Safety Checks section
+
+### Key Learnings
+
+- Cache-aside pattern keeps rate-limited API calls safe during dev iteration
+- `dotenv/config` only loads `.env` — must call `.env.local` explicitly first
+- Environment wiring must be specced alongside the feature, not discovered at smoke test time
+
+### Metrics
+
+- **Tests**: 33 passing, 1 skipped (unchanged — no regressions)
+- **Files Modified**: 3 (`luma-client.ts`, `sync.ts`, `.gitignore`)
+- **Phase 3 Status**: ✅ Complete
+
+---
+
 ## 2026-04-14 — Phase 3 Blocks B & C Complete: HTML Viewer + CC Integration
 
 ### Accomplishments
