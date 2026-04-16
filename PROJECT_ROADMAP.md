@@ -45,25 +45,45 @@
 - [x] Update promo-adhoc skill with calendar context
 - [x] README shows how to load content-calendar.md as CC context
 
-## Phase 4: Vault Go-Live
-- [ ] Slack integration (which channels CC monitors for context)
-- [ ] Leader voice skills rollout (email template to Lauren, Helen, Madina, Sheena)
-- [ ] End-to-end test (intake form → calendar → promo plan → draft → meeting minutes)
+## Phase 4: Vercel + Slack Approval Loop (target: May 1)
 
-## Phase 5: Copy Status Workflow
-- [ ] Copy status field (Not started → In progress → Approved → Sent) tracked in calendar
-- [ ] Promo status dashboard (what's drafted, what's approved, what ships when)
+### Block A: Slack Notification Pipeline
+- [ ] Slack Block Kit message formatter (pure function)
+- [ ] Change detection (new/changed events between syncs)
+- [ ] Webhook sender + sync integration
+- [ ] GitHub Actions: Slack notification after sync
 
-## Phase 6: Advanced Features (TBD)
-- [ ] Automated email generation from promo rules
-- [ ] Slack posting automation (optional, deferred)
-- [ ] Analytics integration (post reach, conversion tracking)
+### Block B: Approval Status Tracking
+- [ ] Status data model (ApprovalStatus type, flat-file reader/writer)
+- [ ] Status integration into pipeline + HTML viewer badges
 
-## Phase 7: Team Onboarding & Handoff
-- [ ] Documentation for new team members
-- [ ] Voice skill templates for leaders
-- [ ] Maintenance runbook
+### Block C: Vercel Deployment + Auth
+- [ ] Deploy vault/ as static site, vercel.json config
+- [ ] Vercel Authentication (magic links, whitelisted team emails)
+
+### Block D: Slack Interactive Approval
+- [ ] Approve/Edit buttons on Slack messages
+- [ ] Vercel serverless endpoint for button callbacks → updates status via GitHub API
+
+## Phase 5: Copy Generation + Per-Leader Approval
+- [ ] AI drafts copy per channel using existing skills
+- [ ] Slack DMs to responsible leaders for copy review
+- [ ] Leader approves via emoji or replies with edits
+- [ ] Approved copy stored in vault/promos/<event-id>/copy/
+- [ ] "Edit Plan" Slack modal
+
+## Phase 6: Auto-Publishing (org channels only)
+- [ ] WDAI LinkedIn auto-post (org page API token)
+- [ ] Mailchimp draft creation (hooks into existing wdai-mc system)
+- [ ] Mailchimp auto-send (optional, behind a flag)
+- [ ] Publishing status tracked in vault
+
+## Phase 7: Leader Onboarding + Handoff
+- [ ] Personal LinkedIn OAuth flow per leader
+- [ ] Voice skill calibration per leader
+- [ ] Docs, maintenance runbook
+- [ ] Team training on the content calendar
 
 ---
 
-## Next Up: Phase 4 — Vault Go-Live
+## Next Up: Phase 4 Block A — Slack Notification Pipeline

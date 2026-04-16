@@ -1,0 +1,8 @@
+# Design Decisions Log
+
+[2026-04-16] [Phase 4] — Decision: Vercel Authentication (magic links, whitelisted emails). Rejected: shared password, custom auth with Supabase. Because: Pro plan includes it for free, zero custom code, team is a fixed small list.
+[2026-04-16] [Phase 4] — Decision: Flat files for approval status (vault/status/*.yaml). Rejected: Supabase database. Because: token efficiency, no database needed until data volume or query complexity demands it.
+[2026-04-16] [Phase 4] — Decision: Slack incoming webhook + interactive buttons for approval. Rejected: email-based approval, CLI-only approval. Because: team already lives in Slack, emoji reactions match existing workflow.
+[2026-04-16] [Phase 4] — Decision: Vercel serverless for Slack button callbacks. Rejected: separate server, GitHub Actions polling. Because: Vercel already hosts the calendar, adding API routes is trivial.
+[2026-04-16] [Phase 6] — Decision: Org-channel publishing only (WDAI LinkedIn + Mailchimp). Rejected: personal LinkedIn in Phase 6. Because: personal accounts require per-leader OAuth onboarding — moved to Phase 7 when leaders are comfortable with the system.
+[2026-04-16] [Roadmap] — Decision: Revised roadmap from 7 generic phases to 7 specific phases based on user interview. Because: original phases were placeholders; new phases reflect the actual automated marketing pipeline (Luma → Slack approval → copy → publish).
