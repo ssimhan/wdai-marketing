@@ -6,6 +6,8 @@ function formatDate(iso: string): string {
   })
 }
 
+// summaryRow and detailBlock share the same field set.
+// If you add a new CalendarEntry field, update BOTH functions and the header row in renderCalendar().
 function summaryRow(e: CalendarEntry): string {
   return `| [${e.name}](#${e.luma_id}) | ${e.event_type} | ${formatDate(e.start_at)} | ${formatDate(e.promo_window_start)} | ${e.dri || '—'} | ${e.copy_status} |`
 }

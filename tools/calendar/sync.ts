@@ -17,11 +17,9 @@ async function main() {
   const isMock = process.env.LUMA_MOCK === 'true'
   console.log(`Running calendar sync (${isMock ? 'mock' : 'live'} mode)...`)
 
-  const [rawEvents, rules, overrides] = await Promise.all([
-    fetchAllEvents(),
-    Promise.resolve(loadPromoRules(RULES_PATH)),
-    Promise.resolve(loadOverrides(OVERRIDES_PATH)),
-  ])
+  const rawEvents = await fetchAllEvents()
+  const rules     = loadPromoRules(RULES_PATH)
+  const overrides = loadOverrides(OVERRIDES_PATH)
   console.log(`  Fetched ${rawEvents.length} events from Luma`)
 
   const syncedAt = new Date().toISOString()

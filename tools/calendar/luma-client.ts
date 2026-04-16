@@ -67,6 +67,12 @@ export async function fetchAllEvents(opts: { force?: boolean } = {}): Promise<Lu
   do {
     const page = await fetchPage(apiKey, cursor)
     all.push(...page.entries)
+
+    // Detect API inconsistency: has_more=true but no cursor to fetch next page
+    if (page.has_more && !page.next_cursor) {
+      console.warn('[calendar] Luma API inconsistency: has_more=true but next_cursor is null. Pagination may be incomplete.')
+    }
+
     cursor = page.next_cursor ?? undefined
   } while (cursor)
 

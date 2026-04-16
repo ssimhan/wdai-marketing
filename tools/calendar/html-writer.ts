@@ -24,36 +24,22 @@ function fmtShort(iso: string): string {
   })
 }
 
-// ── Channel helpers ──
-const CHANNEL_LABELS: Record<string, string> = {
-  'linkedin-wdai':     'LinkedIn · WDAI',
-  'linkedin-personal': 'LinkedIn · Personal',
-  'email':             'Email',
-  'slack':             'Slack',
+// ── Channel + type metadata ──
+// Add new channels/types here only — CSS classes, labels, and HTML rendering all derive from these.
+const CHANNEL_META: Record<string, { label: string; css: string }> = {
+  'linkedin-wdai':     { label: 'LinkedIn · WDAI',     css: 'ch-linkedin-wdai'     },
+  'linkedin-personal': { label: 'LinkedIn · Personal', css: 'ch-linkedin-personal' },
+  'email':             { label: 'Email',               css: 'ch-email'             },
+  'slack':             { label: 'Slack',               css: 'ch-slack'             },
 }
-const CHANNEL_CSS: Record<string, string> = {
-  'linkedin-wdai':     'ch-linkedin-wdai',
-  'linkedin-personal': 'ch-linkedin-personal',
-  'email':             'ch-email',
-  'slack':             'ch-slack',
-}
-const TYPE_DOT_CSS: Record<EventType, string> = {
-  'ai-basics':       'dot-ai-basics',
-  'ai-intermediate': 'dot-ai-intermediate',
-  'ai-advanced':     'dot-ai-advanced',
-  'show-dont-tell':  'dot-show-dont-tell',
-  'she-builds':      'dot-she-builds',
-  'speaker-event':   'dot-speaker-event',
-  'other':           'dot-other',
-}
-const TYPE_PILL_CSS: Record<EventType, string> = {
-  'ai-basics':       'pill-ai-basics',
-  'ai-intermediate': 'pill-ai-intermediate',
-  'ai-advanced':     'pill-ai-advanced',
-  'show-dont-tell':  'pill-show-dont-tell',
-  'she-builds':      'pill-she-builds',
-  'speaker-event':   'pill-speaker-event',
-  'other':           'pill-other',
+const TYPE_META: Record<EventType, { dot: string; pill: string }> = {
+  'ai-basics':       { dot: 'dot-ai-basics',       pill: 'pill-ai-basics'       },
+  'ai-intermediate': { dot: 'dot-ai-intermediate', pill: 'pill-ai-intermediate' },
+  'ai-advanced':     { dot: 'dot-ai-advanced',     pill: 'pill-ai-advanced'     },
+  'show-dont-tell':  { dot: 'dot-show-dont-tell',  pill: 'pill-show-dont-tell'  },
+  'she-builds':      { dot: 'dot-she-builds',      pill: 'pill-she-builds'      },
+  'speaker-event':   { dot: 'dot-speaker-event',   pill: 'pill-speaker-event'   },
+  'other':           { dot: 'dot-other',           pill: 'pill-other'           },
 }
 
 // ── Flat moment type (internal rendering only) ──
@@ -83,8 +69,9 @@ function getISOWeekLabel(iso: string): string {
 }
 
 function channelBadge(channel: string): string {
-  const label = CHANNEL_LABELS[channel] ?? channel
-  const css   = CHANNEL_CSS[channel] ?? ''
+  const meta  = CHANNEL_META[channel]
+  const label = meta?.label ?? channel
+  const css   = meta?.css ?? ''
   return `<span class="channel-badge ${css}">${label}</span>`
 }
 
@@ -103,6 +90,22 @@ function resetUid(): void {
   _uid = 0
 }
 
+function groupMomentsByWeek(moments: FlatMoment[]): Map<string, FlatMoment[]> {
+  const groups = new Map<string, FlatMoment[]>()
+  for (const m of moments) {
+    const label = getISOWeekLabel(m.scheduled_at)
+    if (!groups.has(label)) groups.set(label, [])
+    groups.get(label)!.push(m)
+  }
+  return groups
+}
+
+function eventDateRange(e: CalendarEntry): string {
+  return e.start_at === e.end_at
+    ? fmtShort(e.start_at)
+    : `${fmtShort(e.start_at)} – ${fmtShort(e.end_at)}, ${new Date(e.end_at).getUTCFullYear()}`
+}
+
 // ── By Date view ──
 function renderDateView(entries: CalendarEntry[]): string {
   const moments = flattenMoments(entries)
@@ -110,12 +113,7 @@ function renderDateView(entries: CalendarEntry[]): string {
     return `<p style="color:var(--muted);padding:24px 0;font-style:italic">No channel plan moments yet — fill in <code>tools/calendar/promo-rules.yaml</code> to populate this view.</p>`
   }
 
-  const groups = new Map<string, FlatMoment[]>()
-  for (const m of moments) {
-    const label = getISOWeekLabel(m.scheduled_at)
-    if (!groups.has(label)) groups.set(label, [])
-    groups.get(label)!.push(m)
-  }
+  const groups = groupMomentsByWeek(moments)
 
   const groupHtml = [...groups.entries()].map(([weekLabel, wMoments]) => {
     const rows = wMoments.map(m => {
@@ -124,7 +122,7 @@ function renderDateView(entries: CalendarEntry[]): string {
       <div class="moment-row" data-channel="${m.channel}" onclick="toggleRow('${id}')">
         <div class="col-date"><span class="dow">${fmtDow(m.scheduled_at)}</span></div>
         <div class="col-channel">${channelBadge(m.channel)}</div>
-        <div class="col-event"><span class="event-chip"><span class="event-dot ${TYPE_DOT_CSS[m.event_type]}"></span><span><span class="event-name-text">${m.event_name}</span><span class="event-label"> · ${m.label}</span></span></span></div>
+        <div class="col-event"><span class="event-chip"><span class="event-dot ${TYPE_META[m.event_type].dot}"></span><span><span class="event-name-text">${m.event_name}</span><span class="event-label"> · ${m.label}</span></span></span></div>
         <div class="col-dri">${driChip(m.dri)}</div>
       </div>
       <div class="copy-panel" id="${id}"><div class="copy-label">Copy</div><p class="copy-empty"><em>*(draft pending — fill in promo-rules.yaml to generate)*</em></p></div>`
@@ -155,8 +153,8 @@ function renderEventView(entries: CalendarEntry[]): string {
   }
 
   return entries.map(e => {
-    const dotCss  = TYPE_DOT_CSS[e.event_type]
-    const pillCss = TYPE_PILL_CSS[e.event_type]
+    const dotCss  = TYPE_META[e.event_type].dot
+    const pillCss = TYPE_META[e.event_type].pill
     const cardId  = e.luma_id
 
     const planRows = e.channel_plan.length === 0
@@ -173,9 +171,7 @@ function renderEventView(entries: CalendarEntry[]): string {
             <tr class="plan-copy-row" id="${rowId}"><td colspan="4"><div class="plan-copy-inner"><em style="color:var(--muted)">*(draft pending — fill in promo-rules.yaml)*</em></div></td></tr>`
         }).join('\n')
 
-    const dateRange = e.start_at === e.end_at
-      ? fmtShort(e.start_at)
-      : `${fmtShort(e.start_at)} – ${fmtShort(e.end_at)}, ${new Date(e.end_at).getUTCFullYear()}`
+    const dateRange = eventDateRange(e)
 
     return `
     <div class="event-card open" id="card-${cardId}">
