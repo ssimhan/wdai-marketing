@@ -56,7 +56,7 @@
 **Goal:** After each calendar sync, post a formatted summary of new/changed events to a Slack channel.
 
 **Success Criteria:**
-- [ ] `formatSlackMessage(entries)` returns valid Slack Block Kit JSON
+- [x] `formatSlackMessage(entries)` returns valid Slack Block Kit JSON
 - [ ] `detectChanges(previous, current)` identifies new and changed events
 - [ ] `sendSlackNotification(url, blocks)` POSTs to a webhook
 - [ ] Sync pipeline calls notifier after writing calendar files
@@ -64,19 +64,19 @@
 - [ ] All unit tests pass; live Slack test gated behind env flag
 - [ ] Duplicate syncs with no changes produce no Slack message
 
-### Chunk A1: Slack Message Formatter (~1.5 hours)
+### Chunk A1: Slack Message Formatter (~1.5 hours) ✅
 
 **Files:**
-- Create: `tools/calendar/slack-notifier.ts`
-- Create: `tools/calendar/__tests__/slack-notifier.test.ts`
-- Modify: `tools/calendar/types.ts` (add `SlackBlock` type alias)
+- Create: `tools/calendar/slack-notifier.ts` ✅
+- Create: `tools/calendar/__tests__/slack-notifier.test.ts` ✅
+- Modify: `tools/calendar/types.ts` (add `SlackBlock` type alias) ✅
 
 **What to build:**
-1. Write test: `formatSlackMessage([mockEntry])` returns Block Kit JSON with event name, type, dates, DRI, channel plan as a bulleted list
-2. Write test: `formatSlackMessage([])` returns null (nothing to notify)
-3. Implement `formatSlackMessage()` — pure function, no network calls
-4. Verify: `npm test`
-5. Commit: `feat(slack): add Block Kit message formatter for calendar notifications`
+1. Write test: `formatSlackMessage([mockEntry])` returns Block Kit JSON with event name, type, dates, DRI, channel plan as a bulleted list ✅
+2. Write test: `formatSlackMessage([])` returns null (nothing to notify) ✅
+3. Implement `formatSlackMessage()` — pure function, no network calls ✅
+4. Verify: `npm test` ✅
+5. Commit: `feat(slack): add Block Kit message formatter for calendar notifications` ✅
 
 **Block Kit structure (target output):**
 ```json
