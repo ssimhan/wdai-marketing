@@ -125,17 +125,17 @@
 5. Verify: `npm test` + manual `npm run calendar:sync:mock` (should skip notification if no webhook URL) ✅
 6. Commit: `feat(slack): integrate webhook notification into sync pipeline` ✅
 
-### Chunk A4: GitHub Actions Update (~30 min)
+### Chunk A4: GitHub Actions Update (~30 min) ✅
 
 **Files:**
-- Modify: `.github/workflows/calendar-sync.yml`
+- Modify: `.github/workflows/calendar-sync.yml` ✅
 
 **What to build:**
-1. Add `SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}` to the sync step's env
-2. Update the commit step to also `git add vault/.calendar-snapshot.json` (if not gitignored) or add it to `.gitignore`
-3. Also `git add vault/content-calendar.html` (currently only adding `.md`)
-4. Verify: review diff manually (no test for this — it's a config file)
-5. Commit: `ci(calendar): add Slack webhook and HTML to sync workflow`
+1. Add `SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}` to the sync step's env ✅
+2. Update the commit step to also `git add vault/.calendar-snapshot.json` (if not gitignored) or add it to `.gitignore` ✅ (added to .gitignore)
+3. Also `git add vault/content-calendar.html` (currently only adding `.md`) ✅
+4. Verify: review diff manually (no test for this — it's a config file) ✅
+5. Commit: `ci(calendar): add Slack webhook and HTML to sync workflow` ✅
 
 ---
 
