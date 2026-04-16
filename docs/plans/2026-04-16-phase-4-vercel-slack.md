@@ -57,7 +57,7 @@
 
 **Success Criteria:**
 - [x] `formatSlackMessage(entries)` returns valid Slack Block Kit JSON
-- [ ] `detectChanges(previous, current)` identifies new and changed events
+- [x] `detectChanges(previous, current)` identifies new and changed events
 - [ ] `sendSlackNotification(url, blocks)` POSTs to a webhook
 - [ ] Sync pipeline calls notifier after writing calendar files
 - [ ] GitHub Actions workflow includes Slack notification step
@@ -90,21 +90,21 @@
 }
 ```
 
-### Chunk A2: Change Detection (~1.5 hours)
+### Chunk A2: Change Detection (~1.5 hours) ✅
 
 **Files:**
-- Create: `tools/calendar/diff.ts`
-- Create: `tools/calendar/__tests__/diff.test.ts`
+- Create: `tools/calendar/diff.ts` ✅
+- Create: `tools/calendar/__tests__/diff.test.ts` ✅
 
 **What to build:**
-1. Write test: `detectChanges([], currentEntries)` → all entries are "new"
-2. Write test: `detectChanges(previousEntries, sameEntries)` → empty result (no changes)
-3. Write test: `detectChanges(previousEntries, updatedEntries)` → detects changed event (date moved, DRI changed, etc.)
-4. Implement `detectChanges(previous: CalendarEntry[], current: CalendarEntry[]): { added: CalendarEntry[], changed: CalendarEntry[] }`
-5. Strategy: compare by `luma_id`, detect changes by comparing a hash of key fields (start_at, end_at, dri, channel_plan length)
-6. Persist previous state: save `vault/.calendar-snapshot.json` after each sync (gitignored)
-7. Verify: `npm test`
-8. Commit: `feat(diff): detect new and changed events between syncs`
+1. Write test: `detectChanges([], currentEntries)` → all entries are "new" ✅
+2. Write test: `detectChanges(previousEntries, sameEntries)` → empty result (no changes) ✅
+3. Write test: `detectChanges(previousEntries, updatedEntries)` → detects changed event (date moved, DRI changed, etc.) ✅
+4. Implement `detectChanges(previous: CalendarEntry[], current: CalendarEntry[]): { added: CalendarEntry[], changed: CalendarEntry[] }` ✅
+5. Strategy: compare by `luma_id`, detect changes by comparing a hash of key fields (start_at, end_at, dri, channel_plan length) ✅
+6. Persist previous state: save `vault/.calendar-snapshot.json` after each sync (gitignored) — *deferred to A3*
+7. Verify: `npm test` ✅
+8. Commit: `feat(diff): detect new and changed events between syncs` ✅
 
 ### Chunk A3: Webhook Sender + Sync Integration (~1 hour)
 
