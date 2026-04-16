@@ -14,7 +14,7 @@
 - [x] daily-content-scout (React app: 7 Slack passes → ideas channel)
 - [x] email-templates.md (seeded in promo skills)
 
-## Phase 3: Content Calendar System (In Progress)
+## Phase 3: Content Calendar System ✅
 
 ### Block A: Luma Calendar Sync ✅
 - [x] TypeScript project scaffolding
@@ -29,16 +29,16 @@
 
 ### Block B: HTML Viewer + Promo Rules ✅
 - [x] PromoMoment, PromoRules, OverridesMap types
-- [x] promo-rules.yaml + overrides.yaml configs
+- [x] promo-rules.yaml + overrides.yaml configs (filled with real DRI + moments)
 - [x] rules-loader (graceful file-load with YAML parse)
 - [x] Mapper enrichment (rules + overrides priority logic)
 - [x] Markdown channel plan table renderer
 - [x] HTML viewer (three-tab: By Date, By Event, How to Edit)
 - [x] Sync orchestration (load rules, write both .md + .html)
 - [x] CC integration (promo skills + README updated)
+- [x] Cache-aside layer (TTL cache, LUMA_FORCE bypass, gitignored)
+- [x] Live API smoke test passed (197 real events)
 - [x] Test coverage (33 tests, 1 skipped)
-- [ ] **DEFERRED**: Fill in promo-rules.yaml content (Slack MCP)
-- [ ] **DEFERRED**: Live API smoke test
 
 ### Block C: CC Integration ✅
 - [x] Update promo-programmatic skill with calendar context
@@ -66,10 +66,4 @@
 
 ---
 
-## Active Deferred Items (Start Next Session)
-
-**Phase 3 Block B**
-1. Fill in `tools/calendar/promo-rules.yaml` — Use Slack MCP to draft DRI + channel moments for each event type
-2. Run live API smoke test — `LUMA_API_KEY=<key> npm run calendar:sync`
-
-These are the critical path blockers for Phase 3 to be considered fully complete.
+## Next Up: Phase 4 — Vault Go-Live

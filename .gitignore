@@ -3,3 +3,4 @@ mailchimp-cc/
 node_modules/
 dist/
 .env.local
+tools/calendar/__fixtures__/luma-events-cache.json

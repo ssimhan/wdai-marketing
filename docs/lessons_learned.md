@@ -1,5 +1,28 @@
 # Lessons Learned
 
+## 2026-04-16 — Phase 3 Closeout: Live API Smoke Test + Idempotency
+
+### Architectural Insights
+
+**Cache-Aside Pattern for External APIs**
+When calling a rate-limited API, write results to a local cache file after the first fetch. On subsequent runs, check the cache first (respecting a TTL). This makes repeated dev/debug runs free and safe. The escape hatch (`LUMA_FORCE=true`) ensures you can always get fresh data when needed. This pattern is called **cache-aside** — the caller manages the cache, the API stays unaware.
+
+**Override Chain for Environment Files**
+Load `.env.local` before `.env` so local secrets take precedence over shared defaults. This is called an **override chain** — more specific sources win. `dotenv/config` only loads `.env` by default; you must call `dotenv.config({ path: '.env.local' })` explicitly first.
+
+### Spec-Crafting for AI Agents
+
+**Environment wiring is part of the feature, not an afterthought.** If you don't specify which file loads secrets, the agent will assume `.env`. Next time, say: *"Load `.env.local` first, then `.env`, so local secrets override shared defaults."*
+
+**Define idempotency strategy upfront for any external API call.** Next time, say: *"After fetching from the live API, cache to a local file. Use the cache on re-runs if it's less than 1 hour old. Add a `FORCE` escape hatch. Gitignore the cache file."*
+
+### What Went Well
+
+- Smoke test passed first run after env fix — 197 real Luma events fetched cleanly
+- Cache implementation required zero changes to sync.ts or any other module — luma-client.ts was the only file touched (adapter pattern paying off)
+
+---
+
 ## 2026-04-14 — Phase 3 Block A: Luma Calendar Sync
 
 ### Architectural Insights
