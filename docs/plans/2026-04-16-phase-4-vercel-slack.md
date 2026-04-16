@@ -58,11 +58,11 @@
 **Success Criteria:**
 - [x] `formatSlackMessage(entries)` returns valid Slack Block Kit JSON
 - [x] `detectChanges(previous, current)` identifies new and changed events
-- [ ] `sendSlackNotification(url, blocks)` POSTs to a webhook
-- [ ] Sync pipeline calls notifier after writing calendar files
+- [x] `sendSlackNotification(url, blocks)` POSTs to a webhook
+- [x] Sync pipeline calls notifier after writing calendar files
 - [ ] GitHub Actions workflow includes Slack notification step
-- [ ] All unit tests pass; live Slack test gated behind env flag
-- [ ] Duplicate syncs with no changes produce no Slack message
+- [x] All unit tests pass; live Slack test gated behind env flag
+- [x] Duplicate syncs with no changes produce no Slack message
 
 ### Chunk A1: Slack Message Formatter (~1.5 hours) ✅
 
@@ -106,24 +106,24 @@
 7. Verify: `npm test` ✅
 8. Commit: `feat(diff): detect new and changed events between syncs` ✅
 
-### Chunk A3: Webhook Sender + Sync Integration (~1 hour)
+### Chunk A3: Webhook Sender + Sync Integration (~1 hour) ✅
 
 **Files:**
-- Modify: `tools/calendar/slack-notifier.ts` (add `sendSlackNotification()`)
-- Modify: `tools/calendar/sync.ts` (call notifier after writing files)
-- Modify: `tools/calendar/__tests__/slack-notifier.test.ts` (add send test)
+- Modify: `tools/calendar/slack-notifier.ts` (add `sendSlackNotification()`) ✅
+- Modify: `tools/calendar/sync.ts` (call notifier after writing files) ✅
+- Modify: `tools/calendar/__tests__/slack-notifier.test.ts` (add send test) ✅
 
 **What to build:**
-1. Write test: `sendSlackNotification(mockUrl, blocks)` calls `fetch` with correct headers/body (mock `fetch`)
-2. Implement `sendSlackNotification(webhookUrl: string, blocks: SlackBlock[])` — POST with 10s timeout, catches errors (logs warning, doesn't crash sync)
-3. Update `sync.ts`:
-   - After writing md/html files, load previous snapshot
-   - Run `detectChanges(previous, current)`
-   - If changes exist, call `formatSlackMessage()` → `sendSlackNotification()`
-   - Save new snapshot
-4. Add `SLACK_WEBHOOK_URL` to `.env.example`
-5. Verify: `npm test` + manual `npm run calendar:sync:mock` (should skip notification if no webhook URL)
-6. Commit: `feat(slack): integrate webhook notification into sync pipeline`
+1. Write test: `sendSlackNotification(mockUrl, blocks)` calls `fetch` with correct headers/body (mock `fetch`) ✅
+2. Implement `sendSlackNotification(webhookUrl: string, blocks: SlackBlock[])` — POST with 10s timeout, catches errors (logs warning, doesn't crash sync) ✅
+3. Update `sync.ts`: ✅
+   - After writing md/html files, load previous snapshot ✅
+   - Run `detectChanges(previous, current)` ✅
+   - If changes exist, call `formatSlackMessage()` → `sendSlackNotification()` ✅
+   - Save new snapshot ✅
+4. Add `SLACK_WEBHOOK_URL` to `.env.example` ✅
+5. Verify: `npm test` + manual `npm run calendar:sync:mock` (should skip notification if no webhook URL) ✅
+6. Commit: `feat(slack): integrate webhook notification into sync pipeline` ✅
 
 ### Chunk A4: GitHub Actions Update (~30 min)
 
