@@ -4,3 +4,4 @@ node_modules/
 dist/
 .env.local
 tools/calendar/__fixtures__/luma-events-cache.json
+vault/.calendar-snapshot.json

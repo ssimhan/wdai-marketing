@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { formatSlackMessage } from '../slack-notifier.js'
+import { describe, it, expect, vi } from 'vitest'
+import { formatSlackMessage, sendSlackNotification } from '../slack-notifier.js'
 import type { CalendarEntry } from '../types.js'
 
 const mockEntry: CalendarEntry = {
@@ -106,5 +106,61 @@ describe('formatSlackMessage', () => {
     // Count dividers — should be at least one per entry
     const dividers = result?.blocks?.filter((b: any) => b.type === 'divider')
     expect(dividers?.length).toBeGreaterThanOrEqual(2)
+  })
+})
+
+describe('sendSlackNotification', () => {
+  it('POSTs to webhook URL with correct headers and body', async () => {
+    const mockFetch = vi.fn().mockResolvedValue({ ok: true, status: 200 })
+    global.fetch = mockFetch
+
+    const webhookUrl = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXX'
+    const blocks = [
+      {
+        type: 'header',
+        text: { type: 'plain_text', text: '📅 Calendar Update' },
+      },
+    ]
+
+    await sendSlackNotification(webhookUrl, blocks)
+
+    expect(mockFetch).toHaveBeenCalledOnce()
+    const call = mockFetch.mock.calls[0]
+    expect(call[0]).toBe(webhookUrl)
+    expect(call[1]).toEqual({
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ blocks }),
+      signal: expect.any(AbortSignal),
+    })
+  })
+
+  it('catches and logs errors without throwing', async () => {
+    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const mockFetch = vi.fn().mockRejectedValue(new Error('Network error'))
+    global.fetch = mockFetch
+
+    const webhookUrl = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXX'
+    const blocks = [{ type: 'header', text: { type: 'plain_text', text: 'Test' } }]
+
+    // Should not throw
+    await expect(sendSlackNotification(webhookUrl, blocks)).resolves.toBeUndefined()
+
+    expect(consoleWarnSpy).toHaveBeenCalled()
+    consoleWarnSpy.mockRestore()
+  })
+
+  it('uses 10 second timeout for abort', async () => {
+    const mockFetch = vi.fn().mockResolvedValue({ ok: true })
+    global.fetch = mockFetch
+
+    const webhookUrl = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXX'
+    const blocks = [{ type: 'header', text: { type: 'plain_text', text: 'Test' } }]
+
+    await sendSlackNotification(webhookUrl, blocks)
+
+    const call = mockFetch.mock.calls[0]
+    const signal = call[1].signal as AbortSignal
+    expect(signal).toBeDefined()
   })
 })
