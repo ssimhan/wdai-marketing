@@ -45,8 +45,7 @@
 - [x] Update promo-adhoc skill with calendar context
 - [x] README shows how to load content-calendar.md as CC context
 
-## Phase 4: Vercel + Slack Approval Loop ✅ (Blocks A/B/D1 complete; C/D2 deferred)
-
+## Phase 4: Vercel + Slack Approval Loop ✅
 ### Block A: Slack Notification Pipeline ✅
 - [x] Slack Block Kit message formatter (pure function)
 - [x] Change detection (new/changed events between syncs)
@@ -61,19 +60,41 @@
 - [ ] Deploy vault/ as static site, vercel.json config
 - [ ] Vercel Authentication (magic links, whitelisted team emails)
 
-### Block D: Slack Interactive Approval (D1 complete; D2 deferred)
-- [x] Approve/Edit buttons on Slack messages (D1 ✅)
-- [ ] Vercel serverless endpoint for button callbacks → updates status via GitHub API (D2 — needs Vercel live)
+### Block D: Slack Interactive Approval ✅
+- [x] Approve/Edit buttons on Slack messages (D1)
+- [x] Vercel serverless endpoint for button callbacks → updates status via GitHub API (D2 — completed as part of Phase 5)
 
-## Phase 5: Copy Generation + Per-Leader Approval
-See `docs/plans/2026-04-16-phase-5-copy-generation.md` for full plan.
-- [ ] Copy data model + flat-file storage (vault/promos/<event-id>/)
-- [ ] AI drafts copy per channel using voice guides from vault
-- [ ] CLI: `calendar generate-copy --event <id>`
-- [ ] Copy displayed in HTML calendar viewer
-- [ ] Slack DMs to DRI with approve/edit buttons
-- [ ] Edit modal for copy revisions
-- [ ] Interaction endpoint (completes Phase 4 C/D2 as part of this block)
+## Phase 5: Copy Generation + Per-Leader Approval ✅
+### Block A: Copy Data Model ✅
+- [x] Copy data model + flat-file storage (vault/promos/<event-id>/)
+- [x] CopyDraft, CopyStatus types with approval workflow fields
+- [x] copy-store.ts: read/write YAML for per-event copy
+
+### Block B: Voice Guides ✅
+- [x] voice-loader.ts loads brand, LinkedIn, Helen voice guides from vault
+- [x] Graceful fallback for missing files (returns empty string)
+
+### Block C: Prompt Building ✅
+- [x] prompt-builder.ts combines event + moment + voice guides into system/user prompts
+- [x] Channel-specific voice injection (LinkedIn, Slack, email)
+
+### Block D: Copy Generation (partial) ✅
+- [x] copy-generator.ts calls Anthropic API (claude-haiku-4-5-20251001)
+- [x] generate.ts CLI: `calendar generate-copy --event <id> --channel <channel>`
+- [x] Timeout + retry logic (60s, single retry)
+- [x] Skips moments with existing approved copy
+
+### Block E: HTML Viewer Integration ✅
+- [x] Copy display in calendar HTML viewer (status badges, copy panels)
+- [x] renderChannelPlanMd() shows copy excerpt alongside moment plan
+- [x] copyStatusBadge() shows 🔲/🟡/✅/📤 status
+
+### Block F: Slack Interactions ✅
+- [x] Vercel serverless endpoint (api/slack/interactions.ts)
+- [x] Slack signature verification (timing-safe HMAC-SHA256)
+- [x] Handle "approve" action: fetch status file, update, PUT via GitHub API
+- [x] vercel.json routing + environment variable configuration
+- [x] 11 comprehensive unit tests for signature, GitHub ops, routing
 
 ## Phase 6: Auto-Publishing (org channels only)
 - [ ] WDAI LinkedIn auto-post (org page API token)

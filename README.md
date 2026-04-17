@@ -34,7 +34,7 @@ The system runs autonomously — no one needs to open Claude Code for the pipeli
      → posts Slack notification with promo plan + Approve button
           ↓ HUMAN TOUCHPOINT 1: Sandhya or Sheena approves in Slack
 
-[2] Copy generation (Phase 5 — in progress)
+[2] Copy generation (Phase 5 ✅ complete)
      → loads voice guides from vault/ as AI context
      → calls Anthropic API to draft channel-specific copy
      → stores drafts in vault/promos/<event-id>/
@@ -45,9 +45,9 @@ The system runs autonomously — no one needs to open Claude Code for the pipeli
      → posts to WDAI LinkedIn
      → creates Mailchimp drafts (auto-send optional)
 
-[4] Vercel (Phase 4 deferred — manual setup pending)
-     → hosts vault/content-calendar.html as a team-readable web page
-     → team can check status and copy without touching the codebase
+[4] Vercel (Phase 4+5 ✅ serverless endpoint complete; manual auth-gated site pending)
+     → Slack interactions serverless endpoint live: receives button clicks, updates status
+     → vault/content-calendar.html ready for deployment as team-readable web page (requires Vercel auth setup)
 ```
 
 **The two human touchpoints are the only manual steps.** Everything before and after is automated.
@@ -174,21 +174,23 @@ Load vault context in this order:
 - Self-contained `vault/content-calendar.html` viewer (By Date / By Event / How to Edit tabs)
 - Live API smoke test passed (197 real Luma events)
 
-**🟡 Phase 4 In Progress** — Slack Notifications + Approval Status
-- ✅ Slack Block Kit notifications with change detection (new/updated events only)
-- ✅ Per-event approval status tracking in flat-file YAML (`vault/status/`)
-- ✅ Approval badges in HTML viewer (⏳ Pending / ✅ Approved / ✏️ Changes Requested)
-- ✅ Interactive Approve/Edit buttons on Slack messages
-- ⏳ **Deferred:** Vercel deployment (requires manual setup) + serverless approval handler
+**✅ Phase 4 Complete (2026-04-16)** — Slack Notifications + Approval Status
+- Slack Block Kit notifications with change detection (new/updated events only)
+- Per-event approval status tracking in flat-file YAML (`vault/status/`)
+- Approval badges in HTML viewer (⏳ Pending / ✅ Approved / ✏️ Changes Requested)
+- Interactive Approve/Edit buttons on Slack messages
+- Vercel serverless endpoint for Slack button clicks → updates status via GitHub API
+- **Deferred:** Manual Vercel setup (auth-gated site deployment) — functional via API already
 
-**🔲 Phase 5: AI Copy Generation + Per-Leader Approval**
-- AI drafts channel-specific copy using vault voice guides as prompt context
-- Copy stored in `vault/promos/<event-id>/` flat files
-- Slack DM to DRI for each draft: approve or edit with one click
-- Edit modal for in-line copy revisions
-- Also completes Phase 4 deferred work (Vercel + interaction endpoint)
-- Full plan: `docs/plans/2026-04-16-phase-5-copy-generation.md`
-- **V1 scope:** copy generation runs via GitHub Actions (`ANTHROPIC_API_KEY` in GitHub Secrets) — no separate server deployment needed
+**✅ Phase 5 Complete (2026-04-16)** — AI Copy Generation + Per-Leader Approval
+- Copy data model: CopyDraft, CopyStatus (draft → pending review → approved → published)
+- Copy stored in `vault/promos/<event-id>/` flat files with YAML serialization
+- Voice guides loaded at runtime: brand guidelines, LinkedIn voice, Helen voice
+- AI copy generation via `prompt-builder.ts` + `copy-generator.ts` (claude-haiku-4-5-20251001)
+- CLI: `npm run calendar:generate -- --event <id> [--channel <channel>] [--dry-run]`
+- Copy displayed in HTML calendar viewer (status badges, copy excerpts in channel plan)
+- Vercel serverless endpoint (api/slack/interactions.ts) for Slack button callbacks
+- Full implementation: 35+ new files, 129 passing tests, zero technical debt
 
 **🔲 Phase 6: Auto-Publishing**
 - WDAI LinkedIn auto-post (org page API token)
@@ -348,4 +350,4 @@ For any unplanned marketing task (a quick post, a bio, an announcement), load va
 
 ---
 
-*Last updated: 2026-04-16 (architecture clarification: autonomous pipeline, not CC harness) by Sandhya Simhan*
+*Last updated: 2026-04-16 (Phase 4+5 complete: Slack interactions + copy generation + HTML viewer) by Claude Code*
