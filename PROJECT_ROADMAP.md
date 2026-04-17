@@ -96,6 +96,13 @@
 - [x] vercel.json routing + environment variable configuration
 - [x] 11 comprehensive unit tests for signature, GitHub ops, routing
 
+## HTML Viewer UX Improvements (small tweaks, no phase dependency)
+- [ ] Hide past events by default in By Date and By Event tabs; add "Show past events" toggle button to reveal them
+- [ ] Slack moments should show which specific WDAI Slack channel to post in (e.g. #general, #announcements) and the name of the person responsible — visible before approving the plan
+
+## Phase 5B: Leader Voice Integration
+- [ ] Once leader voice skills are onboarded, copy-generator.ts should load the DRI's personal voice skill (e.g. vault/skills/voice-helen/) in addition to brand guidelines — so generated copy sounds like the person posting it, not just the org
+
 ## Phase 6: Auto-Publishing (org channels only)
 - [ ] WDAI LinkedIn auto-post (org page API token)
 - [ ] Mailchimp draft creation (hooks into existing wdai-mc system)

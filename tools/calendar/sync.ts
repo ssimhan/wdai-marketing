@@ -25,12 +25,18 @@ async function main() {
   const isMock = process.env.LUMA_MOCK === 'true'
   console.log(`Running calendar sync (${isMock ? 'mock' : 'live'} mode)...`)
 
-  const rawEvents = await fetchAllEvents()
+  const allEvents  = await fetchAllEvents()
+  // Drop events that ended more than LUMA_LOOKBACK_DAYS ago (default: 30).
+  // Keeps the calendar focused on recent + upcoming events only.
+  const lookbackDays = Number(process.env.LUMA_LOOKBACK_DAYS ?? 0)
+  const cutoff = new Date(Date.now() - lookbackDays * 24 * 60 * 60 * 1000).toISOString()
+  const rawEvents = allEvents.filter(e => e.event.end_at >= cutoff)
+  console.log(`  Fetched ${allEvents.length} events from Luma, kept ${rawEvents.length} (ended within ${lookbackDays} days)`)
+
   const rules     = loadPromoRules(RULES_PATH)
   const overrides = loadOverrides(OVERRIDES_PATH)
   const statuses  = readAllStatuses(STATUS_DIR_PATH)
   const copyMap   = loadAllCopyDrafts(PROMOS_DIR_PATH)
-  console.log(`  Fetched ${rawEvents.length} events from Luma`)
 
   const syncedAt = new Date().toISOString()
   const entries  = rawEvents.map(e => mapLumaEvent(e, rules, overrides, statuses, copyMap))
