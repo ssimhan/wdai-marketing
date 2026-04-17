@@ -126,6 +126,12 @@ export interface PromoStatus {
   notes?: string
 }
 
+export interface VoiceGuides {
+  brand: string       // vault/brand-guidelines.md
+  linkedin: string    // vault/linkedin-voice.md
+  slack: string       // vault/helen-voice.md (Helen's Slack voice)
+}
+
 // Channel metadata for rendering
 export const CHANNEL_LABELS: Record<PromoChannel, string> = {
   'linkedin-wdai': 'LinkedIn · WDAI',
