@@ -1,4 +1,4 @@
-import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment, PromoMomentRule, PromoStatus } from './types.js'
+import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment, PromoMomentRule, PromoStatus, CopyDraft, CopyStatus } from './types.js'
 
 const TAG_TO_TYPE: Record<string, EventType> = {
   'ai-basics': 'ai-basics',
@@ -35,11 +35,20 @@ function buildMoments(
   }))
 }
 
+function deriveCopyStatus(drafts: CopyDraft[]): CopyStatus {
+  if (drafts.length === 0) return '🔲 Not started'
+  const statuses = drafts.map(d => d.status)
+  if (statuses.every(s => s === 'published')) return '📤 Sent'
+  if (statuses.every(s => s === 'approved' || s === 'published')) return '✅ Approved'
+  return '🟡 In progress'
+}
+
 export function mapLumaEvent(
   raw: LumaEvent,
   rules?: PromoRules,
   overrides?: OverridesMap,
   statuses?: Map<string, PromoStatus>,
+  copyMap?: Map<string, CopyDraft[]>,
 ): CalendarEntry {
   const { event, tags } = raw
   const eventType = classifyEventType(tags)
@@ -54,6 +63,9 @@ export function mapLumaEvent(
   const rawMoments = override?.moments ?? rule?.moments ?? []
   const channel_plan = buildMoments(event.start_at, rawMoments, dri)
 
+  const copy_drafts = copyMap ? (copyMap.get(event.api_id) ?? []) : undefined
+  const copy_status = deriveCopyStatus(copy_drafts ?? [])
+
   return {
     luma_id: event.api_id,
     name: event.name,
@@ -67,7 +79,8 @@ export function mapLumaEvent(
     tags,
     promo_window_start: subtractDays(event.start_at, 14),
     dri,
-    copy_status: '🔲 Not started',
+    copy_status,
+    copy_drafts,
     approval_status: status?.approval_status ?? 'pending',
     channel_plan,
     notes: event.description_md?.slice(0, 200) ?? '',

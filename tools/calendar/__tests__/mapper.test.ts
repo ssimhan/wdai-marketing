@@ -82,6 +82,77 @@ describe('mapLumaEvent with rules', () => {
   })
 })
 
+describe('mapLumaEvent with copy drafts', () => {
+  it('sets copy_status to Not started when no drafts provided', () => {
+    const entry = mapLumaEvent(mockEvent)
+    expect(entry.copy_status).toBe('🔲 Not started')
+    expect(entry.copy_drafts).toBeUndefined()
+  })
+
+  it('sets copy_status to Not started when copy map is empty', () => {
+    const copyMap = new Map()
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, undefined, copyMap)
+    expect(entry.copy_status).toBe('🔲 Not started')
+    expect(entry.copy_drafts).toEqual([])
+  })
+
+  it('attaches copy drafts for the event', () => {
+    const drafts: import('../types.js').CopyDraft[] = [
+      {
+        luma_id: 'evt-001',
+        channel: 'linkedin-wdai',
+        label: 'Announce',
+        content: 'Copy text',
+        status: 'draft',
+        generated_at: '2026-04-16T12:00:00Z',
+        generated_by: 'claude',
+      },
+    ]
+    const copyMap = new Map([['evt-001', drafts]])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, undefined, copyMap)
+    expect(entry.copy_drafts).toEqual(drafts)
+  })
+
+  it('derives copy_status In progress when any draft is pending_review', () => {
+    const drafts: import('../types.js').CopyDraft[] = [
+      { luma_id: 'evt-001', channel: 'linkedin-wdai', label: 'A', content: 'x', status: 'pending_review', generated_at: '', generated_by: 'claude' },
+      { luma_id: 'evt-001', channel: 'slack', label: 'B', content: 'y', status: 'draft', generated_at: '', generated_by: 'claude' },
+    ]
+    const copyMap = new Map([['evt-001', drafts]])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, undefined, copyMap)
+    expect(entry.copy_status).toBe('🟡 In progress')
+  })
+
+  it('derives copy_status Approved when all drafts are approved', () => {
+    const drafts: import('../types.js').CopyDraft[] = [
+      { luma_id: 'evt-001', channel: 'linkedin-wdai', label: 'A', content: 'x', status: 'approved', generated_at: '', generated_by: 'claude' },
+      { luma_id: 'evt-001', channel: 'slack', label: 'B', content: 'y', status: 'approved', generated_at: '', generated_by: 'claude' },
+    ]
+    const copyMap = new Map([['evt-001', drafts]])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, undefined, copyMap)
+    expect(entry.copy_status).toBe('✅ Approved')
+  })
+
+  it('derives copy_status Sent when all drafts are published', () => {
+    const drafts: import('../types.js').CopyDraft[] = [
+      { luma_id: 'evt-001', channel: 'linkedin-wdai', label: 'A', content: 'x', status: 'published', generated_at: '', generated_by: 'claude' },
+    ]
+    const copyMap = new Map([['evt-001', drafts]])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, undefined, copyMap)
+    expect(entry.copy_status).toBe('📤 Sent')
+  })
+
+  it('derives copy_status In progress when drafts are mixed draft and approved', () => {
+    const drafts: import('../types.js').CopyDraft[] = [
+      { luma_id: 'evt-001', channel: 'linkedin-wdai', label: 'A', content: 'x', status: 'approved', generated_at: '', generated_by: 'claude' },
+      { luma_id: 'evt-001', channel: 'slack', label: 'B', content: 'y', status: 'draft', generated_at: '', generated_by: 'claude' },
+    ]
+    const copyMap = new Map([['evt-001', drafts]])
+    const entry = mapLumaEvent(mockEvent, undefined, undefined, undefined, copyMap)
+    expect(entry.copy_status).toBe('🟡 In progress')
+  })
+})
+
 describe('mapLumaEvent with approval status', () => {
   it('sets default approval_status to pending when no status provided', () => {
     const entry = mapLumaEvent(mockEvent)
