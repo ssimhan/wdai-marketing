@@ -1,4 +1,4 @@
-import type { CalendarEntry, PromoMoment, EventType, ApprovalStatus } from './types.js'
+import type { CalendarEntry, PromoMoment, EventType, ApprovalStatus, CopyDraft, CopyDraftStatus } from './types.js'
 import { CHANNEL_LABELS } from './types.js'
 
 // ── Date helpers ──
@@ -49,6 +49,7 @@ interface FlatMoment extends PromoMoment {
   event_luma_id: string
   event_name: string
   event_type: EventType
+  copy_draft?: CopyDraft
 }
 
 function flattenMoments(entries: CalendarEntry[]): FlatMoment[] {
@@ -58,6 +59,7 @@ function flattenMoments(entries: CalendarEntry[]): FlatMoment[] {
       event_luma_id: e.luma_id,
       event_name: e.name,
       event_type: e.event_type,
+      copy_draft: e.copy_drafts?.find(d => d.channel === m.channel),
     })))
     .sort((a, b) => a.scheduled_at.localeCompare(b.scheduled_at))
 }
@@ -91,6 +93,24 @@ function approvalBadge(status: ApprovalStatus): string {
   }
   const badge = badges[status]
   return `<span class="approval-badge ${badge.css}">${badge.emoji} ${badge.label}</span>`
+}
+
+function copyStatusBadge(status: CopyDraftStatus): string {
+  const badges: Record<CopyDraftStatus, { label: string; css: string }> = {
+    draft:          { label: 'Draft',          css: 'copy-badge-draft'          },
+    pending_review: { label: 'Pending Review', css: 'copy-badge-pending-review' },
+    approved:       { label: 'Approved',       css: 'copy-badge-approved'       },
+    published:      { label: 'Published',      css: 'copy-badge-published'      },
+  }
+  const badge = badges[status]
+  return `<span class="copy-status-badge ${badge.css}">${badge.label}</span>`
+}
+
+function copyPanelContent(draft: CopyDraft | undefined): string {
+  if (!draft) {
+    return `<p class="copy-empty"><em>No copy yet — run <code>npm run calendar:generate</code> to draft copy.</em></p>`
+  }
+  return `${copyStatusBadge(draft.status)}<p>${draft.content}</p>`
 }
 
 // ── ID counter for expand/collapse pairs ──
@@ -137,7 +157,7 @@ function renderDateView(entries: CalendarEntry[]): string {
         <div class="col-event"><span class="event-chip"><span class="event-dot ${TYPE_META[m.event_type].dot}"></span><span><span class="event-name-text">${m.event_name}</span><span class="event-label"> · ${m.label}</span></span></span></div>
         <div class="col-dri">${driChip(m.dri)}</div>
       </div>
-      <div class="copy-panel" id="${id}"><div class="copy-label">Copy</div><p class="copy-empty"><em>*(draft pending — fill in promo-rules.yaml to generate)*</em></p></div>`
+      <div class="copy-panel" id="${id}"><div class="copy-label">Copy</div>${copyPanelContent(m.copy_draft)}</div>`
     }).join('\n')
     return `
     <div class="week-group">
@@ -173,6 +193,7 @@ function renderEventView(entries: CalendarEntry[]): string {
       ? `<tr><td colspan="4" style="color:var(--muted);font-style:italic;padding:14px 16px">No channel plan — fill in promo-rules.yaml</td></tr>`
       : e.channel_plan.map(m => {
           const rowId = uid()
+          const draft = e.copy_drafts?.find(d => d.channel === m.channel)
           return `
             <tr onclick="togglePlanRow('${rowId}')">
               <td>${channelBadge(m.channel)}</td>
@@ -180,7 +201,7 @@ function renderEventView(entries: CalendarEntry[]): string {
               <td>${fmtDow(m.scheduled_at)}</td>
               <td>${m.label}</td>
             </tr>
-            <tr class="plan-copy-row" id="${rowId}"><td colspan="4"><div class="plan-copy-inner"><em style="color:var(--muted)">*(draft pending — fill in promo-rules.yaml)*</em></div></td></tr>`
+            <tr class="plan-copy-row" id="${rowId}"><td colspan="4"><div class="plan-copy-inner">${copyPanelContent(draft)}</div></td></tr>`
         }).join('\n')
 
     const dateRange = eventDateRange(e)
@@ -476,7 +497,17 @@ const CSS = `
     .docs-body pre .key     { color: #89b4fa; }
     .docs-body pre .val     { color: #a6e3a1; }
     .docs-body ol { padding-left: 18px; max-width: 580px; }
-    .docs-body ol li { margin-bottom: 4px; }`
+    .docs-body ol li { margin-bottom: 4px; }
+
+    /* ── Copy status badges ── */
+    .copy-status-badge {
+      display: inline-flex; align-items: center;
+      padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; margin-bottom: 6px;
+    }
+    .copy-badge-draft          { background: #f3f4f6; color: #6b7280; }
+    .copy-badge-pending-review { background: #fef3c7; color: #92400e; }
+    .copy-badge-approved       { background: #d1fae5; color: #065f46; }
+    .copy-badge-published      { background: #dbeafe; color: #1e40af; }`
 
 // ── JS (inlined from prototype) ──
 const JS = `

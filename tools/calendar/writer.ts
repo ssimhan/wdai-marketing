@@ -1,4 +1,4 @@
-import type { CalendarEntry, PromoMoment } from './types.js'
+import type { CalendarEntry, PromoMoment, CopyDraft } from './types.js'
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-US', {
@@ -12,11 +12,19 @@ function summaryRow(e: CalendarEntry): string {
   return `| [${e.name}](#${e.luma_id}) | ${e.event_type} | ${formatDate(e.start_at)} | ${formatDate(e.promo_window_start)} | ${e.dri || '—'} | ${e.copy_status} | ${e.approval_status} |`
 }
 
-function renderChannelPlanMd(moments: PromoMoment[]): string {
+function copyExcerpt(draft: CopyDraft | undefined): string {
+  if (!draft) return ''
+  const excerpt = draft.content.slice(0, 100)
+  const truncated = draft.content.length > 100 ? `${excerpt}…` : excerpt
+  return ` *(${truncated})*`
+}
+
+function renderChannelPlanMd(moments: PromoMoment[], copyDrafts?: CopyDraft[]): string {
   if (moments.length === 0) return '*(No channel plan — fill in promo-rules.yaml)*'
-  const rows = moments.map(m =>
-    `| ${m.channel} | ${m.dri || '—'} | ${formatDate(m.scheduled_at)} | ${m.label} |`
-  )
+  const rows = moments.map(m => {
+    const draft = copyDrafts?.find(d => d.channel === m.channel)
+    return `| ${m.channel} | ${m.dri || '—'} | ${formatDate(m.scheduled_at)} | ${m.label}${copyExcerpt(draft)} |`
+  })
   return [
     '| Channel | DRI | Date | Moment |',
     '|---------|-----|------|--------|',
@@ -40,7 +48,7 @@ function detailBlock(e: CalendarEntry): string {
     `**Approval Status:** ${e.approval_status}`,
     '',
     '### Channel Plan',
-    renderChannelPlanMd(e.channel_plan),
+    renderChannelPlanMd(e.channel_plan, e.copy_drafts),
     '',
     '### Notes',
     e.notes || '*(No description)*',

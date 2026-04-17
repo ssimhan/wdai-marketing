@@ -68,3 +68,37 @@ describe('renderCalendar with channel plan', () => {
     expect(md).toContain('Announce open enrollment')
   })
 })
+
+describe('renderCalendar with copy drafts', () => {
+  const entryWithCopy: CalendarEntry = {
+    ...entryWithPlan,
+    copy_drafts: [
+      {
+        luma_id: 'evt-001',
+        channel: 'linkedin-wdai',
+        label: 'Announce open enrollment',
+        content: 'Exciting news! AI Basics W27 is open for enrollment. Join us to learn.',
+        status: 'approved',
+        generated_at: '2026-04-16T12:00:00Z',
+        generated_by: 'claude',
+      },
+    ],
+  }
+
+  it('includes copy excerpt in channel plan table when copy exists', () => {
+    const md = renderCalendar([entryWithCopy], '2026-04-12T10:00:00Z')
+    expect(md).toContain('Exciting news!')
+  })
+
+  it('truncates copy excerpt to 100 characters', () => {
+    const longContent = 'A'.repeat(200)
+    const entryWithLongCopy: CalendarEntry = {
+      ...entryWithPlan,
+      copy_drafts: [{ luma_id: 'evt-001', channel: 'linkedin-wdai', label: 'A', content: longContent, status: 'draft', generated_at: '', generated_by: 'claude' }],
+    }
+    const md = renderCalendar([entryWithLongCopy], '2026-04-12T10:00:00Z')
+    // Should contain the excerpt, not the full 200-char string
+    expect(md).toContain('AAAAAAAAAA')
+    expect(md).not.toContain('A'.repeat(150))
+  })
+})

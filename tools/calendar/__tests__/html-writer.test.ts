@@ -23,6 +23,36 @@ const entry: CalendarEntry = {
   notes: 'A 6-week cohort.',
 }
 
+const entryWithCopy: CalendarEntry = {
+  ...entry,
+  copy_drafts: [
+    {
+      luma_id: 'evt-001',
+      channel: 'linkedin-wdai',
+      label: 'Announce open enrollment',
+      content: 'Exciting news! AI Basics W27 is open for enrollment.',
+      status: 'draft',
+      generated_at: '2026-04-16T12:00:00Z',
+      generated_by: 'claude',
+    },
+  ],
+}
+
+const entryWithApprovedCopy: CalendarEntry = {
+  ...entry,
+  copy_drafts: [
+    {
+      luma_id: 'evt-001',
+      channel: 'linkedin-wdai',
+      label: 'Announce open enrollment',
+      content: 'Approved post copy here.',
+      status: 'approved',
+      generated_at: '2026-04-16T12:00:00Z',
+      generated_by: 'claude',
+    },
+  ],
+}
+
 describe('renderCalendarHtml', () => {
   it('contains all three view sections', () => {
     const html = renderCalendarHtml([entry], '2026-04-14T10:00:00Z')
@@ -79,5 +109,43 @@ describe('renderCalendarHtml', () => {
     expect(html).toContain('✏️')
     expect(html).toContain('Changes Requested')
     expect(html).toContain('badge-changes-requested')
+  })
+})
+
+describe('renderCalendarHtml copy display', () => {
+  it('shows generate prompt in copy-panel when no copy exists', () => {
+    const html = renderCalendarHtml([entry], '2026-04-14T10:00:00Z')
+    expect(html).toContain('npm run calendar:generate')
+    expect(html).toContain('class="copy-empty"')
+  })
+
+  it('shows copy text in copy-panel when copy draft exists', () => {
+    const html = renderCalendarHtml([entryWithCopy], '2026-04-14T10:00:00Z')
+    expect(html).toContain('Exciting news! AI Basics W27 is open for enrollment.')
+    // Should NOT show the generate prompt (the element, not the CSS class definition)
+    expect(html).not.toContain('class="copy-empty"')
+  })
+
+  it('shows copy status badge "Draft" for draft status', () => {
+    const html = renderCalendarHtml([entryWithCopy], '2026-04-14T10:00:00Z')
+    expect(html).toContain('copy-badge-draft')
+    expect(html).toContain('Draft')
+  })
+
+  it('shows copy status badge "Approved" for approved status', () => {
+    const html = renderCalendarHtml([entryWithApprovedCopy], '2026-04-14T10:00:00Z')
+    expect(html).toContain('copy-badge-approved')
+    expect(html).toContain('Approved')
+  })
+
+  it('shows copy text in event view plan-copy-inner when draft exists', () => {
+    const html = renderCalendarHtml([entryWithCopy], '2026-04-14T10:00:00Z')
+    expect(html).toContain('plan-copy-inner')
+    expect(html).toContain('Exciting news! AI Basics W27 is open for enrollment.')
+  })
+
+  it('shows generate prompt in event view plan-copy-inner when no copy', () => {
+    const html = renderCalendarHtml([entry], '2026-04-14T10:00:00Z')
+    expect(html).toContain('npm run calendar:generate')
   })
 })
