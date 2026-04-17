@@ -48,16 +48,16 @@
 
 ---
 
-## Block A: Copy Data Model + Storage (no external deps)
+## Block A: Copy Data Model + Storage (no external deps) ✅ COMPLETE
 
 **Goal:** Define how copy drafts are stored and tracked. Flat-file YAML in `vault/promos/`.
 
 **Success Criteria:**
-- [ ] `CopyDraft` type defined with channel, content, status, metadata
-- [ ] `readEventCopy(lumaId)` returns all drafts for an event
-- [ ] `writeCopyDraft(lumaId, draft)` writes a per-channel YAML file
-- [ ] Missing directory returns empty (graceful fallback)
-- [ ] All unit tests pass
+- [x] `CopyDraft` type defined with channel, content, status, metadata
+- [x] `readEventCopy(lumaId)` returns all drafts for an event
+- [x] `writeCopyDraft(lumaId, draft)` writes a per-channel YAML file
+- [x] Missing directory returns empty (graceful fallback)
+- [x] All unit tests pass
 
 ### Chunk A1: Copy Types + Storage Reader/Writer (~1.5 hours)
 
@@ -117,17 +117,17 @@
 
 ---
 
-## Block B: AI Copy Generation (needs ANTHROPIC_API_KEY)
+## Block B: AI Copy Generation (needs ANTHROPIC_API_KEY) ✅ COMPLETE
 
 **Goal:** Generate channel-specific marketing copy using Claude, informed by voice guides and event context.
 
 **Success Criteria:**
-- [ ] Voice guides loaded from vault at generation time
-- [ ] Per-channel prompt templates produce appropriate tone/style
-- [ ] `generateCopy(event, moment)` returns a CopyDraft
-- [ ] Batch generation skips moments with approved copy
-- [ ] CLI command: `calendar generate-copy --event <id>`
-- [ ] All unit tests pass; live Claude test gated behind env flag
+- [x] Voice guides loaded from vault at generation time
+- [x] Per-channel prompt templates produce appropriate tone/style
+- [x] `generateCopy(event, moment)` returns a CopyDraft
+- [x] Batch generation skips moments with approved copy
+- [x] CLI command: `calendar generate-copy --event <id>`
+- [x] All unit tests pass; live Claude test gated behind env flag
 
 ### Chunk B1: Voice Guide Loader + Prompt Builder (~2 hours)
 
@@ -233,15 +233,15 @@ Output just the post copy. No preamble, no explanation.
 
 ---
 
-## Block C: Copy in Calendar Viewer (no external deps)
+## Block C: Copy in Calendar Viewer (no external deps) ✅ COMPLETE
 
 **Goal:** Display generated copy in the HTML calendar viewer and markdown output.
 
 **Success Criteria:**
-- [ ] Copy panels show generated text instead of placeholder
-- [ ] Per-moment copy status badge visible
-- [ ] Markdown includes copy excerpts in detail blocks
-- [ ] Empty copy shows "Generate with `npm run calendar:generate`" prompt
+- [x] Copy panels show generated text instead of placeholder
+- [x] Per-moment copy status badge visible
+- [x] Markdown includes copy excerpts in detail blocks
+- [x] Empty copy shows "Generate with `npm run calendar:generate`" prompt
 
 ### Chunk C1: HTML Viewer Copy Display (~2 hours)
 
@@ -356,7 +356,7 @@ Output just the post copy. No preamble, no explanation.
 
 ---
 
-## Block E: Interactive Copy Approval (needs server endpoint)
+## Block E: Interactive Copy Approval (needs server endpoint) — PARTIAL
 
 **Goal:** Handle Slack button clicks for copy approval/editing. This block also completes Phase 4 deferred work (Vercel setup + plan approval handler).
 
@@ -367,7 +367,9 @@ Output just the post copy. No preamble, no explanation.
 - [ ] `approve_copy` updates draft status to `approved`
 - [ ] `edit_copy` opens a Slack modal with the copy text
 - [ ] Modal submission updates copy content and status
-- [ ] Plan approval (`approve_plan` from Phase 4) also handled
+- [x] Plan approval (`approve_plan` from Phase 4) also handled
+
+**Status:** `api/slack/interactions.ts` built with signature verification + `handleApprovePlan`. Missing: `approve_copy`, `edit_copy` handlers, Slack modal, `vercel.json`.
 
 ### Chunk E1: Interaction Endpoint + Signature Verification (~2 hours)
 
