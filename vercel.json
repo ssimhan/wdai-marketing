@@ -1,0 +1,13 @@
+{
+  "outputDirectory": "vault",
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ],
+  "functions": {
+    "api/**/*.ts": { "runtime": "@vercel/node@3" }
+  }
+}
