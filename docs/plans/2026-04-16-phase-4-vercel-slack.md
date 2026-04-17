@@ -24,6 +24,23 @@
   - `mapLumaEvent()` already computes the full promo plan
   - GitHub Actions workflow already has sync + commit pattern
 
+## Slack App Setup (pending admin approval — 2026-04-17)
+
+App creation submitted to Slack workspace admin. Once approved:
+
+1. Go to **https://api.slack.com/apps** → open the pending app
+2. **Incoming Webhooks** → toggle ON → "Add New Webhook to Workspace"
+   - Channel: **`#team-marketing-workstream2-content-ideas`**
+   - Copy the webhook URL → `SLACK_WEBHOOK_URL`
+3. **Interactivity & Shortcuts** → toggle ON (can be done now, even before Vercel)
+   - Request URL: `https://<vercel-url>/api/slack/interactions` (fill in after Vercel deploy)
+   - Copy **Signing Secret** from "Basic Information" → `SLACK_SIGNING_SECRET`
+4. **OAuth & Permissions** → Bot Token Scopes: add `chat:write`, `im:write`
+   - Install to Workspace → copy `xoxb-...` token → `SLACK_BOT_TOKEN`
+5. Add to `.env.local` for local testing
+6. Add `SLACK_WEBHOOK_URL` to GitHub Actions secrets (repo Settings → Secrets → Actions)
+   - `SLACK_SIGNING_SECRET` and `SLACK_BOT_TOKEN` when Vercel is ready
+
 ## Environment & Secrets
 
 - [ ] `SLACK_WEBHOOK_URL` — Slack incoming webhook for notifications (GitHub Secrets + `.env.local`)
