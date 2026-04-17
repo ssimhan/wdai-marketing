@@ -4,17 +4,17 @@ Work through these in order. Each section's items gate the next section.
 
 ---
 
-## Stage 1 — Smoke test (no accounts needed)
+## Stage 1 — Smoke test (no accounts needed) ✅ Done
 
 These work right now, before any external setup.
 
-- [ ] `npm run calendar:sync:mock` — should print "Fetched 2 events, Written to vault/..."
-- [ ] Open `vault/content-calendar.html` in browser — verify By Date, By Event, and How to Edit tabs all load
-- [ ] `npm test` — should show 118 passed
+- [x] `npm run calendar:sync:mock` — prints "Fetched 2 events, Written to vault/..."
+- [x] Open `vault/content-calendar.html` in browser — By Date, By Event, and How to Edit tabs all load
+- [x] `npm test` — 129 passed, 2 skipped
 
 ---
 
-## Stage 2 — Luma (unlocks live calendar sync)
+## Stage 2 — Luma (unlocks live calendar sync) ✅ Done
 
 **What you get:** Real events from lu.ma flow into the calendar instead of mock data.
 
@@ -32,9 +32,11 @@ These work right now, before any external setup.
    ```
    Expected: real events appear in `vault/content-calendar.md`
 
+> ✅ API key in `.env.local`. Live sync confirmed — 197 real Luma events fetched.
+
 ---
 
-## Stage 3 — Anthropic API (unlocks copy generation)
+## Stage 3 — Anthropic API (unlocks copy generation) ⬜ Not done
 
 **What you get:** `npm run calendar:generate` drafts marketing copy per channel using Claude.
 
@@ -53,9 +55,11 @@ These work right now, before any external setup.
 
 > No GitHub secret needed yet — copy generation runs locally or via CLI, not in CI.
 
+> ⬜ **To do:** Create an API key at console.anthropic.com. This unlocks the main value of Phase 5.
+
 ---
 
-## Stage 4 — Slack App (unlocks notifications + DM review)
+## Stage 4 — Slack App (unlocks notifications + DM review) ⬜ Not done
 
 **What you get:** Calendar sync posts to Slack. Copy drafts DM the responsible leader for approval.
 
@@ -108,9 +112,11 @@ npm run calendar:sync
 ```
 Expected: a message appears in your chosen Slack channel with event details and Approve/Edit buttons.
 
+> ⬜ **To do:** Create Slack App at api.slack.com, add scopes, get webhook URL + bot token + signing secret.
+
 ---
 
-## Stage 5 — Vercel (unlocks live calendar URL + button approvals)
+## Stage 5 — Vercel (unlocks live calendar URL + button approvals) ⬜ Not done
 
 **What you get:** `vault/content-calendar.html` is live on the web (team-only, magic-link auth). Slack Approve buttons update status in the repo.
 
@@ -157,9 +163,11 @@ Once Vercel is live, go back to your Slack App:
 3. Check `vault/status/<luma_id>.yaml` in the repo — should show `approval_status: approved`
 4. Check the calendar URL — approval badge should update on next sync
 
+> ⬜ **To do:** Requires Stage 4 (Slack signing secret) first. Then deploy project to Vercel, add env vars, set interaction URL in Slack app config.
+
 ---
 
-## Stage 6 — GitHub Actions (unlocks automated daily sync)
+## Stage 6 — GitHub Actions (unlocks automated daily sync) ⬜ Not done
 
 **What you get:** Calendar syncs automatically every day at 6am UTC without anyone running a command.
 
@@ -170,20 +178,22 @@ Verify:
 2. Go to **Actions → Calendar Sync → Run workflow** to trigger manually
 3. Confirm it commits updated calendar files and posts to Slack
 
+> ⬜ **To do:** `LUMA_API_KEY` secret already set. Just needs `SLACK_WEBHOOK_URL` (from Stage 4) to fully activate.
+
 ---
 
 ## Summary table
 
-| Stage | What you set up | Time estimate |
-|-------|----------------|---------------|
-| 1 | Local smoke test | 5 min |
-| 2 | Luma API key | 5 min |
-| 3 | Anthropic API key | 5 min |
-| 4 | Slack App + webhook + bot token | 20 min |
-| 5 | Vercel project + GitHub token + Slack interaction URL | 20 min |
-| 6 | Verify GitHub Actions automation | 5 min |
+| Stage | What you set up | Status | Time estimate |
+|-------|----------------|--------|---------------|
+| 1 | Local smoke test | ✅ Done | — |
+| 2 | Luma API key | ✅ Done | — |
+| 3 | Anthropic API key | ⬜ Next up | ~5 min |
+| 4 | Slack App + webhook + bot token | ⬜ After 3 | ~20 min |
+| 5 | Vercel project + GitHub token + Slack interaction URL | ⬜ After 4 | ~20 min |
+| 6 | Verify GitHub Actions automation | ⬜ After 5 | ~5 min |
 
-Stages 2 and 3 are fully independent — do them in any order.
+Stage 3 is independent — do it any time (just needs an Anthropic account).
 Stage 4 must come before Stage 5 (need the signing secret to configure Vercel).
 Stage 5 must come before the Slack Approve buttons work.
 
