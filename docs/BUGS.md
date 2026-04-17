@@ -2,11 +2,18 @@
 
 | ID | Description | Severity | Active | Note |
 |----|-------------|----------|--------|------|
-| DEBT-011 | `formatDate` duplicated in `writer.ts` and `html-writer.ts` (same body, different names). Move to a shared `date-utils.ts` and import from both. | Low | ✅ | Introduced Phase 5 — low drift risk since date format is stable |
-| DEBT-012 | Magic number `14` in `mapper.ts` `subtractDays(event.start_at, 14)` — extract as `const PROMO_WINDOW_DAYS = 14` (with a comment explaining the business rule) so the next person knows it's not arbitrary. | Low | ✅ | Introduced Phase 3 |
-| DEBT-013 | Global `_uid` counter + `resetUid()` in `html-writer.ts` — fragile if `renderCalendarHtml` is ever called concurrently. Refactor to a closure or pass counter through the call stack. | Low | ✅ | Introduced Phase 3 — safe under current single-threaded sync usage |
 
 ## Resolved
+
+| ID | Description | Resolution |
+|----|-------------|-----------|
+| DEBT-011 | `formatDate` duplicated in `writer.ts` and `html-writer.ts` | Extracted to `tools/calendar/date-utils.ts`; both files now import from there |
+| DEBT-012 | Magic `14` in `mapper.ts` | Extracted as `PROMO_WINDOW_DAYS = 14` with explanatory comment |
+| DEBT-013 | Global `_uid` / `resetUid()` in `html-writer.ts` | Replaced with `makeUidGen()` closure; generator passed into `renderDateView`/`renderEventView` |
+
+---
+
+## Previously Resolved
 
 | ID | Description | Resolution |
 |----|-------------|-----------|

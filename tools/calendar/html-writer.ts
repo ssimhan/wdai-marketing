@@ -1,14 +1,8 @@
 import type { CalendarEntry, PromoMoment, EventType, ApprovalStatus, CopyDraft, CopyDraftStatus } from './types.js'
 import { CHANNEL_LABELS } from './types.js'
+import { formatDate as fmtDate } from './date-utils.js'
 
 // ── Date helpers ──
-
-/** "Apr 14, 2026" — for header and table dates */
-function fmtDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
-  })
-}
 
 /** "Mon Apr 20" — for moment rows (no comma, two separate calls) */
 function fmtDow(iso: string): string {
@@ -114,12 +108,10 @@ function copyPanelContent(draft: CopyDraft | undefined): string {
 }
 
 // ── ID counter for expand/collapse pairs ──
-let _uid = 0
-function uid(): string {
-  return `m${++_uid}`
-}
-function resetUid(): void {
-  _uid = 0
+// Returns a fresh uid() generator each time — no shared mutable state.
+function makeUidGen(): () => string {
+  let n = 0
+  return () => `m${++n}`
 }
 
 function groupMomentsByWeek(moments: FlatMoment[]): Map<string, FlatMoment[]> {
@@ -139,7 +131,7 @@ function eventDateRange(e: CalendarEntry): string {
 }
 
 // ── By Date view ──
-function renderDateView(entries: CalendarEntry[]): string {
+function renderDateView(entries: CalendarEntry[], uid: () => string): string {
   const moments = flattenMoments(entries)
   if (moments.length === 0) {
     return `<p style="color:var(--muted);padding:24px 0;font-style:italic">No channel plan moments yet — fill in <code>tools/calendar/promo-rules.yaml</code> to populate this view.</p>`
@@ -179,7 +171,7 @@ function renderDateView(entries: CalendarEntry[]): string {
 }
 
 // ── By Event view ──
-function renderEventView(entries: CalendarEntry[]): string {
+function renderEventView(entries: CalendarEntry[], uid: () => string): string {
   if (entries.length === 0) {
     return `<p style="color:var(--muted);padding:24px 0;font-style:italic">No events found.</p>`
   }
@@ -579,10 +571,10 @@ const JS = `
 
 // ── Main export ──
 export function renderCalendarHtml(entries: CalendarEntry[], syncedAt: string): string {
-  resetUid()
+  const uid = makeUidGen()
   const syncedLabel = fmtDate(syncedAt)
-  const dateView  = renderDateView(entries)
-  const eventView = renderEventView(entries)
+  const dateView  = renderDateView(entries, uid)
+  const eventView = renderEventView(entries, uid)
 
   return `<!DOCTYPE html>
 <html lang="en">

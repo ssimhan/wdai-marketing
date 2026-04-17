@@ -1,10 +1,5 @@
 import type { CalendarEntry, PromoMoment, CopyDraft } from './types.js'
-
-function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-US', {
-    month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
-  })
-}
+import { formatDate } from './date-utils.js'
 
 // summaryRow and detailBlock share the same field set.
 // If you add a new CalendarEntry field, update BOTH functions and the header row in renderCalendar().

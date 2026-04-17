@@ -1,5 +1,9 @@
 import type { LumaEvent, CalendarEntry, EventType, PromoRules, OverridesMap, PromoMoment, PromoMomentRule, PromoStatus, CopyDraft, CopyStatus } from './types.js'
 
+// Default promo window: events are promoted for 2 weeks before they start.
+// Overridden per-event via overrides.yaml if a shorter/longer window is needed.
+const PROMO_WINDOW_DAYS = 14
+
 const TAG_TO_TYPE: Record<string, EventType> = {
   'ai-basics': 'ai-basics',
   'ai-intermediate': 'ai-intermediate',
@@ -77,7 +81,7 @@ export function mapLumaEvent(
     meeting_url: event.meeting_url,
     visibility: event.visibility,
     tags,
-    promo_window_start: subtractDays(event.start_at, 14),
+    promo_window_start: subtractDays(event.start_at, PROMO_WINDOW_DAYS),
     dri,
     copy_status,
     copy_drafts,
