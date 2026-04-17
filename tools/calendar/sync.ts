@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
 dotenv.config()
-import { writeFileSync, readFileSync, existsSync } from 'fs'
+import { writeFileSync, readFileSync, existsSync, readdirSync } from 'fs'
 import { fetchAllEvents } from './luma-client.js'
 import { mapLumaEvent } from './mapper.js'
 import { renderCalendar } from './writer.js'
@@ -11,7 +11,6 @@ import { detectChanges } from './diff.js'
 import { formatSlackMessage, sendSlackNotification } from './slack-notifier.js'
 import { readAllStatuses } from './status.js'
 import { readEventCopy } from './copy-store.js'
-import { readdirSync, existsSync } from 'fs'
 import type { CalendarEntry, CopyDraft } from './types.js'
 
 const MD_PATH              = 'vault/content-calendar.md'
