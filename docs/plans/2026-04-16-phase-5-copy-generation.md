@@ -459,27 +459,23 @@ Output just the post copy. No preamble, no explanation.
 
 ## Execution Order
 
-**Can do right now (no external dependencies):**
-1. Chunk A1 — Copy types + storage
-2. Chunk A2 — Copy lifecycle integration
-3. Chunk B1 — Voice guide loader + prompt builder
+**Already done (session 2026-04-16/17):**
+1. ✅ Chunk A1 — Copy types + storage
+2. ✅ Chunk A2 — Copy lifecycle integration
+3. ✅ Chunk B1 — Voice guide loader + prompt builder
+4. ✅ Chunk B2 — Claude API client
+5. ✅ Chunk B3 — Batch generation CLI
+6. ✅ Chunk C1 — Copy in calendar viewer
+7. ✅ Chunk E1 — Interaction endpoint + signature verification (partial — `approve_plan` only)
 
-**Can do after `npm install @anthropic-ai/sdk` + API key:**
-4. Chunk B2 — Claude API client
-5. Chunk B3 — Batch generation CLI
+**Can do after Slack Bot app approved:**
+8. ⏳ Chunk D1 — Slack Bot DM client
+9. ⏳ Chunk D2 — Copy review message formatter
+10. ⏳ Chunk D3 — DM dispatch + CLI integration
 
-**Can do after copy generation works:**
-6. Chunk C1 — Copy in calendar viewer
-
-**Can do after creating Slack Bot app:**
-7. Chunk D1 — Slack Bot DM client
-8. Chunk D2 — Copy review message formatter
-9. Chunk D3 — DM dispatch + CLI integration
-
-**Needs Vercel or alternative server:**
-10. Chunk E1 — Interaction endpoint
-11. Chunk E2 — Copy + plan approval handlers
-12. Chunk E3 — Edit modal
+**Needs Vercel live:**
+11. ⏳ Chunk E2 — `approve_copy` + `approve_plan` handlers (E1 partial complete)
+12. ⏳ Chunk E3 — Edit modal for copy revisions
 
 ---
 

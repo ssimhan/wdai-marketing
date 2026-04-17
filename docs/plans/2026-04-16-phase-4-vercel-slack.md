@@ -338,27 +338,31 @@ App creation submitted to Slack workspace admin. Once approved:
 6. ✅ Chunk B2 — Status integration into viewer
 7. ✅ Chunk D1 — Interactive buttons in messages
 
-**Deferred (Vercel setup required):**
-8. ⏳ Chunk C1 — Vercel project setup
-9. ⏳ Chunk D2 — Serverless endpoint for approval
+**Pending (Slack app approval + Vercel setup required):**
+8. ⏳ Chunk C1 — Vercel project setup (blocked: manual org connection)
+9. ⏳ Chunk D2 — Serverless endpoint for approval (blocked: Vercel live; handler already built at `api/slack/interactions.ts`)
+
+**Note on D2:** The core handler (`verifySlackSignature`, `handleApprovePlan`, `handleRequest`) is already implemented and tested. D2 is now just wiring it to a live Vercel deployment and setting env vars — not a build task.
 
 ---
 
 ## Updated Roadmap (Phases 4–7)
 
-### Phase 4: Vercel + Slack Approval Loop (target: May 1)
+### Phase 4: Vercel + Slack Approval Loop
 - ✅ Blocks A, B, D1 — **COMPLETED** (Session 2026-04-16)
   - Slack notifications with change detection ✅
   - Approval status tracking with visual badges ✅
   - Interactive buttons on Slack messages ✅
-- ⏳ Blocks C, D2 — **DEFERRED** (requires Vercel setup and manual configuration)
+  - Interaction handler built (`api/slack/interactions.ts`) ✅
+- ⏳ Blocks C, D2 — **DEFERRED** (requires Vercel org setup — see NEXT.md)
 
 ### Phase 5: Copy Generation + Per-Leader Approval
-- AI drafts copy per channel using existing skills
-- Slack DMs to responsible leaders
-- Leader approves via emoji or replies with edits
-- Approved copy stored in `vault/promos/<event-id>/copy/`
-- "Edit Plan" Slack modal built here
+- ✅ Blocks A, B, C — **COMPLETED** (Session 2026-04-17)
+  - Copy data model + flat-file storage ✅
+  - AI copy generation with voice guides + Claude API ✅
+  - Copy display + status badges in calendar viewer ✅
+- ⏳ Block D — Slack DM copy review (blocked: Slack Bot app approval — see NEXT.md)
+- ⏳ Block E remainder — `approve_copy`, `edit_copy`, edit modal (blocked: Vercel live)
 
 ### Phase 6: Auto-Publishing (org channels only)
 - WDAI LinkedIn auto-post (org page API token)

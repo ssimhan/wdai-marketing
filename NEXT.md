@@ -1,30 +1,77 @@
 # Next Steps
 
-Pick up here at the start of each session.
+**Nothing is buildable right now** — all remaining work is blocked on two external setups: Slack app approval and Vercel org connection. This file tells you exactly what to do the moment each blocker is resolved.
 
-## Blocked on External Setup
+---
 
-| # | What | Blocker | Plan |
-|---|------|---------|------|
-| 1 | Slack webhook → `#team-marketing-workstream2-content-ideas` | Admin approval pending (submitted 2026-04-17) | [Phase 4 plan](docs/plans/2026-04-16-phase-4-vercel-slack.md) → "Slack App Setup" |
-| 2 | Vercel project setup (Phase 4 Block C1) | Manual org connection required | [Phase 4 plan](docs/plans/2026-04-16-phase-4-vercel-slack.md) → "Chunk C1" |
+## When Slack app is approved
 
-## Ready to Build
+Follow the setup steps in [Phase 4 plan → "Slack App Setup"](docs/plans/2026-04-16-phase-4-vercel-slack.md#slack-app-setup-pending-admin-approval--2026-04-17).
 
-| # | What | Depends on | Plan |
-|---|------|-----------|------|
-| 3 | Phase 5 Block D — Slack DM copy review (`slack-dm.ts`, `copy-review.ts`) | Slack Bot app (separate from webhook app) | [Phase 5 plan](docs/plans/2026-04-16-phase-5-copy-generation.md) → "Block D" |
-| 4 | Phase 5 Block E completion — `approve_copy` + `edit_copy` handlers, edit modal, `vercel.json` | Vercel live | [Phase 5 plan](docs/plans/2026-04-16-phase-5-copy-generation.md) → "Block E" |
+**Step-by-step:**
+1. Go to https://api.slack.com/apps → open the pending app
+2. Incoming Webhooks → Add webhook → channel: `#team-marketing-workstream2-content-ideas` → copy URL
+3. OAuth & Permissions → Bot Token Scopes: `chat:write`, `im:write` → Install → copy `xoxb-...` token
+4. Basic Information → copy Signing Secret
+5. Add to `.env.local`: `SLACK_WEBHOOK_URL`, `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET`
+6. Add `SLACK_WEBHOOK_URL` to GitHub Actions secrets (repo Settings → Secrets → Actions)
+7. Trigger the sync manually to test the webhook: GitHub Actions → Calendar Sync → Run workflow
 
-## What's Already Done
+**Then build (in order):**
+- Phase 5 Block D — Slack DM copy review
+  - `slack-dm.ts` — Bot DM client (`sendCopyReviewDM`)
+  - `slack-dm.ts` — `formatCopyReviewMessage()` Block Kit formatter
+  - `copy-review.ts` — dispatch DMs + `--notify` flag on `generate.ts`
+  - See [Phase 5 plan → Block D](docs/plans/2026-04-16-phase-5-copy-generation.md) for full spec
 
-- **Phase 4** — Blocks A, B, D1 ✅ (Slack notifier, change detection, interactive buttons, approval badges)
-- **Phase 5** — Blocks A, B, C ✅ (copy data model, AI generation, calendar viewer display)
-- **Phase 5 Block E** — Partial: signature verification + `approve_plan` handler built; `approve_copy`/`edit_copy` still needed
+---
 
-## Overall Roadmap
+## When Vercel is set up
 
-- **Phase 4** — Vercel + Slack Approval Loop: Blocks A/B/D1 ✅ · Blocks C/D2 ⏳ (external setup)
-- **Phase 5** — AI Copy Generation + Per-Leader Approval: Blocks A/B/C ✅ · Block D ⏳ (needs Slack Bot) · Block E ⏳ (needs Vercel)
-- **Phase 6** — Auto-Publishing (LinkedIn, Mailchimp)
-- **Phase 7** — Leader Onboarding + Handoff
+Follow [Phase 4 plan → "Chunk C1"](docs/plans/2026-04-16-phase-4-vercel-slack.md#chunk-c1-vercel-project-setup-1-hour-mostly-manual) (manual steps in browser).
+
+**Step-by-step:**
+1. Connect this repo to a Vercel project (Framework: Other, Output Dir: `vault`)
+2. Enable Vercel Authentication → add team email addresses
+3. Push `vercel.json` (already in the plan) → verify deployment
+4. Add env vars to Vercel: `SLACK_SIGNING_SECRET`, `GITHUB_TOKEN`, `GITHUB_OWNER`, `GITHUB_REPO`
+5. Set Interactivity URL in Slack app: `https://<vercel-url>/api/slack/interactions`
+
+**Then build (in order):**
+- Phase 4 Block D2 — serverless `approve_plan` endpoint wired to Vercel (handler already built at `api/slack/interactions.ts`)
+- Phase 5 Block E remainder — `approve_copy` + `edit_copy` handlers, edit modal
+  - See [Phase 5 plan → Block E](docs/plans/2026-04-16-phase-5-copy-generation.md) for full spec
+
+---
+
+## What's done
+
+| Area | Status |
+|------|--------|
+| Sync pipeline (Luma → calendar files) | ✅ |
+| Change detection | ✅ |
+| Slack channel notifications (webhook + Block Kit) | ✅ |
+| Approval status tracking + calendar badges | ✅ |
+| Interactive Approve/Edit buttons on Slack messages | ✅ |
+| Copy data model + flat-file storage | ✅ |
+| AI copy generation (voice guides, prompt builder, Claude API, CLI) | ✅ |
+| Copy display in calendar viewer (HTML badges + copy panels) | ✅ |
+| Slack interaction endpoint — signature verification + `approve_plan` | ✅ |
+
+## What's left
+
+| Area | Blocked on |
+|------|-----------|
+| Slack webhook live + GitHub Actions secret set | Slack app approval |
+| Phase 5 Block D — Slack DM copy review to leaders | Slack app approval |
+| Vercel deployment + team auth | Vercel org setup |
+| Phase 5 Block E — `approve_copy`, `edit_copy`, edit modal | Vercel live |
+
+---
+
+## Overall roadmap
+
+- **Phase 4** — Vercel + Slack Approval Loop: ✅ Blocks A/B/D1 · ⏳ Blocks C/D2
+- **Phase 5** — AI Copy Generation + Per-Leader Approval: ✅ Blocks A/B/C · ⏳ Blocks D/E
+- **Phase 6** — Auto-Publishing (LinkedIn org page, Mailchimp drafts)
+- **Phase 7** — Leader onboarding, personal LinkedIn OAuth, voice calibration per leader
