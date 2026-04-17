@@ -6,19 +6,68 @@ This is the **single source of truth** for how WDAI communicates. When starting 
 
 ---
 
-## Quick Start
+## Vision
 
-**For a new cohort launch (programmatic course):**
+**Fully automated marketing pipeline:**
+
+```
+Luma event created/updated
+  → calendar syncs automatically (GitHub Actions, daily)
+  → Slack notifies team with promo plan + approval buttons
+  → AI generates channel-specific copy (LinkedIn, email, Slack)
+  → per-leader Slack DM: approve or edit with one click
+  → approved copy auto-publishes to LinkedIn and Mailchimp
+```
+
+No manual copy drafting. No chasing approvals. Every WDAI event gets consistent, on-brand promotion with minimal human overhead.
+
+---
+
+## How It Works
+
+The system runs autonomously — no one needs to open Claude Code for the pipeline to operate. CC is the *build tool*; GitHub Actions and Vercel are the *runtime*.
+
+```
+[1] GitHub Actions (daily, 6am UTC)
+     → polls Luma API for new/changed events
+     → updates vault/content-calendar.md + .html
+     → posts Slack notification with promo plan + Approve button
+          ↓ HUMAN TOUCHPOINT 1: Sandhya or Sheena approves in Slack
+
+[2] Copy generation (Phase 5 — in progress)
+     → loads voice guides from vault/ as AI context
+     → calls Anthropic API to draft channel-specific copy
+     → stores drafts in vault/promos/<event-id>/
+     → DMs each responsible leader with their copy draft + Approve button
+          ↓ HUMAN TOUCHPOINT 2: each leader approves (or edits) in Slack
+
+[3] Auto-publish (Phase 6 — planned)
+     → posts to WDAI LinkedIn
+     → creates Mailchimp drafts (auto-send optional)
+
+[4] Vercel (Phase 4 deferred — manual setup pending)
+     → hosts vault/content-calendar.html as a team-readable web page
+     → team can check status and copy without touching the codebase
+```
+
+**The two human touchpoints are the only manual steps.** Everything before and after is automated.
+
+---
+
+## Ad-Hoc CC Usage (for one-off marketing tasks)
+
+The vault/skills are also useful when you want to draft something manually — a one-off LinkedIn post, a speaker bio, an announcement. Load the relevant context into a CC or Cowork session:
+
+**For a cohort launch:**
 ```
 Load vault context in this order:
 1. /vault/brand-guidelines.md
 2. /skills/wdai-brand/SKILL.md
 3. /skills/wdai-promo-programmatic/SKILL.md
 4. /skills/wdai-promo-programmatic/ai-foundations.md (if AI Foundations cohort)
-5. /skills/wdai-promo-programmatic/show-dont-tell.md (if Show Don't Tell event)
 ```
 
-**For event/milestone promotion (ad-hoc):**
+**For event/milestone promotion:**
 ```
 Load vault context in this order:
 1. /vault/brand-guidelines.md
@@ -32,17 +81,8 @@ Load vault context in this order:
 ```
 Load vault context in this order:
 1. /vault/brand-guidelines.md
-2. /skills/wdai-brand/SKILL.md (foundation)
+2. /skills/wdai-brand/SKILL.md
 3. /skills/voice-[name]/SKILL.md (their personal voice)
-4. /vault/decision-log.md (optional: for context on WDAI's approach)
-```
-
-**For any marketing task:**
-```
-Always load these three:
-1. /vault/brand-guidelines.md (mission, audience, visual identity)
-2. /skills/wdai-brand/SKILL.md (voice + tone)
-3. /vault/decision-log.md (context on why decisions were made)
 ```
 
 ---
@@ -53,12 +93,12 @@ Always load these three:
 /vault/                      # Brand identity, shared references, and decisions
   brand-guidelines.md       # WDAI mission, vision, values, audience, visual identity, tone
   decision-log.md           # Running log of "why we did it this way"
-  content-calendar.md       # (Phase 3 TBD) source of truth for scheduled content
+  content-calendar.md       # source of truth for scheduled content (live, auto-synced from Luma)
   linkedin-voice.md         # WDAI LinkedIn-specific voice + real post examples
   helen-voice.md            # Helen's personal Slack voice patterns
   email-templates.md        # (Pending) subject line formulas, body structures, CTA patterns
 
-/skills/
+/skills/                     # AI context loaded by the pipeline at runtime + by humans for ad-hoc tasks
   /wdai-brand/
     SKILL.md                # WDAI brand voice — baseline for all WDAI content
   /wdai-visual/
@@ -116,55 +156,55 @@ Always load these three:
 ### Phase Status
 
 **✅ Phase 1 Complete** — Identity Layer
-- brand-guidelines.md: mission, vision, values, audience, visual identity
-- wdai-brand skill: 8 voice characteristics, anti-patterns, format-specific rules
-- decision-log.md: documented rationale for vault approach
+- `brand-guidelines.md`: mission, vision, values, audience, visual identity
+- `wdai-brand` skill: 8 voice characteristics, anti-patterns, format-specific rules
+- `decision-log.md`: documented rationale for vault approach
 
 **✅ Phase 2 Complete** — Promo Infrastructure
-- Two separate promo skills: programmatic (cohorts) + ad-hoc (events/speakers)
-- wdai-visual skill: colors, typography, logo, patterns, image generation guidance
-- content-activator: raw signal → activation plan + Google Sheet brief
-- monthly-review: dashboard + data collection walkthrough
-- daily-content-scout: React app (7 Slack passes → ideas channel)
-- *Pending:* `vault/email-templates.md` (seeded in promo skills, to be formalized)
+- Two promo skills: programmatic (cohorts) + ad-hoc (events/speakers)
+- `wdai-visual` skill: colors, typography, logo, patterns, image generation guidance
+- `content-activator`: raw signal → activation plan + Google Sheet brief
+- `monthly-review`: dashboard + data collection walkthrough
+- `daily-content-scout`: React app (7 Slack passes → ideas channel)
 
-**✅ Phase 3 Complete (2026-04-14)** — Content Calendar System
-- **Block A**: Luma Calendar Sync
-  - TypeScript CLI script fetches WDAI events from Luma API → `vault/content-calendar.md`
-  - Mock mode works locally; real API mode gated by LUMA_API_KEY secret
-  - Daily GitHub Actions cron (6am UTC) auto-syncs calendar if events change
-  - TDD coverage: 32 tests passing, 1 skipped (live API gated)
-- **Block B**: HTML Viewer + Promo Rules System
-  - Self-contained `vault/content-calendar.html` with three-tab viewer (By Date, By Event, How to Edit)
-  - `promo-rules.yaml` defines per-event-type DRI + channel timeline rules
-  - `overrides.yaml` allows per-event customization without overwriting rules
-  - Mapper enriches calendar entries with DRI and structured channel moments
-  - Rules-loader with graceful fallback for missing config files
-- **Block C**: CC Integration
-  - Promo skills updated to load `content-calendar.md` as context
-  - README shows how to reference calendar in prompts
-- **Open items (start next session)**: Fill in `promo-rules.yaml`, run live API smoke test
+**✅ Phase 3 Complete (2026-04-16)** — Content Calendar System
+- Luma API → `vault/content-calendar.md` sync (TypeScript CLI, 74 tests)
+- Daily GitHub Actions cron auto-syncs if events change
+- `promo-rules.yaml` defines per-event-type DRI + channel timeline rules
+- Self-contained `vault/content-calendar.html` viewer (By Date / By Event / How to Edit tabs)
+- Live API smoke test passed (197 real Luma events)
 
-**🔲 Phase 4 Pending** — Vault Go-Live
-- Slack integration: which channels CC monitors for context
-- Leader voice skills rollout: email template to Lauren, Helen, Madina, Sheena
-- End-to-end test: intake form → calendar → promo plan → draft → meeting minutes
+**🟡 Phase 4 In Progress** — Slack Notifications + Approval Status
+- ✅ Slack Block Kit notifications with change detection (new/updated events only)
+- ✅ Per-event approval status tracking in flat-file YAML (`vault/status/`)
+- ✅ Approval badges in HTML viewer (⏳ Pending / ✅ Approved / ✏️ Changes Requested)
+- ✅ Interactive Approve/Edit buttons on Slack messages
+- ⏳ **Deferred:** Vercel deployment (requires manual setup) + serverless approval handler
 
-**🔲 Phase 5 Pending** — Copy Status Workflow
-- Copy status field (Not started → In progress → Approved → Sent) in calendar
-- Promo status dashboard
+**🔲 Phase 5: AI Copy Generation + Per-Leader Approval**
+- AI drafts channel-specific copy using vault voice guides as prompt context
+- Copy stored in `vault/promos/<event-id>/` flat files
+- Slack DM to DRI for each draft: approve or edit with one click
+- Edit modal for in-line copy revisions
+- Also completes Phase 4 deferred work (Vercel + interaction endpoint)
+- Full plan: `docs/plans/2026-04-16-phase-5-copy-generation.md`
+- **V1 scope:** copy generation runs via GitHub Actions (`ANTHROPIC_API_KEY` in GitHub Secrets) — no separate server deployment needed
 
-**🔲 Phase 6 Pending** — Advanced Features (TBD)
-- Automated email generation, optional Slack posting, analytics integration
+**🔲 Phase 6: Auto-Publishing**
+- WDAI LinkedIn auto-post (org page API token)
+- Mailchimp draft creation → hooks into `wdai-mc` pipeline
+- Publishing status tracked in vault
 
-**🔲 Phase 7 Pending** — Team Onboarding & Handoff
-- Documentation, voice skill templates, maintenance runbook
+**🔲 Phase 7: Leader Onboarding + Handoff**
+- Voice skill onboarding per leader (Lauren, Helen, Madina, Sheena)
+- Personal LinkedIn OAuth flow per leader
+- Maintenance runbook + team training
 
 ---
 
 ## Content Calendar
 
-**Status:** Live (Phase 3 Block A)
+**Status:** Live (Phase 3 complete)
 
 `/vault/content-calendar.md` is the single source of truth for:
 - Program dates and cohort launches
@@ -262,35 +302,24 @@ The vault degrades if it isn't maintained.
 
 ---
 
-## Using the Vault with Claude Code
+## Using the Vault (Two Modes)
 
-**Minimal context load (most tasks):**
+### Mode 1: Automated pipeline (normal operation)
+The copy generator loads vault context automatically at runtime — no human action needed. Voice guides, brand guidelines, and channel-specific prompts are read from the vault files at generation time.
+
+See `docs/plans/2026-04-16-phase-5-copy-generation.md` for the full prompt architecture.
+
+### Mode 2: Ad-hoc CC sessions (manual one-off tasks)
+
+For any unplanned marketing task (a quick post, a bio, an announcement), load vault context manually into a CC or Cowork session. See "Ad-Hoc CC Usage" above for load-order by task type.
+
+**Minimal load (any task):**
 ```
-Use the following vault context:
 - Brand voice: /wdai-marketing/skills/wdai-brand/SKILL.md
 - Brand guidelines: /wdai-marketing/vault/brand-guidelines.md
-- Decision log: /wdai-marketing/vault/decision-log.md
 ```
 
-**For promo or content tasks:**
-```
-Use the following vault context:
-- Brand voice: /wdai-marketing/skills/wdai-brand/SKILL.md
-- Promo planner: /wdai-marketing/skills/wdai-promo-programmatic/SKILL.md (or wdai-promo-adhoc)
-- Content calendar: /wdai-marketing/vault/content-calendar.md  ← load this for real event dates + channel plans
-- Brand guidelines: /wdai-marketing/vault/brand-guidelines.md
-- Decision log: /wdai-marketing/vault/decision-log.md
-```
-
-**For content in a leader's voice:**
-```
-Use the following vault context:
-- Brand voice: /wdai-marketing/skills/wdai-brand/SKILL.md
-- [Name]'s voice: /wdai-marketing/skills/voice-[name]/SKILL.md
-- Brand guidelines: /wdai-marketing/vault/brand-guidelines.md
-```
-
-**Pro tip:** CC will do best if you're explicit about *which* context you're using. It helps CC understand the scope and avoid overgeneralizing.
+**Pro tip:** Be explicit about which context you're loading — CC does best when the scope is clear.
 
 ---
 
@@ -319,4 +348,4 @@ Use the following vault context:
 
 ---
 
-*Last updated: 2026-04-14 (Phase 3 Block A complete) by Sandhya Simhan*
+*Last updated: 2026-04-16 (architecture clarification: autonomous pipeline, not CC harness) by Sandhya Simhan*

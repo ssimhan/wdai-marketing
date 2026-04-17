@@ -45,32 +45,35 @@
 - [x] Update promo-adhoc skill with calendar context
 - [x] README shows how to load content-calendar.md as CC context
 
-## Phase 4: Vercel + Slack Approval Loop (target: May 1)
+## Phase 4: Vercel + Slack Approval Loop ✅ (Blocks A/B/D1 complete; C/D2 deferred)
 
-### Block A: Slack Notification Pipeline
-- [ ] Slack Block Kit message formatter (pure function)
-- [ ] Change detection (new/changed events between syncs)
-- [ ] Webhook sender + sync integration
-- [ ] GitHub Actions: Slack notification after sync
+### Block A: Slack Notification Pipeline ✅
+- [x] Slack Block Kit message formatter (pure function)
+- [x] Change detection (new/changed events between syncs)
+- [x] Webhook sender + sync integration
+- [x] GitHub Actions: Slack notification after sync
 
-### Block B: Approval Status Tracking
-- [ ] Status data model (ApprovalStatus type, flat-file reader/writer)
-- [ ] Status integration into pipeline + HTML viewer badges
+### Block B: Approval Status Tracking ✅
+- [x] Status data model (ApprovalStatus type, flat-file reader/writer)
+- [x] Status integration into pipeline + HTML viewer badges
 
-### Block C: Vercel Deployment + Auth
+### Block C: Vercel Deployment + Auth ⏳ deferred
 - [ ] Deploy vault/ as static site, vercel.json config
 - [ ] Vercel Authentication (magic links, whitelisted team emails)
 
-### Block D: Slack Interactive Approval
-- [ ] Approve/Edit buttons on Slack messages
-- [ ] Vercel serverless endpoint for button callbacks → updates status via GitHub API
+### Block D: Slack Interactive Approval (D1 complete; D2 deferred)
+- [x] Approve/Edit buttons on Slack messages (D1 ✅)
+- [ ] Vercel serverless endpoint for button callbacks → updates status via GitHub API (D2 — needs Vercel live)
 
 ## Phase 5: Copy Generation + Per-Leader Approval
-- [ ] AI drafts copy per channel using existing skills
-- [ ] Slack DMs to responsible leaders for copy review
-- [ ] Leader approves via emoji or replies with edits
-- [ ] Approved copy stored in vault/promos/<event-id>/copy/
-- [ ] "Edit Plan" Slack modal
+See `docs/plans/2026-04-16-phase-5-copy-generation.md` for full plan.
+- [ ] Copy data model + flat-file storage (vault/promos/<event-id>/)
+- [ ] AI drafts copy per channel using voice guides from vault
+- [ ] CLI: `calendar generate-copy --event <id>`
+- [ ] Copy displayed in HTML calendar viewer
+- [ ] Slack DMs to DRI with approve/edit buttons
+- [ ] Edit modal for copy revisions
+- [ ] Interaction endpoint (completes Phase 4 C/D2 as part of this block)
 
 ## Phase 6: Auto-Publishing (org channels only)
 - [ ] WDAI LinkedIn auto-post (org page API token)
@@ -86,4 +89,4 @@
 
 ---
 
-## Next Up: Phase 4 Block A — Slack Notification Pipeline
+## Next Up: Phase 5 Block A — Copy Data Model + Storage

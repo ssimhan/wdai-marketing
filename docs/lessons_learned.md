@@ -1,5 +1,21 @@
 # Lessons Learned
 
+## 2026-04-16 — Strategy Session: Architecture Clarification + Documentation Consolidation
+
+### Architecture Insights
+
+**CC is a build tool, not a runtime.** An autonomous pipeline calls the Anthropic SDK directly (e.g. `@anthropic-ai/sdk` in GitHub Actions), just like any other server-side service. Claude Code is used to *write* that code, not to *run* it. The vault/skills files serve as prompt templates loaded with `fs.readFileSync()` at generation time — not as CC skills that require a human session.
+
+**Vault files serve two audiences.** The same voice guides and brand guidelines are loaded by (1) the automated pipeline at runtime and (2) humans doing ad-hoc CC tasks. Document this dual-purpose explicitly so the distinction is clear — otherwise the README reads as if CC is the primary interface.
+
+**When a README straddles two mental models, it confuses everyone.** The original README implied both "humans load skills into CC" and "autonomous app on Vercel." Picking one primary model (autonomous pipeline) and labeling the secondary use (ad-hoc CC) as supplemental resolved the confusion immediately.
+
+### Doc Hygiene
+
+**Archive superseded implementation plans immediately.** An old plan with conflicting phase numbering (Phase 4 = different thing than current Phase 4) will silently mislead future readers and AI agents. Move to `archive/` with no changes — don't update it.
+
+**Roadmap status needs block-level granularity.** Marking a phase as "pending" when 3 of 4 blocks are done misrepresents the state. Check off individual blocks as they complete, and note deferred items with a reason inline.
+
 ## 2026-04-16 — Phase 4 Closeout: Slack Integration + Approval Tracking
 
 ### Architectural Insights

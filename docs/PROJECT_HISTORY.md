@@ -1,5 +1,22 @@
 # Project History
 
+## 2026-04-16 — Strategy Session: Architecture Clarification + Documentation Consolidation
+
+### Accomplishments
+
+- **Architecture decision locked** — System is an autonomous pipeline (GitHub Actions + Anthropic SDK + Vercel), not a Claude Code harness. CC is the build tool; the pipeline calls the Anthropic API directly at runtime.
+- **README restructured** — Replaced "Quick Start" (human-centric CC loading instructions) with "How It Works" (pipeline diagram with automated stages and two human touchpoints). Added Vision section. Separated ad-hoc CC usage as a clearly labeled secondary mode.
+- **Vault/skills dual-purpose documented** — Voice guides and brand context serve both the automated pipeline (loaded as text at runtime) and humans doing manual CC tasks. This distinction is now explicit.
+- **Documentation consolidated** — Archived `WDAI_MARKETING_VAULT_IMPLEMENTATION_PLAN.md` (old build doc with conflicting phase numbering). Updated `PROJECT_ROADMAP.md` Phase 4 to show block-level completion status (A/B/D1 ✅, C/D2 deferred with reasons).
+- **V1 scope clarified for Phase 5** — Copy generation runs via GitHub Actions with `ANTHROPIC_API_KEY` in GitHub Secrets — no separate server deployment required.
+
+### Key Learnings
+
+- CC is a build tool, not a runtime — autonomous pipelines call `@anthropic-ai/sdk` directly from GitHub Actions
+- Vault files serve two audiences (pipeline + ad-hoc humans); document this dual-purpose explicitly
+- READMEs that straddle two mental models confuse everyone — pick one primary model, label the secondary
+- Superseded plans with conflicting numbering should be archived immediately, not updated in place
+
 ## 2026-04-16 — Phase 4 Complete: Slack Notifications + Approval Status Tracking
 
 ### Accomplishments
