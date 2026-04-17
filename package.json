@@ -8,7 +8,8 @@
     "test:watch": "vitest",
     "calendar:sync": "npx tsx tools/calendar/sync.ts",
     "calendar:sync:mock": "LUMA_MOCK=true npx tsx tools/calendar/sync.ts",
-    "vault:serve": "npx http-server vault/ --port 8000 --cors"
+    "vault:serve": "npx http-server vault/ --port 8000 --cors",
+    "calendar:generate": "npx tsx tools/calendar/generate.ts"
   },
   "devDependencies": {
     "tsx": "^4.7.0",
