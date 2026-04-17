@@ -40,6 +40,21 @@ export type CopyStatus =
   | '✅ Approved'
   | '📤 Sent'
 
+export type CopyDraftStatus = 'draft' | 'pending_review' | 'approved' | 'published'
+
+export interface CopyDraft {
+  luma_id: string
+  channel: PromoChannel
+  label: string           // from PromoMoment.label
+  content: string         // the generated copy text
+  status: CopyDraftStatus
+  generated_at: string    // ISO 8601
+  generated_by: string    // 'claude' or 'manual'
+  approved_by?: string
+  approved_at?: string
+  revised_content?: string  // if leader edits before approving
+}
+
 export type PromoChannel =
   | 'linkedin-wdai'
   | 'linkedin-personal'
