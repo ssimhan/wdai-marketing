@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Pink→Orange gradient</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#fff; font-family:'Figtree', system-ui, sans-serif; }
+  .card { padding: 20px; display:flex; flex-direction:column; gap:14px; }
+  .bar {
+    height: 48px; border-radius: 12px;
+    background: linear-gradient(90deg, #e93583 0%, #ee8933 100%);
+    box-shadow: 0 0 32px rgba(233, 30, 99, 0.25);
+  }
+  .text {
+    font-family:'Instrument Serif', Georgia, serif; font-weight:400; letter-spacing:-0.008em;
+    font-size: 56px; line-height: 1;
+    background: linear-gradient(90deg, #e93583 0%, #ee8933 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
+  .caption { font-family:'JetBrains Mono', monospace; font-size:11px; color:#4a3a70; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="text">defining AI.</div>
+  <div class="bar"></div>
+  <div class="caption">linear-gradient(90deg, #e93583 → #ee8933) · --grad-pink-orange</div>
+</div>
+</body>
+</html>

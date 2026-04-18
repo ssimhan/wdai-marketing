@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Hero gradient</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#fff; font-family:'Figtree', system-ui, sans-serif; }
+  .card { padding: 20px; }
+  .hero {
+    height: 220px; border-radius: 16px; overflow:hidden; position:relative;
+    background:
+      radial-gradient(ellipse 70% 80% at 85% 50%, hsl(295 75% 40% / 0.55) 0%, hsl(295 75% 40% / 0.00) 55%),
+      linear-gradient(135deg, #1b0f3d 0%, #2a1a52 100%);
+    box-shadow: 0 8px 32px rgba(139, 47, 166, 0.25);
+  }
+  .hero::after {
+    content:""; position:absolute; inset:0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1.2px);
+    background-size: 28px 28px;
+  }
+  .label {
+    position:absolute; left:24px; bottom:20px; color:#fff4e4; z-index:1;
+    font-family:'Instrument Serif', Georgia, serif; font-weight:400; letter-spacing:-0.008em; font-size:28px;
+  }
+  .mono {
+    position:absolute; right:24px; bottom:20px; color:rgba(255,244,228,0.6); z-index:1;
+    font-family:'JetBrains Mono', monospace; font-size:11px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="hero">
+    <div class="label">WDAI hero gradient</div>
+    <div class="mono">--grad-hero</div>
+  </div>
+</div>
+</body>
+</html>

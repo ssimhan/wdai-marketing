@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Palette (accent & neutral)</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#fff; font-family:'Figtree', system-ui, sans-serif; }
+  .card { padding: 20px; }
+  .row { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw {
+    border-radius: 12px; height: 96px; padding: 12px 14px;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    position:relative; overflow:hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .sw .name { font-size:11px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+  .sw .hex  { font-family:'JetBrains Mono', monospace; font-size:11px; opacity:0.85; margin-top:2px; }
+  .dark .name, .dark .hex { color:#fff4e4; }
+  .light .name, .light .hex { color:#1b0f3d; }
+  .border-hint { border: 1px solid rgba(27,15,61,0.10); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="row">
+    <div class="sw dark" style="background:#ee8933;"><div class="name">Coral</div><div class="hex">#ee8933</div></div>
+    <div class="sw light" style="background:#fbd03b;"><div class="name">Yellow</div><div class="hex">#fbd03b</div></div>
+    <div class="sw light border-hint" style="background:#fff4e4;"><div class="name">Cream</div><div class="hex">#fff4e4</div></div>
+    <div class="sw light border-hint" style="background:#ffffff;"><div class="name">White</div><div class="hex">#ffffff</div></div>
+  </div>
+</div>
+</body>
+</html>

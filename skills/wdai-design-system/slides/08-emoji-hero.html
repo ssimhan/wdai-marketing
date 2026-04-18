@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hero focal — alternatives to emoji — WDAI</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="slide.css">
+<style>
+  .grid4 { position:absolute; inset:130px 96px 130px 96px; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:36px; }
+  .cell { position:relative; border-radius:20px; overflow:hidden; background:#2a1a52; border:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; justify-content:space-between; padding:36px; }
+  .cell .meta { font-family:var(--font-mono); font-size:13px; letter-spacing:0.14em; text-transform:uppercase; color:#ff6ea0; }
+  .cell .name { font-family:var(--font-display); font-weight:400; font-size:24px; letter-spacing:-0.01em; color:#fff4e4; margin-top:6px; }
+  .cell .note { font-family:var(--font-body); font-size:15px; line-height:1.45; color:rgba(255,244,228,0.72); margin-top:10px; max-width:440px; }
+  .visual { flex:1; display:flex; align-items:center; justify-content:center; position:relative; margin:18px 0; min-height:0; }
+
+  /* A: numeric / typographic hero */
+  .a .big-num { font-family:var(--font-display); font-weight:400; font-size:280px; line-height:0.85; letter-spacing:-0.04em; color:transparent; background: linear-gradient(135deg,#e93583 0%,#ee8933 60%,#fbd03b 100%); -webkit-background-clip:text; background-clip:text; }
+  .a .num-label { position:absolute; right:36px; top:50%; transform:translateY(-50%); font-family:var(--font-mono); font-size:14px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,244,228,0.55); writing-mode:vertical-rl; }
+
+  /* B: SVG glyph in accent color */
+  .b .glyph-wrap { width:260px; height:260px; border-radius:50%; background:linear-gradient(135deg, rgba(233,30,99,0.18), rgba(249,115,22,0.10)); border:1px solid rgba(233,30,99,0.45); display:flex; align-items:center; justify-content:center; box-shadow: 0 0 60px rgba(233,30,99,0.25); }
+  .b svg { width:150px; height:150px; color:#ff6ea0; }
+
+  /* C: photo placeholder frame */
+  .c .photo { width:100%; height:100%; border-radius:14px; background:
+      linear-gradient(135deg, rgba(233,30,99,0.30), rgba(139,47,166,0.35)),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 12px, rgba(255,255,255,0.06) 12px 24px);
+      display:flex; align-items:center; justify-content:center; position:relative; border:1px dashed rgba(255,255,255,0.24); }
+  .c .photo-hint { font-family:var(--font-mono); font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,244,228,0.65); }
+  .c .photo-tag { position:absolute; top:16px; left:16px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.12em; text-transform:uppercase; background:rgba(10,5,32,0.8); color:#fff4e4; padding:6px 10px; border-radius:6px; border:1px solid rgba(255,255,255,0.14); }
+
+  /* D: abstract geometric composition */
+  .d .geo { width:100%; height:100%; position:relative; }
+  .d .shape { position:absolute; border-radius:50%; }
+  .d .s1 { width:180px; height:180px; background:var(--grad-pink-orange); top:20%; left:18%; filter:blur(0.5px); }
+  .d .s2 { width:100px; height:100px; background:#fbd03b; top:55%; left:45%; mix-blend-mode:screen; opacity:0.9; }
+  .d .s3 { width:220px; height:220px; background:none; border:2px solid rgba(255,244,228,0.35); top:28%; left:48%; }
+  .d .line { position:absolute; width:240px; height:2px; background:linear-gradient(90deg, transparent, #ff6ea0, transparent); top:72%; left:22%; transform:rotate(-18deg); }
+
+  .footer { position:absolute; left:96px; right:96px; bottom:42px; display:flex; justify-content:space-between; align-items:baseline; font-family:var(--font-body); }
+  .footer .title { font-family:var(--font-display); font-weight:400; font-size:22px; color:#fff4e4; letter-spacing:-0.01em; }
+  .footer .sub { font-family:var(--font-mono); font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,244,228,0.55); }
+</style>
+</head>
+<body class="wdai">
+<div class="stage">
+  <div class="slide bg-hero-left dots">
+
+    <div style="position:absolute; top:56px; left:96px; right:96px; display:flex; align-items:baseline; justify-content:space-between;">
+      <div style="font-family:var(--font-mono); font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:#ff6ea0; white-space:nowrap;">Visual focal · beyond emoji</div>
+      <div style="font-family:var(--font-mono); font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,244,228,0.55); white-space:nowrap;">Four options</div>
+    </div>
+
+    <div class="grid4">
+      <!-- A: numeric / typographic -->
+      <div class="cell a">
+        <div>
+          <div class="meta">Option A</div>
+          <div class="name">Oversized number</div>
+          <div class="note">A single number carries the lesson. Pair with a short headline on the next line of the slide.</div>
+        </div>
+        <div class="visual"><div class="big-num">03</div></div>
+        <div class="num-label">Day number</div>
+      </div>
+
+      <!-- B: SVG glyph -->
+      <div class="cell b">
+        <div>
+          <div class="meta">Option B</div>
+          <div class="name">Line icon in halo</div>
+          <div class="note">A minimal SVG icon inside a soft gradient halo. Scales crisp at any size and stays on‑brand.</div>
+        </div>
+        <div class="visual">
+          <div class="glyph-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="5.5"/>
+              <circle cx="12" cy="12" r="2"/>
+              <path d="M12 3v2M12 19v2M3 12h2M19 12h2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- C: photo placeholder -->
+      <div class="cell c">
+        <div>
+          <div class="meta">Option C</div>
+          <div class="name">Photo / illustration</div>
+          <div class="note">Drop in a real image — portrait, product shot, or custom illustration. Highest emotional fidelity.</div>
+        </div>
+        <div class="visual">
+          <div class="photo">
+            <div class="photo-tag">Image · 16:10</div>
+            <div class="photo-hint">Place real photo here</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- D: abstract geometry -->
+      <div class="cell d">
+        <div>
+          <div class="meta">Option D</div>
+          <div class="name">Abstract composition</div>
+          <div class="note">Brand‑color shapes (circle, line, ring) arranged as a motif. Good for conceptual lessons without a literal subject.</div>
+        </div>
+        <div class="visual">
+          <div class="geo">
+            <div class="shape s1"></div>
+            <div class="shape s3"></div>
+            <div class="shape s2"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>
+        <div class="sub" style="color:#ff6ea0;">Design system · Hero imagery</div>
+        <div class="title" style="margin-top:4px;">Four alternatives to emoji for a focal hero.</div>
+      </div>
+      <div class="sub">Pick one per slide · stay consistent</div>
+    </div>
+
+    <div class="slide-num">20 / 24</div>
+    <div class="slide-mark"><img src="../assets/wdai-logo.png"><div class="wm">WDAI</div></div>
+  </div>
+</div>
+</body>
+</html>

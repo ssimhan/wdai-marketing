@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Probability — WDAI</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="slide.css">
+</head>
+<body class="wdai">
+<div class="stage">
+  <div class="slide bg-flat dots">
+    <div style="position:absolute; left:96px; top:112px; right:96px;">
+      <div class="eyebrow">Next-token probabilities · prompt: "The model predicts the next"</div>
+      <h1 style="font-family:var(--font-display); font-weight:400; letter-spacing:-0.025em; font-size:88px; line-height:1.02; margin:0 0 64px 0; color:#fff4e4;">
+        What the model is <span class="grad-text">actually</span> choosing between.
+      </h1>
+      <div style="display:flex; flex-direction:column; gap:22px;">
+        <div style="display:grid; grid-template-columns: 240px 1fr 120px; align-items:center; gap:32px;">
+          <div style="font-family:var(--font-mono); font-size:32px; color:#fff4e4;">" word"</div>
+          <div style="height:36px; background: rgba(255,255,255,0.06); border-radius:18px; overflow:hidden;"><div style="width:86%; height:100%; background: linear-gradient(90deg,#e93583,#ee8933); border-radius:18px;"></div></div>
+          <div style="font-family:var(--font-mono); font-size:28px; color:rgba(255,244,228,0.85); text-align:right;">86.4%</div>
+        </div>
+        <div style="display:grid; grid-template-columns: 240px 1fr 120px; align-items:center; gap:32px;">
+          <div style="font-family:var(--font-mono); font-size:32px; color:#fff4e4;">" token"</div>
+          <div style="height:36px; background: rgba(255,255,255,0.06); border-radius:18px; overflow:hidden;"><div style="width:9%; height:100%; background: linear-gradient(90deg,#e93583,#ee8933); opacity:0.85; border-radius:18px;"></div></div>
+          <div style="font-family:var(--font-mono); font-size:28px; color:rgba(255,244,228,0.85); text-align:right;">9.1%</div>
+        </div>
+        <div style="display:grid; grid-template-columns: 240px 1fr 120px; align-items:center; gap:32px;">
+          <div style="font-family:var(--font-mono); font-size:32px; color:#fff4e4;">" step"</div>
+          <div style="height:36px; background: rgba(255,255,255,0.06); border-radius:18px; overflow:hidden;"><div style="width:3%; height:100%; background: linear-gradient(90deg,#e93583,#ee8933); opacity:0.7; border-radius:18px;"></div></div>
+          <div style="font-family:var(--font-mono); font-size:28px; color:rgba(255,244,228,0.85); text-align:right;">2.8%</div>
+        </div>
+        <div style="display:grid; grid-template-columns: 240px 1fr 120px; align-items:center; gap:32px;">
+          <div style="font-family:var(--font-mono); font-size:32px; color:#fff4e4;">" sentence"</div>
+          <div style="height:36px; background: rgba(255,255,255,0.06); border-radius:18px; overflow:hidden;"><div style="width:1.2%; height:100%; background:#fbd03b; border-radius:18px;"></div></div>
+          <div style="font-family:var(--font-mono); font-size:28px; color:rgba(255,244,228,0.85); text-align:right;">1.2%</div>
+        </div>
+        <div style="display:grid; grid-template-columns: 240px 1fr 120px; align-items:center; gap:32px;">
+          <div style="font-family:var(--font-mono); font-size:32px; color:rgba(255,244,228,0.55);">… 50,251 others</div>
+          <div style="height:36px; background: rgba(255,255,255,0.06); border-radius:18px; overflow:hidden;"><div style="width:0.5%; height:100%; background: rgba(255,244,228,0.35); border-radius:18px;"></div></div>
+          <div style="font-family:var(--font-mono); font-size:28px; color:rgba(255,244,228,0.55); text-align:right;">0.5%</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-num">15 / 24</div>
+    <div class="slide-mark"><img src="../assets/wdai-logo.png"><div class="wm">WDAI</div></div>
+  </div>
+</div>
+</body>
+</html>

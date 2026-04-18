@@ -1,0 +1,66 @@
+/* Slide base — each slide is a 1920×1080 canvas that scales to fit viewport */
+html, body { margin: 0; padding: 0; background: #0a0520; overflow: hidden; }
+body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+
+.slide {
+  width: 1920px; height: 1080px;
+  position: relative; overflow: hidden;
+  color: var(--fg1);
+  font-family: var(--font-body);
+  transform-origin: center center;
+}
+
+/* Scale the fixed canvas to the viewport */
+.stage {
+  width: 100vw; height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+}
+.stage .slide {
+  transform: scale(min(calc(100vw / 1920), calc(100vh / 1080)));
+}
+
+/* Backgrounds */
+.bg-hero      { background: var(--grad-hero); }
+.bg-hero-left { background: var(--grad-hero-left); }
+.bg-hero-top  { background: var(--grad-hero-top); }
+.bg-flat      { background: linear-gradient(135deg, #1b0f3d 0%, #2a1a52 100%); }
+
+.dots::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1.2px);
+  background-size: 28px 28px;
+}
+
+/* Slide chrome — slide number, WDAI mark */
+.slide-num {
+  position: absolute; left: 64px; bottom: 48px;
+  font-family: var(--font-mono); font-size: 18px;
+  color: rgba(255, 244, 228, 0.45);
+  letter-spacing: 0.08em;
+}
+.slide-mark {
+  position: absolute; right: 64px; bottom: 48px;
+  display: flex; align-items: center; gap: 10px;
+}
+.slide-mark img { height: 32px; width: auto; }
+.slide-mark .wm {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 14px; letter-spacing: 0.02em;
+  color: rgba(255, 244, 228, 0.55);
+}
+
+/* Padding conventions */
+.pad      { padding: var(--slide-pad); }
+.pad-tight{ padding: var(--slide-pad-sm); }
+
+/* Common atoms */
+.eyebrow {
+  font-family: var(--font-mono); font-size: 20px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--wdai-pink); margin: 0 0 32px 0;
+}
+.grad-text {
+  background: var(--grad-pink-orange);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}

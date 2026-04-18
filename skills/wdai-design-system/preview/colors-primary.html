@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Palette (primary)</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#fff; font-family:'Figtree', system-ui, sans-serif; }
+  .card { padding: 20px; }
+  .row { display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw {
+    border-radius: 12px;
+    height: 96px;
+    padding: 12px 14px;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    position:relative; overflow:hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .sw .name { font-size:11px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; }
+  .sw .hex  { font-family:'JetBrains Mono', monospace; font-size:11px; opacity:0.85; margin-top:2px; }
+  .dark .name, .dark .hex { color:#fff4e4; }
+  .light .name, .light .hex { color:#1b0f3d; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="row">
+    <div class="sw dark" style="background:#1b0f3d;"><div class="name">Indigo</div><div class="hex">#1b0f3d</div></div>
+    <div class="sw dark" style="background:#2a1a52;"><div class="name">Purple</div><div class="hex">#2a1a52</div></div>
+    <div class="sw dark" style="background:#8b2fa6;"><div class="name">Magenta glow</div><div class="hex">#8b2fa6</div></div>
+    <div class="sw dark" style="background:#e93583;"><div class="name">Pink</div><div class="hex">#e93583</div></div>
+  </div>
+</div>
+</body>
+</html>

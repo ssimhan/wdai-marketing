@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Accent & mono type</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#1b0f3d; font-family:'Figtree', system-ui, sans-serif; color:#fff4e4; }
+  .card { padding: 24px 28px; display:grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items:center; }
+  .spec { font-family:'JetBrains Mono', monospace; font-size:10px; color:rgba(255,244,228,0.5); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; }
+  .caveat { font-family:'Homemade Apple', cursive; font-weight:500; font-size:48px; color:#fbd03b; line-height:1; }
+  .mono { font-family:'JetBrains Mono', monospace; font-size:14px; color:#fff4e4; line-height:1.6; }
+  .mono .dim { color:rgba(255,244,228,0.45); }
+  .mono .pink { color:#e93583; }
+  .mono .coral { color:#ee8933; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div>
+    <div class="spec">Caveat · accent</div>
+    <div class="caveat">for us, by us</div>
+  </div>
+  <div>
+    <div class="spec">JetBrains Mono · code & meta</div>
+    <div class="mono"><span class="dim">01 /</span> <span class="pink">def</span> <span class="coral">predict_next_token</span>()</div>
+    <div class="mono"><span class="dim">02 /</span>   <span class="pink">return</span> model(context)</div>
+  </div>
+</div>
+</body>
+</html>

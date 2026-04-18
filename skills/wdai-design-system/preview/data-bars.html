@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Data bar</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#1b0f3d; font-family:'Figtree', system-ui, sans-serif; color:#fff4e4; }
+  .card { padding: 22px 28px; display:flex; flex-direction:column; gap:10px; }
+  .row { display:grid; grid-template-columns: 140px 1fr 48px; gap: 14px; align-items:center; }
+  .name { font-family:'Figtree', system-ui, sans-serif; font-size:13px; color:rgba(255,244,228,0.85); }
+  .track { height:14px; background: rgba(255,255,255,0.06); border-radius: 7px; overflow:hidden; }
+  .fill { height:100%; border-radius:7px; }
+  .f1 { width:92%; background: linear-gradient(90deg,#e93583,#ee8933); }
+  .f2 { width:64%; background: linear-gradient(90deg,#e93583,#ee8933); opacity:0.9; }
+  .f3 { width:38%; background: linear-gradient(90deg,#e93583,#ee8933); opacity:0.8; }
+  .f4 { width:12%; background: #fbd03b; }
+  .pct { font-family:'JetBrains Mono', monospace; font-size:11px; color:rgba(255,244,228,0.7); text-align:right; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="row"><div class="name">Pattern match</div><div class="track"><div class="fill f1"></div></div><div class="pct">92%</div></div>
+  <div class="row"><div class="name">Factual recall</div><div class="track"><div class="fill f2"></div></div><div class="pct">64%</div></div>
+  <div class="row"><div class="name">Novel reasoning</div><div class="track"><div class="fill f3"></div></div><div class="pct">38%</div></div>
+  <div class="row"><div class="name">True invention</div><div class="track"><div class="fill f4"></div></div><div class="pct">12%</div></div>
+</div>
+</body>
+</html>

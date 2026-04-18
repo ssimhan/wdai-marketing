@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Radii</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#1b0f3d; font-family:'Figtree', system-ui, sans-serif; color:#fff4e4; }
+  .card { padding: 24px; display:flex; gap: 18px; align-items:flex-end; }
+  .box {
+    background: linear-gradient(135deg,#3a2470,#2a1a52);
+    width: 96px; height: 96px;
+    display:flex; align-items:flex-end; justify-content:center;
+    padding-bottom: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:rgba(255,244,228,0.8);
+  }
+  .lbl { font-family:'JetBrains Mono', monospace; font-size:10px; color:rgba(255,244,228,0.5); text-transform:uppercase; margin-top:6px; letter-spacing:0.06em; }
+  .item { display:flex; flex-direction:column; align-items:center; }
+  .pill { width:140px; height:44px; border-radius:999px; background: linear-gradient(90deg,#e93583,#ee8933); display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono', monospace; font-size:11px; color:#fff4e4; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="item"><div class="box" style="border-radius:8px;">8</div><div class="lbl">sm · chips</div></div>
+  <div class="item"><div class="box" style="border-radius:12px;">12</div><div class="lbl">canonical</div></div>
+  <div class="item"><div class="box" style="border-radius:16px;">16</div><div class="lbl">lg · cards</div></div>
+  <div class="item"><div class="box" style="border-radius:24px;">24</div><div class="lbl">xl · hero</div></div>
+  <div class="item"><div class="pill">pill</div><div class="lbl">badges only</div></div>
+</div>
+</body>
+</html>

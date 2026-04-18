@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feedback prompt — WDAI</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="slide.css">
+<style>
+  .bub {
+    position:absolute; background:#2a1a52; border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px; padding:18px 20px; box-shadow: 0 18px 48px rgba(0,0,0,0.4);
+    font-family: var(--font-body);
+  }
+  .bub .hdr { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .bub .av {
+    width:28px; height:28px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-body); font-weight:700; font-size:11px; color:#fff4e4;
+    letter-spacing:0.02em;
+  }
+  .bub .name { font-weight:600; font-size:13px; color:#fff4e4; }
+  .bub .when { font-family:var(--font-mono); font-size:10px; color:rgba(255,244,228,0.5); letter-spacing:0.04em; margin-top:1px;}
+  .bub .body { font-size:15px; line-height:1.45; color:#fff4e4; margin:0; }
+  .bub .tag {
+    display:inline-block; margin-top:12px;
+    background:rgba(233,30,99,0.18); color:#ff6ea0; padding:4px 10px;
+    border-radius:999px; font-family:var(--font-mono); font-size:10px;
+    letter-spacing:0.08em; text-transform:uppercase;
+  }
+
+  .note {
+    position:absolute; background:#fff4e4; color:#1a0f3d;
+    padding:14px 18px; border-radius:4px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    font-family:var(--font-accent); font-size:20px; line-height:1.25;
+    max-width:260px;
+  }
+  .note .meta {
+    font-family:var(--font-mono); font-size:9px; letter-spacing:0.1em;
+    text-transform:uppercase; color:rgba(26,15,61,0.55); margin-bottom:6px;
+    display:block;
+  }
+
+  body[data-variant="constellation"] .set-const { display:block; }
+  body[data-variant="constellation"] .set-margin,
+  body[data-variant="constellation"] .set-single,
+  body[data-variant="constellation"] .set-clean { display:none; }
+
+  body[data-variant="margin"] .set-margin { display:block; }
+  body[data-variant="margin"] .set-const,
+  body[data-variant="margin"] .set-single,
+  body[data-variant="margin"] .set-clean { display:none; }
+
+  body[data-variant="single"] .set-single { display:block; }
+  body[data-variant="single"] .set-const,
+  body[data-variant="single"] .set-margin,
+  body[data-variant="single"] .set-clean { display:none; }
+
+  body[data-variant="clean"] .set-clean { display:block; }
+  body[data-variant="clean"] .set-const,
+  body[data-variant="clean"] .set-margin,
+  body[data-variant="clean"] .set-single { display:none; }
+
+  #tweaks {
+    position: fixed; right: 24px; bottom: 24px; z-index: 10000;
+    background: #1a0f3d; border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 16px 18px;
+    font-family: var(--font-body); color:#fff4e4;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: none; min-width: 280px;
+  }
+  #tweaks.on { display: block; }
+  #tweaks h4 { margin:0 0 10px 0; font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#ff6ea0; font-weight:600; }
+  #tweaks label { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; font-size:14px; border:1px solid transparent; }
+  #tweaks label:hover { background:rgba(255,255,255,0.04); }
+  #tweaks label.active { border-color: rgba(233,30,99,0.55); background: rgba(233,30,99,0.08); }
+  #tweaks input[type=radio] { accent-color: #e93583; }
+
+  .av-mr { background: linear-gradient(135deg,#e93583,#ee8933); }
+  .av-pj { background: linear-gradient(135deg,#8b2fa6,#e93583); }
+  .av-ak { background: linear-gradient(135deg,#fbd03b,#ee8933); }
+  .av-dt { background: linear-gradient(135deg,#2f6fa6,#8b2fa6); }
+</style>
+</head>
+<body class="wdai" data-variant="constellation">
+<div class="stage">
+  <div class="slide bg-hero dots" data-screen-label="10 Feedback">
+
+    <div class="headline" style="position:absolute; left:96px; top:50%; transform:translateY(-50%); max-width:1100px;">
+      <div class="eyebrow">Closing · Day 03</div>
+      <h1 style="font-family:var(--font-display); font-weight:400; letter-spacing:-0.008em; font-size:108px; line-height:1.02; margin:0; color:#fff4e4;">
+        What's <em class="grad-text" style="font-style:italic;">still fuzzy</em> for you?
+      </h1>
+      <p style="font-family:var(--font-body); font-size:30px; line-height:1.45; color:rgba(255,244,228,0.72); margin:36px 0 0 0; max-width:920px;">
+        One sentence in the margin. Your confusion is the most valuable thing you'll bring to tomorrow.
+      </p>
+    </div>
+
+    <!-- A: Constellation -->
+    <div class="set-const">
+      <div class="bub" style="right:96px; top:88px; width:380px; transform:rotate(1.2deg);">
+        <div class="hdr">
+          <div class="av av-mr">MR</div>
+          <div><div class="name">Maya R.</div><div class="when">2 min ago · slide 07</div></div>
+        </div>
+        <p class="body">I'm still unclear on how attention <em>weights</em> get learned in the first place.</p>
+        <span class="tag">Question</span>
+      </div>
+      <div class="bub" style="right:240px; top:440px; width:340px; transform:rotate(-2deg);">
+        <div class="hdr">
+          <div class="av av-ak">AK</div>
+          <div><div class="name">Anika K.</div><div class="when">just now · slide 04</div></div>
+        </div>
+        <p class="body">Why <em>next-word</em> prediction specifically? Feels arbitrary.</p>
+        <span class="tag" style="background:rgba(251,208,59,0.18); color:#fbd03b;">Curious</span>
+      </div>
+      <div class="bub" style="right:96px; top:700px; width:360px; transform:rotate(0.8deg);">
+        <div class="hdr">
+          <div class="av av-pj">PJ</div>
+          <div><div class="name">Priya J.</div><div class="when">5 min ago · slide 09</div></div>
+        </div>
+        <p class="body">Does the temperature param actually live in production, or just in the playground?</p>
+        <span class="tag" style="background:rgba(139,47,166,0.22); color:#d18bff;">Practical</span>
+      </div>
+    </div>
+
+    <!-- B: Margin sticky notes -->
+    <div class="set-margin">
+      <div class="note" style="right:140px; top:120px; transform:rotate(2.5deg);">
+        <span class="meta">Maya · slide 07</span>
+        How do the weights get learned?
+      </div>
+      <div class="note" style="right:96px; top:360px; transform:rotate(-1.8deg);">
+        <span class="meta">Anika · slide 04</span>
+        Why next-word prediction?
+      </div>
+      <div class="note" style="right:200px; top:600px; transform:rotate(1.2deg);">
+        <span class="meta">Priya · slide 09</span>
+        Temperature — real or toy?
+      </div>
+      <div class="note" style="right:140px; top:820px; transform:rotate(-2.8deg);">
+        <span class="meta">Dani · slide 10</span>
+        What happens at context limit?
+      </div>
+    </div>
+
+    <!-- C: Single pinned example -->
+    <div class="set-single">
+      <div class="bub" style="right:96px; bottom:120px; width:480px;">
+        <div style="font-family:var(--font-mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#ff6ea0; margin-bottom:14px;">Example — from yesterday</div>
+        <div class="hdr">
+          <div class="av av-mr" style="width:40px; height:40px; font-size:14px;">MR</div>
+          <div><div class="name" style="font-size:16px;">Maya R.</div><div class="when" style="font-size:11px;">after Day 02</div></div>
+        </div>
+        <p class="body" style="font-size:18px;">The token visualization clicked for me. But I'm still unclear on how attention "weights" get learned in the first place.</p>
+        <span class="tag">Question</span>
+      </div>
+    </div>
+
+    <!-- D: Clean -->
+    <div class="set-clean">
+      <div style="position:absolute; right:96px; top:50%; transform:translateY(-50%); font-family:var(--font-accent); font-size:56px; color:rgba(233,30,99,0.35); line-height:1.1; max-width:420px; text-align:right;">
+        ↓<br/>write one<br/>sentence.
+      </div>
+    </div>
+
+    <div class="slide-num">10 / 24</div>
+    <div class="slide-mark"><img src="../assets/wdai-logo.png"><div class="wm">WDAI</div></div>
+  </div>
+</div>
+
+<div id="tweaks">
+  <h4>Comment treatment</h4>
+  <div id="tweak-rows">
+    <label data-v="constellation"><input type="radio" name="v" value="constellation"> Constellation (3 cards, varied)</label>
+    <label data-v="margin"><input type="radio" name="v" value="margin"> Margin sticky notes</label>
+    <label data-v="single"><input type="radio" name="v" value="single"> Single pinned example</label>
+    <label data-v="clean"><input type="radio" name="v" value="clean"> Clean — no comments</label>
+  </div>
+</div>
+
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "variant": "constellation"
+}/*EDITMODE-END*/;
+
+const body = document.body;
+const panel = document.getElementById('tweaks');
+const rows = document.querySelectorAll('#tweak-rows label');
+
+function apply(v) {
+  body.setAttribute('data-variant', v);
+  rows.forEach(r => {
+    const match = r.dataset.v === v;
+    r.classList.toggle('active', match);
+    r.querySelector('input').checked = match;
+  });
+}
+
+window.addEventListener('message', (e) => {
+  const d = e.data || {};
+  if (d.type === '__activate_edit_mode') panel.classList.add('on');
+  if (d.type === '__deactivate_edit_mode') panel.classList.remove('on');
+});
+try { window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e){}
+
+apply(TWEAK_DEFAULTS.variant);
+rows.forEach(r => {
+  r.addEventListener('click', () => {
+    const v = r.dataset.v;
+    apply(v);
+    try { window.parent.postMessage({type:'__edit_mode_set_keys', edits:{variant:v}}, '*'); } catch(e){}
+  });
+});
+</script>
+</body>
+</html>

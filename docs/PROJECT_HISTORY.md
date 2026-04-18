@@ -1,5 +1,35 @@
 # Project History
 
+## 2026-04-18 — Phase 6 + Design System Planning Session
+
+### Accomplishments
+
+- **Phase 6 fully planned** — Auto-publishing to LinkedIn (org page API) and Mailchimp (v3 direct API). Four blocks (A1–A4) with TDD-first chunks. No external blockers; all APIs can be mocked.
+- **Design System integration planned** — Commit untracked `skills/wdai-design-system/` skill and apply Figtree font + brand color tokens to calendar HTML viewer. Two blocks (C1–C2), ~2 hours.
+- **Documentation restructured** — Created `docs/ROADMAP.md` (full system timeline + phase status), `docs/plans/README.md` (plans navigator with status labels), refactored `NEXT.md` to quick reference. Clear entry points for different use cases (quick status, full roadmap, specific phase).
+- **Plans folder organized** — All 6 plans (Phase 3, 4, 5, 6+C) indexed by status (🚀 ⏳ ✅ 🔒). Dated filenames + structure explained in README.
+- **Environment variables documented** — Phase 6 requires 5 new env vars (LinkedIn token + org ID, Mailchimp key + server + audience).
+
+### Key Learnings
+
+- Multi-phase planning works well if phases are orthogonal (zero dependencies) — parallel exploration 2x faster
+- Reuse existing patterns (readEventCopy, writeCopyDraft) before designing new infrastructure
+- Design system integration is trivial if the system already exists — commit + apply, not design + build
+- Ask trade-off questions upfront (direct API vs. subprocess, commit-only vs. apply-to-HTML) before writing pseudo-code
+- Merge tactical docs into strategic docs, use status labels on plans instead of date-based sorting
+
+### Plans Approved & Documented
+
+- [`docs/plans/2026-04-18-phase-6-publish.md`](docs/plans/2026-04-18-phase-6-publish.md) — Phase 6 (A1–A4) + Phase C (C1–C2)
+
+### Next Steps
+
+- Build Phase 6 (auto-publishing) — 1 day, no blockers
+- Build Phase C (design system integration) — 2 hours, no blockers
+- Wait on Vercel access for Phase 4 Block D2 + Phase 5 Block E
+
+---
+
 ## 2026-04-16 — Strategy Session: Architecture Clarification + Documentation Consolidation
 
 ### Accomplishments

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Logo</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#1b0f3d; font-family:'Figtree', system-ui, sans-serif; color:#fff4e4; }
+  .card { padding: 22px 28px; display:grid; grid-template-columns: 1fr; gap: 18px; }
+  .row { display:flex; align-items:center; gap:18px; padding:14px 16px; border:1px solid rgba(255,255,255,0.08); border-radius:12px; background:rgba(255,255,255,0.02); }
+  .row.rec { border-color:rgba(233,53,131,0.5); box-shadow: 0 0 0 1px rgba(233,53,131,0.35) inset; }
+  .mark { height:56px; width:auto; display:block; flex-shrink:0; }
+  .wm { display:flex; flex-direction:column; min-width:0; flex:1; }
+  .sp { font-family:'JetBrains Mono', monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:#ff8ab8; margin-bottom:4px; }
+
+  /* Treatment A — Instrument Serif italic + spec */
+  .a .name { font-family:'Instrument Serif', Georgia, serif; font-weight:400; font-style:italic; font-size:26px; line-height:1; color:#fff4e4; letter-spacing:-0.005em; }
+  .a .tag  { font-family:'Figtree', system-ui, sans-serif; font-weight:500; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,244,228,0.55); margin-top:6px; }
+
+  /* Treatment B — Instrument Serif roman, no italic */
+  .b .name { font-family:'Instrument Serif', Georgia, serif; font-weight:400; font-size:26px; line-height:1; color:#fff4e4; letter-spacing:-0.005em; }
+  .b .tag  { font-family:'Figtree', system-ui, sans-serif; font-weight:500; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,244,228,0.55); margin-top:6px; }
+
+  /* Treatment C — Figtree bold (sans lockup, for UI chrome) */
+  .c .name { font-family:'Figtree', system-ui, sans-serif; font-weight:700; font-size:18px; line-height:1.05; color:#fff4e4; letter-spacing:-0.005em; }
+  .c .tag  { font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,244,228,0.5); margin-top:4px; }
+
+  .usage { font-family:'JetBrains Mono', monospace; font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,244,228,0.4); margin-left:auto; white-space:nowrap; padding-left:14px; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="row rec a">
+    <img class="mark" src="../assets/wdai-logo.png" alt="">
+    <div class="wm">
+      <div class="sp">Primary · recommended</div>
+      <div class="name">Women Defining <em>AI</em></div>
+      <div class="tag">Curriculum · Community · Charter</div>
+    </div>
+    <div class="usage">Covers, print, hero</div>
+  </div>
+
+  <div class="row b">
+    <img class="mark" src="../assets/wdai-logo.png" alt="">
+    <div class="wm">
+      <div class="sp">Alt · editorial</div>
+      <div class="name">Women Defining AI</div>
+      <div class="tag">Curriculum · Community · Charter</div>
+    </div>
+    <div class="usage">Section titles, print</div>
+  </div>
+
+  <div class="row c">
+    <img class="mark" src="../assets/wdai-logo.png" alt="" style="height:36px;">
+    <div class="wm">
+      <div class="sp">UI lockup · sans</div>
+      <div class="name">Women Defining AI</div>
+      <div class="tag">wdai.app</div>
+    </div>
+    <div class="usage">Nav, footers, small UI</div>
+  </div>
+
+</div>
+</body>
+</html>

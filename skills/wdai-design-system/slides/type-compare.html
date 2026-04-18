@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Type systems compared — WDAI</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="slide.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&family=Homemade+Apple&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter+Tight:wght@400;500;600;700;800&family=Caveat:wght@400;600&family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&family=Kalam:wght@400&display=swap');
+
+  .grid3 { position:absolute; inset:140px 96px 120px 96px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px; }
+  .col {
+    position:relative; background:#2a1a52; border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px; padding:40px 36px 36px; display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+  .col.rec { border-color:rgba(233,30,99,0.5); box-shadow: 0 0 0 1px rgba(233,30,99,0.4), 0 20px 60px rgba(233,30,99,0.15); }
+  .tag-rec {
+    position:absolute; top:18px; right:18px;
+    font-family:var(--font-mono); font-size:10px; letter-spacing:0.14em; text-transform:uppercase;
+    background:linear-gradient(90deg,#e93583,#ee8933); color:#fff4e4;
+    padding:5px 10px; border-radius:999px;
+  }
+  .letter { font-family:var(--font-mono); font-size:13px; letter-spacing:0.18em; text-transform:uppercase; color:#ff6ea0; margin-bottom:6px; }
+  .sysname { font-family:var(--font-display); font-weight:400; font-size:30px; line-height:1.1; color:#fff4e4; margin:0 0 20px 0; letter-spacing:-0.005em; }
+  .trio { display:flex; flex-direction:column; gap:22px; flex:1; }
+  .slot { border-top:1px dashed rgba(255,255,255,0.14); padding-top:16px; }
+  .slot:first-child { border-top:none; padding-top:0; }
+  .role { font-family:var(--font-mono); font-size:10px; color:rgba(255,244,228,0.5); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
+  .why { font-family:var(--font-body); font-size:14px; line-height:1.5; color:rgba(255,244,228,0.72); margin-top:18px; padding-top:18px; border-top:1px dashed rgba(255,255,255,0.14); }
+  .why strong { color:#fff4e4; font-weight:600; }
+
+  /* System A */
+  .a .disp { font-family:'Instrument Serif', Georgia, serif; font-weight:400; font-size:56px; line-height:1; color:#fff4e4; letter-spacing:-0.005em; }
+  .a .disp em { font-style:italic; background:linear-gradient(135deg,#e93583,#ee8933); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .a .body { font-family:'Figtree', system-ui, sans-serif; font-weight:400; font-size:16px; line-height:1.5; color:#fff4e4; }
+  .a .body strong { font-weight:600; }
+  .a .accent { font-family:'Homemade Apple', cursive; font-size:26px; color:#fbd03b; line-height:1.2; }
+
+  /* System B */
+  .b .disp { font-family:'Fraunces', serif; font-weight:600; font-variation-settings:'opsz' 144; font-size:54px; line-height:1; color:#fff4e4; letter-spacing:-0.015em; }
+  .b .disp em { font-style:italic; background:linear-gradient(135deg,#e93583,#ee8933); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .b .body { font-family:'Inter Tight', sans-serif; font-weight:400; font-size:16px; line-height:1.5; color:#fff4e4; letter-spacing:-0.005em; }
+  .b .body strong { font-weight:600; }
+  .b .accent { font-family:'Caveat', cursive; font-weight:600; font-size:32px; color:#fbd03b; line-height:1; }
+
+  /* System C */
+  .c .disp { font-family:'DM Serif Display', serif; font-weight:400; font-size:56px; line-height:1; color:#fff4e4; letter-spacing:-0.01em; }
+  .c .disp em { font-style:italic; background:linear-gradient(135deg,#e93583,#ee8933); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .c .body { font-family:'DM Sans', sans-serif; font-weight:400; font-size:16px; line-height:1.5; color:#fff4e4; }
+  .c .body strong { font-weight:600; }
+  .c .accent { font-family:'Kalam', cursive; font-weight:400; font-size:28px; color:#fbd03b; line-height:1.15; }
+</style>
+</head>
+<body class="wdai">
+<div class="stage">
+  <div class="slide bg-hero dots" data-screen-label="Type compare">
+
+    <div style="position:absolute; left:96px; top:56px; right:96px; display:flex; align-items:baseline; justify-content:space-between;">
+      <div>
+        <div style="font-family:var(--font-mono); font-size:14px; letter-spacing:0.18em; text-transform:uppercase; color:#ff6ea0; margin-bottom:8px;">Type exploration · pick one</div>
+        <div style="font-family:var(--font-display); font-weight:400; font-size:52px; line-height:1; color:#fff4e4; letter-spacing:-0.005em;">Three type systems for Women Defining AI.</div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,244,228,0.55);">Warm · optimistic · minimal</div>
+    </div>
+
+    <div class="grid3">
+
+      <!-- A: Instrument Serif + Figtree + Homemade Apple -->
+      <div class="col a rec">
+        <div class="tag-rec">Recommended</div>
+        <div class="letter">System A</div>
+        <h3 class="sysname">Instrument Serif<br/>+ Figtree<br/>+ Homemade Apple</h3>
+        <div class="trio">
+          <div class="slot">
+            <div class="role">Display</div>
+            <div class="disp">How a model <em>predicts</em>.</div>
+          </div>
+          <div class="slot">
+            <div class="role">Body</div>
+            <div class="body">Attention lets the model look at every other word at once and decide which ones <strong>matter</strong>.</div>
+          </div>
+          <div class="slot">
+            <div class="role">Handwritten accent</div>
+            <div class="accent">for us, by us</div>
+          </div>
+        </div>
+        <div class="why"><strong>Warm, literary, confident.</strong> Instrument Serif is a distinctive display face with a beautiful italic. Figtree is a humanist sans that stays friendly at small sizes. Homemade Apple is real cursive — rare enough to feel personal.</div>
+      </div>
+
+      <!-- B: Fraunces + Inter Tight + Caveat -->
+      <div class="col b">
+        <div class="letter">System B</div>
+        <h3 class="sysname">Fraunces<br/>+ Inter Tight<br/>+ Caveat</h3>
+        <div class="trio">
+          <div class="slot">
+            <div class="role">Display</div>
+            <div class="disp">How a model <em>predicts</em>.</div>
+          </div>
+          <div class="slot">
+            <div class="role">Body</div>
+            <div class="body">Attention lets the model look at every other word at once and decide which ones <strong>matter</strong>.</div>
+          </div>
+          <div class="slot">
+            <div class="role">Handwritten accent</div>
+            <div class="accent">for us, by us</div>
+          </div>
+        </div>
+        <div class="why"><strong>A tighter evolution of the current system.</strong> Fraunces is expressive with real optical sizing. Inter Tight is tighter than Inter and reads as more editorial. Caveat is familiar but feels a bit default.</div>
+      </div>
+
+      <!-- C: DM Serif Display + DM Sans + Kalam -->
+      <div class="col c">
+        <div class="letter">System C</div>
+        <h3 class="sysname">DM Serif Display<br/>+ DM Sans<br/>+ Kalam</h3>
+        <div class="trio">
+          <div class="slot">
+            <div class="role">Display</div>
+            <div class="disp">How a model <em>predicts</em>.</div>
+          </div>
+          <div class="slot">
+            <div class="role">Body</div>
+            <div class="body">Attention lets the model look at every other word at once and decide which ones <strong>matter</strong>.</div>
+          </div>
+          <div class="slot">
+            <div class="role">Handwritten accent</div>
+            <div class="accent">for us, by us</div>
+          </div>
+        </div>
+        <div class="why"><strong>The most editorial, magazine-y option.</strong> DM Serif Display is dramatic with high contrast strokes. DM Sans is clean and geometric. Kalam is a warmer handwriting than Caveat. Risk: high-contrast serif can feel cold at scale.</div>
+      </div>
+
+    </div>
+
+    <div class="slide-num">Compare</div>
+    <div class="slide-mark"><img src="../assets/wdai-logo.png"><div class="wm">WDAI</div></div>
+  </div>
+</div>
+</body>
+</html>

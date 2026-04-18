@@ -1,5 +1,29 @@
 # Lessons Learned
 
+## 2026-04-18 — Phase 6 + Design System Planning: Multi-Phase Design in One Session
+
+### Architectural Insights
+
+**Two unrelated phases can be planned together if they have zero dependencies.** Phase 6 (publishing) and Phase C (design system) are orthogonal — neither blocks the other, neither depends on the other's implementation. Planning both in parallel with two Explore agents was 2x faster than sequentially. Pattern: *"Do they touch the same modules or share dependencies? No → plan in parallel."*
+
+**Reuse existing patterns before designing new infrastructure.** Phase 6 needed to read/write copy drafts — `readEventCopy()` and `writeCopyDraft()` already existed from Phase 5. Pattern: *"Before planning a new module, explore what already exists in similar modules (status.ts, copy-store.ts, etc.) and design your new module to match existing conventions."* This saves architecture debates and test duplication.
+
+**Design system integration is trivial if the system already exists.** The 300+ files in `skills/wdai-design-system/` were already complete and structured. The only work was: (1) commit it, (2) apply tokens to one CSS const. Total time: 2 hours. Pattern: *"If a design system exists but is untracked, the plan is 'commit + apply' not 'design + build'."*
+
+### Spec-Crafting for AI Agents
+
+**Multi-phase exploration with parallel agents saves time on large domains.** Instead of: *"Explore the calendar sync pipeline and design Phase 6"*, split into: *"Agent A: understand copy pipeline + publishing patterns. Agent B: understand design system contents + calendar HTML."* Each agent gets a focused domain; results combine with zero overlap.
+
+**Question the user about trade-offs before planning, not during implementation.** Asked two questions upfront (email via direct API vs. wdai-mc subprocess; design system: commit-only vs. apply-to-calendar). Got clear answers before writing a single line of pseudo-code. Saved a `/fix` round-trip.
+
+### Documentation Insights
+
+**Merge tactical docs (NEXT.md) into strategic docs (ROADMAP.md).** NEXT.md became a quick-ref pointer to ROADMAP.md instead of duplicating status. Created `docs/plans/README.md` as a navigator between the two. New hierarchy: Quick ref (NEXT) → Full roadmap (ROADMAP) → Find phase (plans/README) → Implementation (plans/YYYY-MM-DD-*.md).
+
+**Label plans by status, not by date.** Added status labels to `docs/plans/README.md` (🚀 ⏳ ✅ 🔒 📋). Users now scan by status, not chronologically. Reduces "What should I build?" to 10-second lookup.
+
+---
+
 ## 2026-04-18 — Phase 5B+7 Session: Leader Voice Integration + HTML UX + Team Docs
 
 ### Architectural Insights

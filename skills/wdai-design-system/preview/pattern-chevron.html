@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html,body{margin:0;background:#1b0f3d;color:#fff4e4;font-family:'Figtree',system-ui,sans-serif;}
+  .card{padding:20px 24px;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .tile{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;background:#2a1a52;}
+  .tile img{width:100%;height:100%;object-fit:cover;display:block;}
+  .tile .lbl{position:absolute;left:10px;bottom:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#fff4e4;background:rgba(10,5,32,0.6);padding:3px 7px;border-radius:4px;}
+  .note{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,244,228,0.55);text-transform:uppercase;letter-spacing:0.08em;margin-top:12px;}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="grid">
+    <div class="tile"><img src="../assets/chevron-pink.png"><div class="lbl">Pink · #e93583</div></div>
+    <div class="tile"><img src="../assets/chevron-purple.png"><div class="lbl">Lavender · #86589d</div></div>
+    <div class="tile"><img src="../assets/chevron-orange.png"><div class="lbl">Orange · #ee8933</div></div>
+  </div>
+  <div class="note">Reserved use · covers, section dividers, closing slides, print collateral</div>
+</div>
+</body>
+</html>

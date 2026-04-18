@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Slide archetypes</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#0a0520; color:#fff4e4; font-family:'Figtree', system-ui, sans-serif; }
+  .wrap { max-width: 1440px; margin: 0 auto; padding: 64px 48px; }
+  h1 { font-family:'Instrument Serif', Georgia, serif; font-weight:400; letter-spacing:-0.01em; font-size:64px; line-height:1; margin:0 0 8px 0; }
+  .sub { color: rgba(255,244,228,0.65); font-size:18px; margin: 0 0 48px 0; max-width:720px; line-height:1.5; }
+  .grid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .card { background:#2a1a52; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); text-decoration:none; color:inherit; display:block; transition: transform 220ms cubic-bezier(0.22,1,0.36,1); }
+  .card:hover { transform: translateY(-2px); }
+  .frame { aspect-ratio: 16/9; overflow:hidden; position:relative; background:#1b0f3d; }
+  .frame iframe { width: 1920px; height: 1080px; border:0; transform: scale(calc(640/1920)); transform-origin: top left; pointer-events:none; }
+  .meta { padding: 16px 20px; display:flex; justify-content:space-between; align-items:center; }
+  .name { font-family:'Instrument Serif', Georgia, serif; font-weight:600; font-size:18px; }
+  .idx { font-family:'JetBrains Mono', monospace; font-size:12px; color: rgba(255,244,228,0.45); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Slide archetypes</h1>
+  <p class="sub">Ten canonical layouts at 1920×1080. Click any thumbnail to open the full slide. These handle roughly 95% of every WDAI deck.</p>
+  <div class="grid">
+    <a class="card" href="01-cover.html"><div class="frame"><iframe src="01-cover.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Cover</div><div class="idx">01</div></div></a>
+    <a class="card" href="02-quote.html"><div class="frame"><iframe src="02-quote.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Quote</div><div class="idx">02</div></div></a>
+    <a class="card" href="03-section-divider.html"><div class="frame"><iframe src="03-section-divider.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Section divider</div><div class="idx">03</div></div></a>
+    <a class="card" href="04-definition.html"><div class="frame"><iframe src="04-definition.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Definition</div><div class="idx">04</div></div></a>
+    <a class="card" href="05-list.html"><div class="frame"><iframe src="05-list.html" scrolling="no"></iframe></div><div class="meta"><div class="name">List</div><div class="idx">05</div></div></a>
+    <a class="card" href="06-probability.html"><div class="frame"><iframe src="06-probability.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Probability / data</div><div class="idx">06</div></div></a>
+    <a class="card" href="07-photo-split.html"><div class="frame"><iframe src="07-photo-split.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Photo split</div><div class="idx">07</div></div></a>
+    <a class="card" href="08-emoji-hero.html"><div class="frame"><iframe src="08-emoji-hero.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Emoji hero</div><div class="idx">08</div></div></a>
+    <a class="card" href="09-code.html"><div class="frame"><iframe src="09-code.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Code / prompt</div><div class="idx">09</div></div></a>
+    <a class="card" href="10-feedback.html"><div class="frame"><iframe src="10-feedback.html" scrolling="no"></iframe></div><div class="meta"><div class="name">Feedback prompt</div><div class="idx">10</div></div></a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Team grid — WDAI</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="slide.css">
+<style>
+  .eyebrow-lg { font-family:var(--font-mono); font-size:24px; letter-spacing:0.14em; text-transform:uppercase; color:#ff8ab8; margin:0 0 20px 0; }
+  .headline { font-family:var(--font-display); font-weight:400; font-style:italic; letter-spacing:-0.008em; font-size:108px; line-height:1.0; margin:0 0 60px 0; color:#fff4e4; }
+  .left-col { position:absolute; left:96px; top:50%; transform:translateY(-50%); max-width:460px; }
+  .left-col p { font-family:var(--font-body); font-size:22px; line-height:1.5; color:rgba(255,244,228,0.72); margin:0; max-width:420px; }
+  .grid { position:absolute; right:96px; top:50%; transform:translateY(-50%); display:grid; grid-template-columns:1fr 1fr; gap:48px; width:1080px; }
+  .card { display:flex; flex-direction:column; }
+  .frame { position:relative; aspect-ratio:1/1.15; border-radius:8px; overflow:hidden; border:6px solid #86589d; box-shadow:0 20px 48px rgba(0,0,0,0.45); background:#2a1a52; }
+  .ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,244,228,0.45); background:
+    linear-gradient(135deg, rgba(134,88,157,0.3), rgba(51,41,97,0.6)),
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 10px, rgba(255,255,255,0.06) 10px 20px); }
+  .ph-mark { position:absolute; bottom:14px; right:14px; font-family:var(--font-mono); font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,244,228,0.55); }
+  .name { font-family:var(--font-display); font-style:italic; font-weight:400; font-size:44px; line-height:1.05; color:#fff4e4; margin:28px 0 10px 0; letter-spacing:-0.005em; }
+  .role { font-family:var(--font-body); font-weight:700; font-size:18px; line-height:1.4; color:#e93583; margin:0 0 14px 0; }
+  .bio { font-family:var(--font-body); font-size:15px; line-height:1.5; color:rgba(255,244,228,0.62); margin:0; }
+  .pattern-band { position:absolute; left:0; bottom:0; width:100%; height:32px; opacity:0.65; }
+</style>
+</head>
+<body class="wdai">
+<div class="stage">
+  <div class="slide bg-hero-left dots" data-screen-label="11 Team">
+    <div class="left-col">
+      <div class="eyebrow-lg">Your Co-Founders</div>
+      <h1 class="headline">The <span class="grad-text">hands</span> behind the weave.</h1>
+      <p>Built by practitioners, for practitioners. Both have shipped inside the companies whose AI you already use.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="frame">
+          <div class="ph">Portrait · Helen</div>
+          <div class="ph-mark">1200 × 1400</div>
+        </div>
+        <div class="name">Helen Lee Kupp</div>
+        <div class="role">Future of Work, Product, Strategy &amp; Analytics</div>
+        <div class="bio">The Future Forum by Slack/Salesforce, Thumbtack, Bain &amp; Company</div>
+      </div>
+      <div class="card">
+        <div class="frame">
+          <div class="ph">Portrait · Nichole</div>
+          <div class="ph-mark">1200 × 1400</div>
+        </div>
+        <div class="name">Nichole Sterling</div>
+        <div class="role">Strategy &amp; Operations, Human Resources, City Government, AI Agents</div>
+        <div class="bio">My Town AI, Stateless, Nederland Board of Trustees</div>
+      </div>
+    </div>
+
+    <div class="slide-num">11 / 24</div>
+    <div class="slide-mark"><img src="../assets/wdai-logo.png"><div class="wm">WDAI</div></div>
+  </div>
+</div>
+</body>
+</html>

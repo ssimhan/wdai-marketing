@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Card</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#1b0f3d; font-family:'Figtree', system-ui, sans-serif; color:#fff4e4; }
+  .wrap { padding: 20px 24px; display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .card {
+    background: #2a1a52; border-radius: 16px; padding: 18px 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+    display:flex; flex-direction:column; gap:10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .meta { font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,244,228,0.5); }
+  .title { font-family:'Instrument Serif', Georgia, serif; font-weight:400; letter-spacing:-0.02em; font-size:22px; line-height:1.15; margin:0; }
+  .body { font-family:'Figtree', system-ui, sans-serif; font-size:13px; color:rgba(255,244,228,0.72); line-height:1.5; margin:0; }
+  .grad-accent { height:3px; width:48px; background: linear-gradient(90deg,#e93583,#ee8933); border-radius:2px; }
+  .ghost {
+    background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.10);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="grad-accent"></div>
+    <div class="meta">Day 03 · Foundations</div>
+    <p class="title">How a model actually predicts the next word.</p>
+    <p class="body">Attention, tokens, and the quiet math beneath fluency.</p>
+  </div>
+  <div class="card ghost">
+    <div class="meta">Day 04 · Foundations</div>
+    <p class="title">Why models hallucinate and how to catch them.</p>
+    <p class="body">A practical vocabulary for noticing when a model is guessing.</p>
+  </div>
+</div>
+</body>
+</html>

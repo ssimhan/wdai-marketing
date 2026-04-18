@@ -147,6 +147,7 @@ Load vault context in this order:
 |---|---|---|---|
 | **wdai-brand** | Any WDAI-attributed content (announcements, email, social, web) | Topic + context | Draft copy in WDAI voice |
 | **wdai-visual** | Design + image generation for presentations, web, docs, graphics | Format type (HTML/PPT/Word/social/image) + brief | Design spec + image prompts |
+| **wdai-design-system** | Visual identity tokens for HTML, slides, and microsite components | Design artifact format + brief | Brand-compliant HTML/CSS output |
 | **wdai-promo-programmatic** | AI Basics / Intermediate / Advanced cohort launches | Cohort brief (dates, audience, hooks, email CTA) | 4-phase multi-channel promo plan |
 | **wdai-promo-adhoc** | Speaker events, She Builds, IWD, milestones, membership drives | Event brief (date, speaker, type, Luma link) | 2-phase multi-channel promo plan |
 | **content-activator** | Turn raw content signals → structured activation plan | Slack paste, scout result, or member story | Activation plan + Google Sheet brief |

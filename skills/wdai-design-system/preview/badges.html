@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WDAI — Badges & tags</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<style>
+  html, body { margin:0; padding:0; background:#1b0f3d; font-family:'Figtree', system-ui, sans-serif; color:#fff4e4; }
+  .card { padding: 24px 28px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .badge {
+    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .pink    { background: rgba(233,30,99,0.15);  color:#ff6ea0; border:1px solid rgba(233,30,99,0.40); }
+  .coral   { background: rgba(249,115,22,0.15); color:#fcae6d; border:1px solid rgba(249,115,22,0.40); }
+  .cream   { background: rgba(255,244,228,0.08); color:#fff4e4; border:1px solid rgba(255,244,228,0.20); }
+  .yellow  { background:#fbd03b; color:#1b0f3d; }
+  .grad    { background: linear-gradient(90deg,#e93583,#ee8933); color:#fff4e4; border:none; }
+  .tag-soft{ font-family:'Figtree', system-ui, sans-serif; text-transform:none; letter-spacing:0; font-size:12px; font-weight:500; padding:4px 10px; border-radius:8px; background: rgba(255,255,255,0.06); color:rgba(255,244,228,0.78); }
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="badge pink">Foundations</span>
+  <span class="badge coral">Intermediate</span>
+  <span class="badge cream">Advanced</span>
+  <span class="badge yellow">New</span>
+  <span class="badge grad">Live now</span>
+  <span class="tag-soft">Rung 2</span>
+  <span class="tag-soft">Workshop</span>
+</div>
+</body>
+</html>

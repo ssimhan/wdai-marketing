@@ -1,0 +1,229 @@
+/* ============================================================
+   Women Defining AI — Design Tokens
+   Colors, typography, spacing, radii, shadows.
+   Import this once at the top of any page.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700;800&family=Homemade+Apple&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ---------- PALETTE (strict) ---------- */
+  --wdai-indigo:       #1b0f3d; /* primary background */
+  --wdai-purple:       #2a1a52; /* mid purple, cards */
+  --wdai-magenta-glow: #8b2fa6; /* atmospheric glow only */
+  --wdai-pink:         #e93583; /* primary accent (OG brand) */
+  --wdai-coral:        #ee8933; /* secondary accent (OG brand orange) */
+  --wdai-lavender:     #86589d; /* mid-purple, OG brand */
+  --wdai-yellow:       #fbd03b; /* celebratory only */
+  --wdai-cream:        #fff4e4; /* neutral highlight / skin tones */
+  --wdai-white:        #ffffff;
+
+  /* ---------- SECONDARY / WARM PALETTE (OG brand secondary) ---------- */
+  --warm-gold:            #ecc364;
+  --warm-coral:           #e8754f;
+  --warm-raspberry:       #b93d73;
+  --warm-dusty-lavender:  #a684b8;
+  --warm-mauve:           #6e4a82;
+  --warm-deep-indigo:     #332961; /* OG brand deep indigo */
+
+  /* Tonal purples, derived — use for subtle card borders & lines */
+  --wdai-indigo-900:   #120827;
+  --wdai-indigo-800:   #1b0f3d;
+  --wdai-indigo-700:   #23144a;
+  --wdai-purple-600:   #2a1a52;
+  --wdai-purple-500:   #3a2470;
+  --wdai-purple-400:   #50308f;
+
+  /* ---------- SEMANTIC COLORS ---------- */
+  --bg:            var(--wdai-indigo);
+  --bg-elevated:   var(--wdai-purple);
+  --surface:       rgba(255, 255, 255, 0.04);
+  --surface-hi:    rgba(255, 255, 255, 0.08);
+  --border:        rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.22);
+
+  --fg1:           var(--wdai-cream);        /* primary text on dark */
+  --fg2:           rgba(255, 244, 228, 0.78);/* secondary text */
+  --fg3:           rgba(255, 244, 228, 0.55);/* tertiary / captions */
+  --fg-invert:     var(--wdai-indigo);       /* text on light backgrounds */
+
+  --accent:        var(--wdai-pink);
+  --accent-2:      var(--wdai-coral);
+  --accent-warm:   var(--wdai-yellow);
+
+  /* ---------- SIGNATURE GRADIENTS ---------- */
+  /* Pink→Orange — text highlights, buttons, bars */
+  --grad-pink-orange: linear-gradient(90deg, #e93583 0%, #ee8933 100%);
+  --grad-pink-orange-135: linear-gradient(135deg, #e93583 0%, #ee8933 100%);
+
+  /* WDAI hero: radial magenta glow + diagonal indigo base */
+  --grad-hero:
+    radial-gradient(ellipse 70% 80% at 85% 50%,
+      hsl(295 75% 40% / 0.55) 0%,
+      hsl(295 75% 40% / 0.00) 55%),
+    linear-gradient(135deg, #1b0f3d 0%, #2a1a52 100%);
+
+  /* Left-anchored variant */
+  --grad-hero-left:
+    radial-gradient(ellipse 70% 80% at 15% 50%,
+      hsl(295 75% 40% / 0.55) 0%,
+      hsl(295 75% 40% / 0.00) 55%),
+    linear-gradient(135deg, #1b0f3d 0%, #2a1a52 100%);
+
+  /* Top-glow variant (for cover slides) */
+  --grad-hero-top:
+    radial-gradient(ellipse 80% 60% at 50% 10%,
+      hsl(295 75% 40% / 0.50) 0%,
+      hsl(295 75% 40% / 0.00) 60%),
+    linear-gradient(180deg, #1b0f3d 0%, #2a1a52 100%);
+
+  /* Subtle dot texture (applied as background layer) */
+  --tex-dots:
+    radial-gradient(circle at center, rgba(255,255,255,0.06) 1px, transparent 1.2px);
+  --tex-dots-size: 28px 28px;
+
+  /* ---------- TYPOGRAPHY ---------- */
+  --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --font-body:    'Figtree', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-accent:  'Homemade Apple', 'Caveat', 'Bradley Hand', cursive;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale — sized for 1920×1080 slides, scales down responsively */
+  --fs-d1: clamp(3.5rem, 6vw, 7rem);       /* 112px — cover hero */
+  --fs-d2: clamp(2.75rem, 4.8vw, 5.5rem);  /* 88px  — slide title */
+  --fs-d3: clamp(2.25rem, 3.6vw, 4rem);    /* 64px  — section */
+  --fs-h1: clamp(1.75rem, 2.6vw, 3rem);    /* 48px */
+  --fs-h2: clamp(1.375rem, 1.9vw, 2.125rem);/*34px */
+  --fs-h3: clamp(1.125rem, 1.4vw, 1.5rem); /* 24px */
+  --fs-body: clamp(1rem, 1.1vw, 1.25rem);  /* 20px */
+  --fs-sm:   0.875rem;                      /* 14px */
+  --fs-xs:   0.75rem;                       /* 12px */
+
+  --lh-display: 1.02;
+  --lh-heading: 1.15;
+  --lh-body:    1.5;
+
+  --ls-display: -0.025em;
+  --ls-heading: -0.015em;
+  --ls-body:    0em;
+  --ls-mono:    0.02em;
+
+  /* ---------- SPACING ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Slide rhythm — standard gutters inside 1920×1080 */
+  --slide-pad: 96px;
+  --slide-pad-sm: 64px;
+
+  /* ---------- RADII ---------- */
+  --r-sm: 8px;
+  --r:    12px;  /* canonical */
+  --r-lg: 16px;
+  --r-xl: 24px;
+  --r-pill: 999px;
+
+  /* ---------- SHADOWS & GLOWS ---------- */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.20);
+  --shadow-2: 0 6px 18px rgba(0,0,0,0.28);
+  --shadow-3: 0 18px 48px rgba(0,0,0,0.35);
+
+  /* Glow effects for focal elements */
+  --glow-pink:   0 0 32px rgba(233, 30, 99, 0.40);
+  --glow-coral:  0 0 32px rgba(249, 115, 22, 0.35);
+  --glow-soft:   0 8px 32px rgba(139, 47, 166, 0.30);
+
+  /* ---------- MOTION ---------- */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:   140ms;
+  --dur:        220ms;
+  --dur-slow:   420ms;
+}
+
+/* ============================================================
+   Semantic element styles — opt-in via .wdai or <html data-wdai>
+   ============================================================ */
+
+.wdai, [data-wdai] {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg1);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.wdai h1, .wdai .h1,
+[data-wdai] h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-d2);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+  color: var(--fg1);
+  margin: 0;
+}
+
+.wdai h2, .wdai .h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  margin: 0;
+}
+
+.wdai h3, .wdai .h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-heading);
+  margin: 0;
+}
+
+.wdai p { margin: 0 0 1em 0; color: var(--fg2); }
+.wdai p:last-child { margin-bottom: 0; }
+
+.wdai code, .wdai pre, .wdai .mono {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+  letter-spacing: var(--ls-mono);
+}
+
+.wdai .caveat, .wdai .accent-hand {
+  font-family: var(--font-accent);
+  font-weight: 500;
+}
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+
+.wdai-gradient-text {
+  background: var(--grad-pink-orange);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.wdai-hero-bg {
+  background: var(--grad-hero);
+}
+
+.wdai-dot-tex {
+  background-image: var(--tex-dots);
+  background-size: var(--tex-dots-size);
+}
