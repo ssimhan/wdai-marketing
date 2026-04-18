@@ -69,3 +69,4 @@ Follow [Phase 4 plan → "Chunk C1"](docs/plans/2026-04-16-phase-4-vercel-slack.
 - **Phase 5** — AI Copy Generation + Per-Leader Approval: ✅ Blocks A/B/C · ⏳ Blocks D/E
 - **Phase 6** — Auto-Publishing (LinkedIn org page, Mailchimp drafts)
 - **Phase 7** — Leader onboarding, personal LinkedIn OAuth, voice calibration per leader
+  - Confirm each leader's Slack member ID (profile → "..." → "Copy member ID") and add to `tools/calendar/team.yaml`
