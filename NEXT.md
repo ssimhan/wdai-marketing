@@ -1,28 +1,22 @@
 # Next Steps
 
-**Nothing is buildable right now** — all remaining work is blocked on two external setups: Slack app approval and Vercel org connection. This file tells you exactly what to do the moment each blocker is resolved.
+One blocker resolved, one remaining. Slack is live; Vercel pending Helen's access grant.
 
 ---
 
-## When Slack app is approved
+## ✅ Slack app — DONE (2026-04-18)
 
-Follow the setup steps in [Phase 4 plan → "Slack App Setup"](docs/plans/2026-04-16-phase-4-vercel-slack.md#slack-app-setup-pending-admin-approval--2026-04-17).
+- `SLACK_WEBHOOK_URL` added to `.env.local` and GitHub Actions secrets
+- Sync tested: notifications posting to `#team-marketing-workstream2-content-ideas`
 
-**Step-by-step:**
-1. Go to https://api.slack.com/apps → open the pending app
-2. Incoming Webhooks → Add webhook → channel: `#team-marketing-workstream2-content-ideas` → copy URL
-3. OAuth & Permissions → Bot Token Scopes: `chat:write`, `im:write` → Install → copy `xoxb-...` token
-4. Basic Information → copy Signing Secret
-5. Add to `.env.local`: `SLACK_WEBHOOK_URL`, `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET`
-6. Add `SLACK_WEBHOOK_URL` to GitHub Actions secrets (repo Settings → Secrets → Actions)
-7. Trigger the sync manually to test the webhook: GitHub Actions → Calendar Sync → Run workflow
+**Phase 5 Block D — DONE (2026-04-18):**
+- `slack-dm.ts` — Bot DM client + Block Kit formatter ✅
+- `copy-review.ts` — dispatch DMs, routes to moment DRI, skips approved ✅
+- `generate.ts` — `--notify` flag triggers DM dispatch after generation ✅
+- `team.yaml` — DRI → Slack user ID map (fill in real IDs before using `--notify`)
 
-**Then build (in order):**
-- Phase 5 Block D — Slack DM copy review
-  - `slack-dm.ts` — Bot DM client (`sendCopyReviewDM`)
-  - `slack-dm.ts` — `formatCopyReviewMessage()` Block Kit formatter
-  - `copy-review.ts` — dispatch DMs + `--notify` flag on `generate.ts`
-  - See [Phase 5 plan → Block D](docs/plans/2026-04-16-phase-5-copy-generation.md) for full spec
+**Still pending (needs Vercel):**
+- Phase 5 Block E — `approve_copy`, `edit_copy` handlers, edit modal
 
 ---
 
@@ -62,8 +56,8 @@ Follow [Phase 4 plan → "Chunk C1"](docs/plans/2026-04-16-phase-4-vercel-slack.
 
 | Area | Blocked on |
 |------|-----------|
-| Slack webhook live + GitHub Actions secret set | Slack app approval |
-| Phase 5 Block D — Slack DM copy review to leaders | Slack app approval |
+| Slack webhook live + GitHub Actions secret set | ✅ Done |
+| Phase 5 Block D — Slack DM copy review to leaders | ✅ Done |
 | Vercel deployment + team auth | Vercel org setup |
 | Phase 5 Block E — `approve_copy`, `edit_copy`, edit modal | Vercel live |
 

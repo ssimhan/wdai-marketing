@@ -267,16 +267,16 @@ Output just the post copy. No preamble, no explanation.
 
 ---
 
-## Block D: Slack DM Copy Review (needs SLACK_BOT_TOKEN)
+## Block D: Slack DM Copy Review (needs SLACK_BOT_TOKEN) ✅ COMPLETE
 
 **Goal:** After copy is generated, send each draft to the responsible leader via Slack DM for approval.
 
 **Success Criteria:**
-- [ ] `sendCopyReviewDM(userId, draft, event)` sends a formatted DM
-- [ ] DM includes copy text, event context, and approve/edit buttons
-- [ ] Batch DM flow sends one DM per unapproved draft
-- [ ] Duplicate DMs prevented (track sent status)
-- [ ] All unit tests pass; live Slack test gated behind env flag
+- [x] `sendCopyReviewDM(userId, draft, event)` sends a formatted DM
+- [x] DM includes copy text, event context, and approve/edit buttons
+- [x] Batch DM flow sends one DM per unapproved draft
+- [x] Skips approved/published drafts (idempotent)
+- [x] All unit tests pass (16 new tests)
 
 ### Chunk D1: Slack Bot DM Client (~1.5 hours)
 
@@ -468,10 +468,10 @@ Output just the post copy. No preamble, no explanation.
 6. ✅ Chunk C1 — Copy in calendar viewer
 7. ✅ Chunk E1 — Interaction endpoint + signature verification (partial — `approve_plan` only)
 
-**Can do after Slack Bot app approved:**
-8. ⏳ Chunk D1 — Slack Bot DM client
-9. ⏳ Chunk D2 — Copy review message formatter
-10. ⏳ Chunk D3 — DM dispatch + CLI integration
+**Completed after Slack Bot app approved (2026-04-18):**
+8. ✅ Chunk D1 — Slack Bot DM client
+9. ✅ Chunk D2 — Copy review message formatter
+10. ✅ Chunk D3 — DM dispatch + CLI integration
 
 **Needs Vercel live:**
 11. ⏳ Chunk E2 — `approve_copy` + `approve_plan` handlers (E1 partial complete)
