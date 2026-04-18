@@ -4,6 +4,11 @@ import { formatDate as fmtDate } from './date-utils.js'
 
 // ── Date helpers ──
 
+/** Check if an ISO date is in the past (compared to now) */
+function isPast(iso: string): boolean {
+  return new Date(iso) < new Date()
+}
+
 /** "Mon Apr 20" — for moment rows (no comma, two separate calls) */
 function fmtDow(iso: string): string {
   const d = new Date(iso)
@@ -142,14 +147,15 @@ function renderDateView(entries: CalendarEntry[], uid: () => string): string {
   const groupHtml = [...groups.entries()].map(([weekLabel, wMoments]) => {
     const rows = wMoments.map(m => {
       const id = uid()
+      const past = isPast(m.scheduled_at)
       return `
-      <div class="moment-row" data-channel="${m.channel}" onclick="toggleRow('${id}')">
+      <div class="moment-row" data-channel="${m.channel}" data-past="${past}" onclick="toggleRow('${id}')">
         <div class="col-date"><span class="dow">${fmtDow(m.scheduled_at)}</span></div>
         <div class="col-channel">${channelBadge(m.channel)}</div>
         <div class="col-event"><span class="event-chip"><span class="event-dot ${TYPE_META[m.event_type].dot}"></span><span><span class="event-name-text">${m.event_name}</span><span class="event-label"> · ${m.label}</span></span></span></div>
         <div class="col-dri">${driChip(m.dri)}</div>
       </div>
-      <div class="copy-panel" id="${id}"><div class="copy-label">Copy</div>${copyPanelContent(m.copy_draft)}</div>`
+      <div class="copy-panel" id="${id}" data-past="${past}"><div class="copy-label">Copy</div>${copyPanelContent(m.copy_draft)}</div>`
     }).join('\n')
     return `
     <div class="week-group">
@@ -166,6 +172,12 @@ function renderDateView(entries: CalendarEntry[], uid: () => string): string {
     <button class="filter-chip" data-filter="linkedin-personal">LinkedIn (Personal)</button>
     <button class="filter-chip" data-filter="email">Email</button>
     <button class="filter-chip" data-filter="slack">Slack</button>
+    <span style="margin-left:auto;display:flex;align-items:center;gap:8px">
+      <label style="font-size:12px;display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--muted);font-weight:500">
+        <input type="checkbox" id="show-past-toggle" onchange="applyFilter()">
+        Show past events
+      </label>
+    </span>
   </div>
   ${groupHtml}`
 }
@@ -180,6 +192,7 @@ function renderEventView(entries: CalendarEntry[], uid: () => string): string {
     const dotCss  = TYPE_META[e.event_type].dot
     const pillCss = TYPE_META[e.event_type].pill
     const cardId  = e.luma_id
+    const past = isPast(e.end_at)
 
     const planRows = e.channel_plan.length === 0
       ? `<tr><td colspan="4" style="color:var(--muted);font-style:italic;padding:14px 16px">No channel plan — fill in promo-rules.yaml</td></tr>`
@@ -199,7 +212,7 @@ function renderEventView(entries: CalendarEntry[], uid: () => string): string {
     const dateRange = eventDateRange(e)
 
     return `
-    <div class="event-card open" id="card-${cardId}">
+    <div class="event-card open" id="card-${cardId}" data-past="${past}">
       <div class="event-card-header" onclick="toggleCard('${cardId}')">
         <span class="event-dot ${dotCss}"></span>
         <span class="event-title">${e.name}</span>
@@ -419,6 +432,12 @@ const CSS = `
     .moment-row.hidden, .copy-panel.hidden { display: none !important; }
     .week-group.all-hidden { display: none; }
 
+    /* Past events hidden by default */
+    .moment-row[data-past="true"], .copy-panel[data-past="true"] { display: none !important; }
+    .moment-row[data-past="true"].visible, .copy-panel[data-past="true"].visible { display: inherit !important; }
+    .event-card[data-past="true"] { display: none !important; }
+    .event-card[data-past="true"].visible { display: block !important; }
+
     /* ── EVENT VIEW ── */
     .event-card { background: var(--surface); border-radius: 10px; border: 1px solid var(--border); margin-bottom: 20px; overflow: hidden; }
     .event-card-header {
@@ -557,15 +576,26 @@ const JS = `
   })
 
   function applyFilter() {
+    const showPast = document.getElementById('show-past-toggle')?.checked ?? false
+
+    // Date view
     document.querySelectorAll('#view-date .moment-row').forEach(row => {
       const panel = row.nextElementSibling
-      const show  = !activeChannel || row.dataset.channel === activeChannel
+      const isPast = row.dataset.past === 'true'
+      const show  = (!activeChannel || row.dataset.channel === activeChannel) && (showPast || !isPast)
       row.classList.toggle('hidden', !show)
       if (panel && panel.classList.contains('copy-panel')) panel.classList.toggle('hidden', !show)
     })
     document.querySelectorAll('#view-date .week-group').forEach(g => {
       const any = [...g.querySelectorAll('.moment-row')].some(r => !r.classList.contains('hidden'))
       g.classList.toggle('all-hidden', !any)
+    })
+
+    // Event view
+    document.querySelectorAll('#view-event .event-card').forEach(card => {
+      const isPast = card.dataset.past === 'true'
+      const show = showPast || !isPast
+      card.classList.toggle('hidden', !show)
     })
   }`
 
