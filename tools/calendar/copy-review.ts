@@ -1,5 +1,6 @@
 import type { CalendarEntry, CopyDraft } from './types.js'
 import { sendCopyReviewDM, formatCopyReviewMessage } from './slack-dm.js'
+import { getMoment } from './slack-utils.js'
 
 export type DriSlackMap = Record<string, string>
 
@@ -18,7 +19,7 @@ export async function dispatchCopyReviews(
 
   for (const draft of pending) {
     // Look up DRI from the matching moment in channel_plan (not event-level DRI)
-    const moment = event.channel_plan.find(m => m.channel === draft.channel)
+    const moment = getMoment(event, draft.channel)
     const dri = moment?.dri ?? event.dri
 
     const userId = driSlackMap[dri]

@@ -1,7 +1,6 @@
 import type { CalendarEntry, SlackBlock } from './types.js'
 import { CHANNEL_LABELS } from './types.js'
-
-const SLACK_TIMEOUT_MS = 10000 // 10 seconds
+import { slackPost } from './slack-utils.js'
 
 export function formatSlackMessage(entries: CalendarEntry[]): { blocks: SlackBlock[] } | null {
   if (entries.length === 0) {
@@ -35,7 +34,7 @@ export function formatSlackMessage(entries: CalendarEntry[]): { blocks: SlackBlo
 
     // Channel plan section
     const planLines = entry.channel_plan.map((moment) => {
-      const channelLabel = formatChannelLabel(moment.channel)
+      const channelLabel = CHANNEL_LABELS[moment.channel] || moment.channel
       const date = new Date(moment.scheduled_at).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
@@ -81,25 +80,16 @@ export function formatSlackMessage(entries: CalendarEntry[]): { blocks: SlackBlo
   return { blocks }
 }
 
-function formatChannelLabel(channel: string): string {
-  return CHANNEL_LABELS[channel as keyof typeof CHANNEL_LABELS] || channel
-}
-
 export async function sendSlackNotification(
   webhookUrl: string,
   blocks: SlackBlock[],
 ): Promise<void> {
-  const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), SLACK_TIMEOUT_MS)
-
   try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ blocks }),
-      signal: controller.signal,
-    })
-
+    const response = await slackPost(
+      webhookUrl,
+      { 'Content-Type': 'application/json' },
+      { blocks },
+    )
     if (!response.ok) {
       console.warn(
         `[calendar] Slack webhook returned ${response.status}: ${response.statusText}`,
@@ -108,7 +98,5 @@ export async function sendSlackNotification(
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     console.warn(`[calendar] Failed to send Slack notification: ${message}`)
-  } finally {
-    clearTimeout(timeoutId)
   }
 }
