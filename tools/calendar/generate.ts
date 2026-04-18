@@ -52,7 +52,6 @@ export async function runGenerate(
 
   // Load voice guides relative to the vault dir (one level up from promos)
   const vaultDir = path.resolve(promosDir, '..')
-  const voiceGuides = loadVoiceGuides(vaultDir)
 
   let generated = 0
   let skipped = 0
@@ -63,6 +62,8 @@ export async function runGenerate(
       continue
     }
 
+    // Load voice guides with this moment's DRI's personal voice (if available)
+    const voiceGuides = loadVoiceGuides(vaultDir, moment.dri)
     const draft = await generateCopy(event, moment, voiceGuides, model)
     writeCopyDraft(promosDir, draft)
     generated++

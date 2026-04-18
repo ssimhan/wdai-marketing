@@ -27,6 +27,13 @@ const mockGuides: VoiceGuides = {
   slack: 'HELEN SLACK VOICE CONTENT',
 }
 
+const mockGuidesWithPersonal: VoiceGuides = {
+  brand: 'BRAND GUIDELINES CONTENT',
+  linkedin: 'LINKEDIN VOICE CONTENT',
+  slack: 'HELEN SLACK VOICE CONTENT',
+  personal_voice: 'SANDHYA PERSONAL VOICE CONTENT',
+}
+
 const linkedinMoment: PromoMoment = {
   channel: 'linkedin-wdai',
   dri: 'Sandhya',
@@ -98,5 +105,26 @@ describe('buildPrompt', () => {
   it('user prompt ends with instruction to output just the copy', () => {
     const prompt = buildPrompt(mockEntry, linkedinMoment, mockGuides)
     expect(prompt.user).toContain('Output just the post copy')
+  })
+
+  it('includes personal voice when available', () => {
+    const prompt = buildPrompt(mockEntry, linkedinMoment, mockGuidesWithPersonal)
+    expect(prompt.system).toContain('BRAND GUIDELINES CONTENT')
+    expect(prompt.system).toContain('SANDHYA PERSONAL VOICE CONTENT')
+    expect(prompt.system).toContain('=== PERSONAL VOICE ===')
+  })
+
+  it('personal voice is placed after channel-specific voice', () => {
+    const prompt = buildPrompt(mockEntry, linkedinMoment, mockGuidesWithPersonal)
+    const brandIdx = prompt.system.indexOf('BRAND GUIDELINES')
+    const linkedinIdx = prompt.system.indexOf('LINKEDIN VOICE CONTENT')
+    const personalIdx = prompt.system.indexOf('PERSONAL VOICE')
+    expect(brandIdx).toBeLessThan(linkedinIdx)
+    expect(linkedinIdx).toBeLessThan(personalIdx)
+  })
+
+  it('omits personal voice section when not provided', () => {
+    const prompt = buildPrompt(mockEntry, linkedinMoment, mockGuides)
+    expect(prompt.system).not.toContain('=== PERSONAL VOICE ===')
   })
 })

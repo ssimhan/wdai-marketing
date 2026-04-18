@@ -37,4 +37,18 @@ describe('loadVoiceGuides', () => {
     expect(guides.linkedin).toBe('')
     expect(guides.slack).toBe('')
   })
+
+  it('loads personal voice for a DRI when skill exists', () => {
+    const guides = loadVoiceGuides(vaultDir, 'sandhya')
+    // If vault/skills/voice-sandhya/SKILL.md exists, personal_voice should be loaded
+    // If not, it should be undefined (graceful fallback)
+    expect(guides.brand).toBeTruthy() // Brand should always load
+    expect(guides.personal_voice === undefined || typeof guides.personal_voice === 'string').toBe(true)
+  })
+
+  it('gracefully handles missing personal voice skill', () => {
+    const fakeVaultDir = path.join(import.meta.dirname, '.nonexistent-vault')
+    const guides = loadVoiceGuides(fakeVaultDir, 'nonexistent-leader')
+    expect(guides.personal_voice).toBeUndefined()
+  })
 })

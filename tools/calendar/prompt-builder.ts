@@ -38,6 +38,14 @@ export function buildPrompt(
     )
   }
 
+  if (voiceGuides.personal_voice) {
+    systemParts.push(
+      '',
+      '=== PERSONAL VOICE ===',
+      voiceGuides.personal_voice,
+    )
+  }
+
   const system = systemParts.join('\n')
 
   const user = [

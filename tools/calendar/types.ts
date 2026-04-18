@@ -127,9 +127,10 @@ export interface PromoStatus {
 }
 
 export interface VoiceGuides {
-  brand: string       // vault/brand-guidelines.md
-  linkedin: string    // vault/linkedin-voice.md
-  slack: string       // vault/helen-voice.md (Helen's Slack voice)
+  brand: string            // vault/brand-guidelines.md
+  linkedin: string         // vault/linkedin-voice.md
+  slack: string            // vault/helen-voice.md (Helen's Slack voice)
+  personal_voice?: string  // vault/skills/voice-{dri}/SKILL.md (optional, per-leader)
 }
 
 // Channel metadata for rendering
