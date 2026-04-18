@@ -200,10 +200,21 @@ Load vault context in this order:
 - Mailchimp draft creation → hooks into `wdai-mc` pipeline
 - Publishing status tracked in vault
 
-**🔲 Phase 7: Leader Onboarding + Handoff**
-- Voice skill onboarding per leader (Lauren, Helen, Madina, Sheena)
-- Personal LinkedIn OAuth flow per leader
-- Maintenance runbook + team training
+**🔲 Phase 7: Leader Onboarding + Handoff (Partial)**
+- ✅ Maintenance runbook (`docs/RUNBOOK.md`) — step-by-step operations guide for the team
+- ✅ Team training (`docs/TEAM_TRAINING.md`) — workflow overview, roles, FAQs
+- 🔲 Voice skill onboarding per leader (Lauren, Helen, Madina, Sheena)
+- 🔲 Personal LinkedIn OAuth flow per leader
+
+---
+
+## For the Marketing Team
+
+**Operating the Content Calendar?** Start here:
+1. **`docs/TEAM_TRAINING.md`** — Understand how the system works (5-min overview + roles)
+2. **`docs/RUNBOOK.md`** — Step-by-step guide for daily tasks (approvals, troubleshooting, FAQ)
+
+**Quick summary:** You approve promo plans in Slack (1 click) and copy drafts in Slack DMs (1 click). The system generates the AI copy and publishes automatically.
 
 ---
 
@@ -353,4 +364,4 @@ For any unplanned marketing task (a quick post, a bio, an announcement), load va
 
 ---
 
-*Last updated: 2026-04-16 (Phase 4+5 complete: Slack interactions + copy generation + HTML viewer) by Claude Code*
+*Last updated: 2026-04-18 (Phase 5B: leader voices + HTML viewer UX; Phase 7: team docs) by Claude Code*
