@@ -1,5 +1,30 @@
 # WDAI Marketing Project History
 
+## 2026-04-18 — Phase 5B: Slack DM Copy Review + Shared Slack Utilities
+
+**Completed:**
+- `slack-dm.ts`: `sendCopyReviewDM` (Bot token, chat.postMessage, 10s timeout) + `formatCopyReviewMessage` (Block Kit with header, event context, copy text, Approve/Edit buttons)
+- `copy-review.ts`: `dispatchCopyReviews` — routes to moment DRI (not event DRI), skips approved/published
+- `generate.ts`: `--notify` flag triggers DM dispatch after copy generation
+- `team.yaml`: DRI name → Slack user ID config (placeholders; fill in during Phase 7 onboarding)
+- `slack-utils.ts`: shared `slackPost()`, `encodeButtonValue()`, `decodeButtonValue()`, `getMoment()` — extracted from audit debt items
+- Resolved DEBT-001 (timeout pattern duplication), DEBT-002 (undocumented button encoding), DEBT-003 (moment lookup duplication)
+- 154 total tests passing (up from 145); zero technical debt
+
+**Key Learnings:**
+- Extract shared infrastructure before building a second consumer — audit will catch it but it's cheaper upfront
+- Button value encoding is a micro-protocol; always pair encode() with decode() in the same file
+- DM routing must target the moment's DRI, not the event's top-level DRI
+- Audit subagents over-escalate severity without knowing which blocks are deferred — re-triage every "Blocking" flag with "does this break current tests?"
+
+**What's Deferred:**
+- Phase 5 Block E: `approve_copy`, `edit_copy` handlers + Slack edit modal (blocked: Vercel)
+- Vercel deployment: blocked pending Helen's org access
+- `SLACK_BOT_TOKEN` + `SLACK_SIGNING_SECRET`: not yet added to GitHub Secrets (needs Vercel URL first)
+- `team.yaml` Slack user IDs: placeholders — fill in during Phase 7 onboarding
+
+---
+
 ## 2026-04-16 — Phase 5 Closeout: AI Copy Generation + Slack Interactions
 
 **Completed:**

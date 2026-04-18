@@ -182,15 +182,18 @@ Load vault context in this order:
 - Vercel serverless endpoint for Slack button clicks → updates status via GitHub API
 - **Deferred:** Manual Vercel setup (auth-gated site deployment) — functional via API already
 
-**✅ Phase 5 Complete (2026-04-16)** — AI Copy Generation + Per-Leader Approval
+**✅ Phase 5 Complete (2026-04-16 – 2026-04-18)** — AI Copy Generation + Per-Leader Approval
 - Copy data model: CopyDraft, CopyStatus (draft → pending review → approved → published)
 - Copy stored in `vault/promos/<event-id>/` flat files with YAML serialization
 - Voice guides loaded at runtime: brand guidelines, LinkedIn voice, Helen voice
 - AI copy generation via `prompt-builder.ts` + `copy-generator.ts` (claude-haiku-4-5-20251001)
-- CLI: `npm run calendar:generate -- --event <id> [--channel <channel>] [--dry-run]`
+- CLI: `npm run calendar:generate -- --event <id> [--channel <channel>] [--dry-run] [--notify]`
 - Copy displayed in HTML calendar viewer (status badges, copy excerpts in channel plan)
-- Vercel serverless endpoint (api/slack/interactions.ts) for Slack button callbacks
-- Full implementation: 35+ new files, 129 passing tests, zero technical debt
+- Vercel serverless endpoint (`api/slack/interactions.ts`) for Slack button callbacks
+- **Slack DM dispatch:** after generation, `--notify` sends each draft to the moment's DRI via Slack Bot DM with Approve/Edit buttons (`team.yaml` maps DRI names to Slack user IDs)
+- Shared Slack utilities (`slack-utils.ts`): timeout fetch, button value encode/decode, moment lookup
+- 154 passing tests, zero technical debt
+- **Deferred:** Vercel auth-gated site (pending Helen's org access); `approve_copy`/`edit_copy` handlers (Phase 5B/6)
 
 **🔲 Phase 6: Auto-Publishing**
 - WDAI LinkedIn auto-post (org page API token)

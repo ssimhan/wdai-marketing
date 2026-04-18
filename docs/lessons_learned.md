@@ -1,5 +1,27 @@
 # Lessons Learned
 
+## 2026-04-18 — Phase 5B Closeout: Slack DM Copy Review + Debt Resolution
+
+### Architectural Insights
+
+**Extract before you duplicate.** When building a second Slack sender, check whether the first one has common logic worth sharing. `slack-notifier.ts` and `slack-dm.ts` both needed AbortController timeout logic. Extracting `slackPost()` to `slack-utils.ts` first eliminates a future divergence risk. The rule: if you're building a second consumer of the same infrastructure, identify what the two share and extract it first.
+
+**Paired encode/decode helpers prevent silent protocol drift.** The `luma_id|channel` button value format is a micro-protocol between the formatter (which writes it) and the handler (which reads it). Defining both `encodeButtonValue()` and `decodeButtonValue()` in `slack-utils.ts` means the format can only change in one place. Without pairing them, the parser can silently drift from the encoder.
+
+**Route DMs to the moment's DRI, not the event's DRI.** An event has a top-level DRI, but each channel moment has its own DRI. Slack DMs for copy review must go to the person who will post on that specific channel — not the event owner. The moment's `dri` field is the right lookup; `event.dri` is a fallback, not the default.
+
+### Spec-Crafting for AI Agents
+
+**"Check for shared logic first" saves a `/fix` round-trip.** Next time, say: *"Before implementing sendCopyReviewDM, read slack-notifier.ts and extract any shared patterns to a new slack-utils.ts. Then build sendCopyReviewDM using that shared utility."*
+
+**Encode/decode pairs should always be specified together.** Instead of: *"button values encode luma_id and channel"*, say: *"create encodeButtonValue(lumaId, channel) and decodeButtonValue(value) in slack-utils.ts so the formatter and handler share the same encoding format — no magic strings."*
+
+### Audit Notes
+
+**Subagents over-escalate "blocking" severity without future-work context.** The clean-code review called improvement items "blocking" because it had no knowledge of deferred blocks. Correct triage question: *"Does this break the current test suite or make existing code unmaintainable?"* If no — it's Improvement, not Blocking.
+
+---
+
 ## 2026-04-16 — Strategy Session: Architecture Clarification + Documentation Consolidation
 
 ### Architecture Insights

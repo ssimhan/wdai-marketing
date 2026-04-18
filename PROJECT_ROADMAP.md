@@ -96,6 +96,15 @@
 - [x] vercel.json routing + environment variable configuration
 - [x] 11 comprehensive unit tests for signature, GitHub ops, routing
 
+### Block G: Slack DM Copy Review ✅ (2026-04-18)
+- [x] `slack-dm.ts`: `sendCopyReviewDM` (Bot token, chat.postMessage, 10s timeout)
+- [x] `slack-dm.ts`: `formatCopyReviewMessage` Block Kit (header, event context, copy, Approve/Edit buttons)
+- [x] `copy-review.ts`: `dispatchCopyReviews` — routes to moment DRI, skips approved/published
+- [x] `generate.ts`: `--notify` flag triggers DM dispatch after generation
+- [x] `team.yaml`: DRI name → Slack user ID map
+- [x] `slack-utils.ts`: `slackPost`, `encodeButtonValue`, `decodeButtonValue`, `getMoment` (shared utilities)
+- [x] 25 new tests; 154 total passing
+
 ## HTML Viewer UX Improvements (small tweaks, no phase dependency)
 - [ ] Hide past events by default in By Date and By Event tabs; add "Show past events" toggle button to reveal them
 - [ ] Slack moments should show which specific WDAI Slack channel to post in (e.g. #general, #announcements) and the name of the person responsible — visible before approving the plan
