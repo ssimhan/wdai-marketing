@@ -1,0 +1,6 @@
+# Maps DRI names (as used in promo-rules.yaml) to Slack user IDs.
+# To find a Slack user ID: click the person's profile → "..." menu → "Copy member ID"
+team:
+  Sandhya: UXXXXXXXXXX
+  Sheena: UXXXXXXXXXX
+  Helen: UXXXXXXXXXX

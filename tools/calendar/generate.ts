@@ -4,15 +4,19 @@ dotenv.config()
 
 import { readFileSync, existsSync } from 'fs'
 import path from 'path'
+import { parse } from 'yaml'
 import { generateCopy } from './copy-generator.js'
 import { readEventCopy, writeCopyDraft } from './copy-store.js'
 import { loadVoiceGuides } from './voice-loader.js'
+import { dispatchCopyReviews, type DriSlackMap } from './copy-review.js'
 import type { CalendarEntry, PromoMoment, CopyDraft } from './types.js'
 
 export interface GenerateOptions {
   dryRun?: boolean
   channel?: string
   model?: string
+  notify?: boolean
+  teamYamlPath?: string
 }
 
 export interface GenerateResult {
@@ -26,7 +30,7 @@ export async function runGenerate(
   promosDir: string,
   options: GenerateOptions = {},
 ): Promise<GenerateResult> {
-  const { dryRun = false, channel, model } = options
+  const { dryRun = false, channel, model, notify = false, teamYamlPath } = options
 
   const existingDrafts = readEventCopy(promosDir, event.luma_id)
   const approvedChannels = new Set(
@@ -64,7 +68,24 @@ export async function runGenerate(
     generated++
   }
 
+  if (notify && !dryRun) {
+    const botToken = process.env.SLACK_BOT_TOKEN ?? ''
+    const driSlackMap = loadTeamMap(teamYamlPath)
+    const allDrafts = readEventCopy(promosDir, event.luma_id)
+    await dispatchCopyReviews(event, allDrafts, driSlackMap, botToken)
+  }
+
   return { generated, skipped }
+}
+
+function loadTeamMap(yamlPath?: string): DriSlackMap {
+  const filePath = yamlPath ?? path.join(import.meta.dirname, 'team.yaml')
+  if (!existsSync(filePath)) {
+    console.warn(`[calendar] team.yaml not found at ${filePath} — DM dispatch skipped`)
+    return {}
+  }
+  const raw = parse(readFileSync(filePath, 'utf-8')) as { team?: DriSlackMap }
+  return raw?.team ?? {}
 }
 
 // CLI entry point
@@ -74,6 +95,7 @@ async function main() {
   const eventFlag = args.indexOf('--event')
   const allFlag = args.includes('--all')
   const dryRun = args.includes('--dry-run')
+  const notify = args.includes('--notify')
   const channelFlag = args.indexOf('--channel')
   const modelFlag = args.indexOf('--model')
 
@@ -103,7 +125,7 @@ async function main() {
     }
     events = [event]
   } else {
-    console.error('Usage: generate.ts --event <luma_id> | --all [--dry-run] [--channel <channel>] [--model <model>]')
+    console.error('Usage: generate.ts --event <luma_id> | --all [--dry-run] [--channel <channel>] [--model <model>] [--notify]')
     process.exit(1)
   }
 
@@ -112,7 +134,7 @@ async function main() {
 
   for (const event of events) {
     console.log(`Generating copy for: ${event.name} (${event.luma_id})`)
-    const result = await runGenerate(event, PROMOS_DIR, { dryRun, channel, model })
+    const result = await runGenerate(event, PROMOS_DIR, { dryRun, channel, model, notify })
 
     if (dryRun && result.dryRunPreviews) {
       for (const preview of result.dryRunPreviews) {
