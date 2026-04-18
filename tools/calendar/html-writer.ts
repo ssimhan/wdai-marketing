@@ -581,8 +581,8 @@ const JS = `
     // Date view
     document.querySelectorAll('#view-date .moment-row').forEach(row => {
       const panel = row.nextElementSibling
-      const isPast = row.dataset.past === 'true'
-      const show  = (!activeChannel || row.dataset.channel === activeChannel) && (showPast || !isPast)
+      const rowIsPast = row.dataset.past === 'true'
+      const show  = (!activeChannel || row.dataset.channel === activeChannel) && (showPast || !rowIsPast)
       row.classList.toggle('hidden', !show)
       if (panel && panel.classList.contains('copy-panel')) panel.classList.toggle('hidden', !show)
     })
@@ -593,8 +593,8 @@ const JS = `
 
     // Event view
     document.querySelectorAll('#view-event .event-card').forEach(card => {
-      const isPast = card.dataset.past === 'true'
-      const show = showPast || !isPast
+      const cardIsPast = card.dataset.past === 'true'
+      const show = showPast || !cardIsPast
       card.classList.toggle('hidden', !show)
     })
   }`

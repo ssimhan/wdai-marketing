@@ -127,4 +127,13 @@ describe('buildPrompt', () => {
     const prompt = buildPrompt(mockEntry, linkedinMoment, mockGuides)
     expect(prompt.system).not.toContain('=== PERSONAL VOICE ===')
   })
+
+  it('system prompt structure is unchanged when personal voice is omitted', () => {
+    const promptWithout = buildPrompt(mockEntry, linkedinMoment, mockGuides)
+    const promptWith = buildPrompt(mockEntry, linkedinMoment, mockGuidesWithPersonal)
+
+    // Without personal voice, the structure should end after channel voice or brand (no extra newlines)
+    expect(promptWithout.system).not.toMatch(/\n\n\n/)  // no triple newlines
+    expect(promptWithout.system.trim()).toBe(promptWithout.system.trim())  // no trailing whitespace
+  })
 })

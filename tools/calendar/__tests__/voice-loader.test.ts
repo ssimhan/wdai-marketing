@@ -51,4 +51,13 @@ describe('loadVoiceGuides', () => {
     const guides = loadVoiceGuides(fakeVaultDir, 'nonexistent-leader')
     expect(guides.personal_voice).toBeUndefined()
   })
+
+  it('loads core voices even if personal voice skill is missing', () => {
+    const guides = loadVoiceGuides(vaultDir, 'nonexistent-leader')
+    // Core voices should load from real vault, even though personal skill doesn't exist
+    expect(guides.brand).toBeTruthy()
+    expect(guides.linkedin).toBeTruthy()
+    expect(guides.slack).toBeTruthy()
+    expect(guides.personal_voice).toBeUndefined()
+  })
 })
