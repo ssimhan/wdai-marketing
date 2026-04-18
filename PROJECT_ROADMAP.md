@@ -105,12 +105,14 @@
 - [x] `slack-utils.ts`: `slackPost`, `encodeButtonValue`, `decodeButtonValue`, `getMoment` (shared utilities)
 - [x] 25 new tests; 154 total passing
 
-## HTML Viewer UX Improvements (small tweaks, no phase dependency)
-- [ ] Hide past events by default in By Date and By Event tabs; add "Show past events" toggle button to reveal them
-- [ ] Slack moments should show which specific WDAI Slack channel to post in (e.g. #general, #announcements) and the name of the person responsible — visible before approving the plan
+## HTML Viewer UX Improvements ✅ (2026-04-18)
+- [x] Hide past events by default in By Date and By Event tabs; add "Show past events" toggle button to reveal them
+- [x] Slack moments already show specific WDAI Slack channel (e.g. #general) and DRI name before approving the plan
 
-## Phase 5B: Leader Voice Integration
-- [ ] Once leader voice skills are onboarded, copy-generator.ts should load the DRI's personal voice skill (e.g. vault/skills/voice-helen/) in addition to brand guidelines — so generated copy sounds like the person posting it, not just the org
+## Phase 5B: Leader Voice Integration ✅ (2026-04-18)
+- [x] Load DRI's personal voice skill (vault/skills/voice-helen/) during copy generation
+- [x] Inject personal voice into prompt after brand + channel guides
+- [x] Graceful fallback if skill doesn't exist
 
 ## Phase 6: Auto-Publishing (org channels only)
 - [ ] WDAI LinkedIn auto-post (org page API token)
@@ -118,11 +120,11 @@
 - [ ] Mailchimp auto-send (optional, behind a flag)
 - [ ] Publishing status tracked in vault
 
-## Phase 7: Leader Onboarding + Handoff
+## Phase 7: Leader Onboarding + Handoff (Partial ✅ 2026-04-18)
+- [x] Maintenance runbook (docs/RUNBOOK.md)
+- [x] Team training guide (docs/TEAM_TRAINING.md)
+- [ ] Voice skill calibration per leader (Helen, Lauren, Madina, Sheena)
 - [ ] Personal LinkedIn OAuth flow per leader
-- [ ] Voice skill calibration per leader
-- [ ] Docs, maintenance runbook
-- [ ] Team training on the content calendar
 
 ---
 

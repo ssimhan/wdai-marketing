@@ -1,5 +1,29 @@
 # WDAI Marketing Project History
 
+## 2026-04-18 — Phase 5B+7: Leader Voice Integration, HTML UX, Team Documentation
+
+**Completed:**
+- Phase 5B: Load DRI's personal voice skill during copy generation (graceful fallback if skill doesn't exist)
+- Phase 5B: Inject personal voice into prompt after brand + channel guides
+- HTML Viewer UX: Hide past events by default with "Show past events" toggle (By Date + By Event tabs)
+- Phase 7: docs/RUNBOOK.md (daily operations guide for marketing team)
+- Phase 7: docs/TEAM_TRAINING.md (system overview, roles, approval workflow, FAQ)
+- Code quality: Fixed variable shadowing, enhanced test coverage for voice loading + prompt ordering
+- 161 total tests passing (up from 154); zero technical debt
+
+**Key Learnings:**
+- Load voice guides per-moment with DRI, not once at event level — enables personal voice injection cleanly
+- Audit findings: not all improvements are blocking. Establish triage criteria: "Does this block shipment or create future bugs?"
+- Deferred audit findings must be tracked in BUGS.md with reasoning — prevents re-discovery
+- Past-events filtering: render-before-hide is YAGNI; skip unwanted items before HTML generation
+
+**What's Deferred:**
+- Phase 6: Mailchimp + LinkedIn auto-publishing (requires Vercel callback endpoints live)
+- Phase 7: Voice skill onboarding per leader (Helen, Lauren, Madina, Sheena)
+- Phase 7: Personal LinkedIn OAuth flow per leader
+
+---
+
 ## 2026-04-18 — Phase 5B: Slack DM Copy Review + Shared Slack Utilities
 
 **Completed:**

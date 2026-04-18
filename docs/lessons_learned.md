@@ -1,5 +1,25 @@
 # Lessons Learned
 
+## 2026-04-18 — Phase 5B+7 Session: Leader Voice Integration + HTML UX + Team Docs
+
+### Architectural Insights
+
+**Load voice guides per-moment, not once per event.** When copy generation happens per-moment (not per-event), load that moment's DRI's voice skill alongside brand/channel guides. This enables personal voice injection without re-architecting the pipeline — just pass the DRI to the loader.
+
+**Test coverage should precede feature flag additions.** Past-events filtering was flagged by audit as YAGNI (rendering all events then hiding). The right pattern: skip rendering unwanted items before they hit HTML, not render-then-hide. Future: validate filtering strategy in /plan before implementation.
+
+### Workflow Insights
+
+**Subagent code review discovers real improvements, not all are blocking.** The clean code audit flagged 4+ improvements (DRY violations, SRP splits, test gaps). Not all must ship — establish triage criteria upfront: "Does this block shipment or create future bugs?" If no, defer to BUGS.md with reasoning.
+
+**Deferred audit findings must be tracked.** When audit discovers improvements you choose not to fix, add them to BUGS.md immediately with deferral rationale. Prevents re-discovery in future phases and creates searchable record for follow-up.
+
+### Spec-Crafting for AI Agents
+
+**"Load per-DRI" beats "load once and cache."** Saying "load voice guides for this moment's DRI" is clearer than "cache voice guides at event level." Removes ambiguity about scope and timing.
+
+---
+
 ## 2026-04-18 — Phase 5B Closeout: Slack DM Copy Review + Debt Resolution
 
 ### Architectural Insights

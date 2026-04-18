@@ -182,7 +182,7 @@ Load vault context in this order:
 - Vercel serverless endpoint for Slack button clicks → updates status via GitHub API
 - **Deferred:** Manual Vercel setup (auth-gated site deployment) — functional via API already
 
-**✅ Phase 5 Complete (2026-04-16 – 2026-04-18)** — AI Copy Generation + Per-Leader Approval
+**✅ Phase 5 + 5B Complete (2026-04-16 – 2026-04-18)** — AI Copy Generation + Leader Voice Integration
 - Copy data model: CopyDraft, CopyStatus (draft → pending review → approved → published)
 - Copy stored in `vault/promos/<event-id>/` flat files with YAML serialization
 - Voice guides loaded at runtime: brand guidelines, LinkedIn voice, Helen voice
@@ -192,18 +192,20 @@ Load vault context in this order:
 - Vercel serverless endpoint (`api/slack/interactions.ts`) for Slack button callbacks
 - **Slack DM dispatch:** after generation, `--notify` sends each draft to the moment's DRI via Slack Bot DM with Approve/Edit buttons (`team.yaml` maps DRI names to Slack user IDs)
 - Shared Slack utilities (`slack-utils.ts`): timeout fetch, button value encode/decode, moment lookup
-- 154 passing tests, zero technical debt
-- **Deferred:** Vercel auth-gated site (pending Helen's org access); `approve_copy`/`edit_copy` handlers (Phase 5B/6)
+- **Phase 5B ✅:** Load DRI's personal voice skill during generation; inject personal voice into prompt after brand + channel guides
+- **HTML Viewer UX ✅:** Hide past events by default; toggle shows/hides them in both By Date and By Event views
+- 161 passing tests, zero technical debt
+- **Deferred:** Vercel auth-gated site (pending Helen's org access); `approve_copy`/`edit_copy` handlers (Phase 6)
 
 **🔲 Phase 6: Auto-Publishing**
 - WDAI LinkedIn auto-post (org page API token)
 - Mailchimp draft creation → hooks into `wdai-mc` pipeline
 - Publishing status tracked in vault
 
-**🔲 Phase 7: Leader Onboarding + Handoff (Partial)**
-- ✅ Maintenance runbook (`docs/RUNBOOK.md`) — step-by-step operations guide for the team
-- ✅ Team training (`docs/TEAM_TRAINING.md`) — workflow overview, roles, FAQs
-- 🔲 Voice skill onboarding per leader (Lauren, Helen, Madina, Sheena)
+**🔲 Phase 7: Leader Onboarding + Handoff (Partial — Docs Complete)**
+- ✅ Maintenance runbook (`docs/RUNBOOK.md`) — step-by-step operations guide for the team (daily tasks, troubleshooting, FAQ)
+- ✅ Team training (`docs/TEAM_TRAINING.md`) — system overview, roles, approval workflow, timeline example
+- 🔲 Voice skill onboarding per leader (Helen, Lauren, Madina, Sheena)
 - 🔲 Personal LinkedIn OAuth flow per leader
 
 ---
@@ -364,4 +366,4 @@ For any unplanned marketing task (a quick post, a bio, an announcement), load va
 
 ---
 
-*Last updated: 2026-04-18 (Phase 5B: leader voices + HTML viewer UX; Phase 7: team docs) by Claude Code*
+*Last updated: 2026-04-18 (Phase 5B + 7 closeout: leader voice integration, HTML UX, team docs) by Claude Code*
