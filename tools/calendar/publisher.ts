@@ -1,5 +1,6 @@
 import { readEventCopy, writeCopyDraft } from './copy-store.js'
 import type { CalendarEntry, CopyDraft, PromoChannel } from './types.js'
+import { fileURLToPath } from 'url'
 
 export interface PublishOptions {
   dryRun?: boolean
@@ -147,7 +148,9 @@ async function main() {
   if (totalErrors > 0) process.exit(1)
 }
 
-if (process.argv[1]?.includes('publisher')) {
+// Entry point check — ESM-safe pattern to detect if this file is the main module
+const __filename = fileURLToPath(import.meta.url)
+if (process.argv[1] === __filename) {
   main().catch((err) => {
     console.error(err)
     process.exit(1)

@@ -64,6 +64,58 @@ export function decodeButtonValue(value: string): { lumaId: string; channel: str
 
 ---
 
+## Pattern: Self-referencing CSS variables
+
+**Tell:** You see a CSS var defined as `--varname: var(--varname)` or with no fallback value.
+
+**Wrong:**
+```css
+:root {
+  --pink-tint: var(--pink-tint);
+  --lavender-tint: var(--lavender-tint);
+}
+
+.hover { background: var(--pink-tint); } /* Invisible — var resolves to nothing */
+```
+
+**Right:**
+```css
+:root {
+  --pink: #e93583;
+  --pink-tint: rgba(233, 53, 131, 0.07);
+  --lavender-tint: rgba(134, 88, 157, 0.07);
+}
+```
+
+**How to apply:** In `/audit` → P0 Standards, add CSS validation: `grep -n "var(--[a-z-]*): *var(--[a-z-]*)" *.html *.css`. Any hit is invisible UI — fix before testing.
+
+---
+
+## Pattern: Fragile CLI entry point detection
+
+**Tell:** A tool uses `process.argv[1]?.includes('filename')` or `process.argv[1].startsWith()` to detect if it's the main module.
+
+**Wrong:**
+```ts
+if (process.argv[1]?.includes('publisher')) {
+  main()
+}
+// Breaks if file is renamed, run via wrapper, or symlinked
+```
+
+**Right:**
+```ts
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url)
+if (process.argv[1] === __filename) {
+  main()
+}
+```
+
+**How to apply:** In `/audit` → P0 Standards, check CLI entry points: for each `main()` or entry handler, verify it uses ESM-safe (`fileURLToPath + exact match`) or CommonJS-safe (`require.main === module`), not substring matching.
+
+---
+
 ## Pattern: Audit subagent over-escalates severity
 
 **Tell:** The subagent marks something "Blocking" but the failing scenario is a deferred block (Block E, Vercel, etc.) — not a current test.
@@ -78,4 +130,4 @@ export function decodeButtonValue(value: string): { lumaId: string; channel: str
 
 ---
 
-_Last updated: 2026-04-18 (Phase 5B closeout)_
+_Last updated: 2026-04-18 (Phase 6 + Design System closeout)_

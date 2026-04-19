@@ -1,34 +1,26 @@
+import { httpFetch } from './http-utils.js'
+
 async function mailchimpFetch(
   url: string,
   method: 'POST' | 'PUT',
   apiKey: string,
   body: unknown,
 ): Promise<Response> {
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 15_000)
-
+  // Mailchimp Basic Auth requires any non-empty string as username; the API key is the password
   const auth = Buffer.from(`anystring:${apiKey}`).toString('base64')
 
-  let response: Response
   try {
-    response = await fetch(url, {
+    return await httpFetch(url, {
       method,
       headers: {
         Authorization: `Basic ${auth}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body),
-      signal: controller.signal,
+      body,
     })
-  } finally {
-    clearTimeout(timeout)
+  } catch (err) {
+    throw new Error(`Mailchimp API error: ${err instanceof Error ? err.message : String(err)}`)
   }
-
-  if (!response.ok) {
-    throw new Error(`Mailchimp API error: ${response.status} ${response.statusText}`)
-  }
-
-  return response
 }
 
 export async function createMailchimpDraft(

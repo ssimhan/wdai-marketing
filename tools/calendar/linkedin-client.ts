@@ -1,7 +1,6 @@
-export async function postToLinkedIn(content: string, orgId: string, token: string): Promise<void> {
-  const controller = new AbortController()
-  const timeout = setTimeout(() => controller.abort(), 15_000)
+import { httpFetch } from './http-utils.js'
 
+export async function postToLinkedIn(content: string, orgId: string, token: string): Promise<void> {
   const body = {
     author: `urn:li:organization:${orgId}`,
     lifecycleState: 'PUBLISHED',
@@ -16,23 +15,17 @@ export async function postToLinkedIn(content: string, orgId: string, token: stri
     },
   }
 
-  let response: Response
   try {
-    response = await fetch('https://api.linkedin.com/v2/ugcPosts', {
+    await httpFetch('https://api.linkedin.com/v2/ugcPosts', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
         'X-Restli-Protocol-Version': '2.0.0',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body),
-      signal: controller.signal,
+      body,
     })
-  } finally {
-    clearTimeout(timeout)
-  }
-
-  if (!response.ok) {
-    throw new Error(`LinkedIn API error: ${response.status} ${response.statusText}`)
+  } catch (err) {
+    throw new Error(`LinkedIn API error: ${err instanceof Error ? err.message : String(err)}`)
   }
 }

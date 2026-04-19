@@ -1,8 +1,24 @@
 # Bugs & Technical Debt
 
-_All items resolved as of 2026-04-18._
+_Last updated: 2026-04-18 (Phase 6 + Design System audit)._
+
+## Open
+
+_None._
+
+---
 
 ## Resolved
+
+### DEBT-004: Timeout/AbortController pattern duplicated across HTTP clients ✅ FIXED
+**Files:** `tools/calendar/linkedin-client.ts:2-3` and `tools/calendar/mailchimp-client.ts:7-8`
+Both implemented identical 15s `AbortController` + `clearTimeout` timeout logic inline.
+**Fix:** Extracted to shared `httpFetch()` utility in `tools/calendar/http-utils.ts`. Both `linkedin-client.ts` and `mailchimp-client.ts` now import and delegate to it. Tests still passing (12/12 in client tests, 179/179 overall).
+
+### DEBT-005: Entry point guard in publisher.ts is fragile ✅ FIXED
+**File:** `tools/calendar/publisher.ts:150`
+Used fragile substring match `process.argv[1]?.includes('publisher')`.
+**Fix:** Replaced with ESM-safe path comparison: `import { fileURLToPath } from 'url'` + `const __filename = fileURLToPath(import.meta.url)` + `if (process.argv[1] === __filename)`. Tests passing (6/6 publisher tests, 179/179 overall).
 
 ### DEBT-001: Slack timeout pattern duplicated ✅ FIXED
 **Files:** `tools/calendar/slack-notifier.ts:4,88-114` and `tools/calendar/slack-dm.ts:4,6-34`  
