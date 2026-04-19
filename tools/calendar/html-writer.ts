@@ -305,10 +305,15 @@ const DOCS_HTML = `
 // ── CSS (inlined from prototype) ──
 const CSS = `
     :root {
-      --pink:    #e93583;
-      --orange:  #ee8933;
-      --navy:    #332961;
-      --lavender:#86589d;
+      /* Brand tokens — aligned with skills/wdai-design-system/colors_and_type.css */
+      --pink:     #e93583;  /* --wdai-pink */
+      --orange:   #ee8933;  /* --wdai-coral */
+      --navy:     #332961;  /* --warm-deep-indigo */
+      --lavender: #86589d;  /* --wdai-lavender */
+      /* Tint tokens for hover/expand states */
+      --pink-tint:     var(--pink-tint);
+      --lavender-tint: var(--lavender-tint);
+      /* Light-mode surface tokens (intentionally differ from dark-mode design system) */
       --bg:      #f5f5f7;
       --surface: #ffffff;
       --border:  #e4e4e8;
@@ -318,7 +323,7 @@ const CSS = `
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5;
     }
 
@@ -358,7 +363,7 @@ const CSS = `
       border: 1.5px solid var(--border); background: white; color: var(--muted);
       cursor: pointer; transition: all 0.15s;
     }
-    .filter-chip:hover, .filter-chip.active { border-color: var(--navy); color: var(--navy); background: #f0eef8; }
+    .filter-chip:hover, .filter-chip.active { border-color: var(--navy); color: var(--navy); background: var(--lavender-tint); }
 
     /* ── Shared badges ── */
     .channel-badge {
@@ -400,7 +405,7 @@ const CSS = `
     .moment-row:first-of-type { border-radius: 8px 8px 0 0; }
     .moment-row:last-of-type  { border-radius: 0 0 8px 8px; border-bottom: none; }
     .moment-row:only-of-type  { border-radius: 8px; border-bottom: none; }
-    .moment-row:hover, .moment-row.expanded { background: #fdf4f8; }
+    .moment-row:hover, .moment-row.expanded { background: var(--pink-tint); }
 
     .col-date { font-size: 12px; color: var(--navy); white-space: nowrap; }
     .col-date .dow  { font-weight: 700; display: block; }
@@ -421,7 +426,7 @@ const CSS = `
     .copy-panel {
       display: none;
       padding: 12px 14px 14px calc(110px + 140px + 12px + 12px + 14px);
-      background: #fdf4f8; border-bottom: 1px solid var(--border);
+      background: var(--pink-tint); border-bottom: 1px solid var(--border);
       font-size: 13px; color: var(--text); line-height: 1.6;
     }
     .copy-panel.open { display: block; }
@@ -444,7 +449,7 @@ const CSS = `
       display: flex; align-items: center; gap: 14px; padding: 14px 18px;
       border-bottom: 1px solid var(--border); background: #fafafa; cursor: pointer;
     }
-    .event-card-header:hover { background: #f0eef8; }
+    .event-card-header:hover { background: var(--lavender-tint); }
     .event-card-header .event-dot { width: 10px; height: 10px; flex-shrink: 0; }
     .event-title { font-size: 15px; font-weight: 700; color: var(--navy); flex: 1; }
     .event-meta  { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -471,9 +476,9 @@ const CSS = `
     }
     .plan-table td { padding: 11px 16px; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
     .plan-table tr:last-child td { border-bottom: none; }
-    .plan-table tr:hover td { background: #fdf4f8; cursor: pointer; }
-    .plan-table tr.expanded td { background: #fdf4f8; }
-    .plan-copy-row td { padding: 0; background: #fdf4f8 !important; }
+    .plan-table tr:hover td { background: var(--pink-tint); cursor: pointer; }
+    .plan-table tr.expanded td { background: var(--pink-tint); }
+    .plan-copy-row td { padding: 0; background: var(--pink-tint) !important; }
     .plan-copy-inner { display: none; padding: 10px 16px 14px; font-size: 13px; color: var(--text); line-height: 1.6; max-width: 560px; }
     .plan-copy-row.open .plan-copy-inner { display: block; }
 
@@ -487,7 +492,7 @@ const CSS = `
       padding: 12px 18px; background: #f8f8fa; border-bottom: 1px solid var(--border);
       cursor: pointer;
     }
-    .docs-header:hover { background: #f0eef8; }
+    .docs-header:hover { background: var(--lavender-tint); }
     .docs-header h3 { font-size: 13px; font-weight: 700; color: var(--navy); }
     .docs-header span { font-size: 11px; color: var(--muted); }
     .docs-body { display: none; padding: 20px 22px; line-height: 1.7; font-size: 13px; }
@@ -612,6 +617,8 @@ export function renderCalendarHtml(entries: CalendarEntry[], syncedAt: string): 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WDAI Content Calendar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>${CSS}
   </style>
 </head>
