@@ -103,11 +103,11 @@ async function main() {
   const { parse } = await import('yaml')
 
   const vaultDir = path.join(process.cwd(), 'vault')
-  const calendarPath = path.join(vaultDir, 'content-calendar.json')
+  const calendarPath = path.join(vaultDir, '.calendar-snapshot.json')
   const promosDir = path.join(vaultDir, 'promos')
 
   if (!existsSync(calendarPath)) {
-    console.error(`Calendar JSON not found: ${calendarPath}`)
+    console.error(`Calendar snapshot not found: ${calendarPath}`)
     console.error('Run npm run calendar:sync first.')
     process.exit(1)
   }

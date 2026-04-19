@@ -6,11 +6,8 @@
 
 ## 🚀 Ready to Build NOW
 
-**Two phases, no blockers:**
+**One phase, no blockers:**
 
-- **Phase 6: Auto-Publishing** (LinkedIn org page + Mailchimp drafts) — 1 day
-  - Plan: [`docs/plans/2026-04-18-phase-6-publish.md`](docs/plans/2026-04-18-phase-6-publish.md) (Part A)
-  
 - **Phase C: Design System Integration** (commit skill + apply brand tokens to calendar) — 2 hours
   - Plan: [`docs/plans/2026-04-18-phase-6-publish.md`](docs/plans/2026-04-18-phase-6-publish.md) (Part C)
 
@@ -34,7 +31,7 @@ See [Phase 4 plan](docs/plans/2026-04-16-phase-4-vercel-slack.md#chunk-c1-vercel
 | Calendar sync (Luma → vault) | ✅ |
 | Slack notifications + approval buttons | ✅ |
 | AI copy generation + DM dispatch | ✅ |
-| **Auto-publishing** | 🚀 Ready |
+| **Auto-publishing (LinkedIn + Mailchimp)** | ✅ |
 | **Design system** | 🚀 Ready |
 | Vercel + approval UI | ⏳ Pending Vercel access |
 | Leader personal LinkedIn OAuth | 📋 Future (Phase 7) |
