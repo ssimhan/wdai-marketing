@@ -53,6 +53,7 @@ export interface CopyDraft {
   approved_by?: string
   approved_at?: string
   revised_content?: string  // if leader edits before approving
+  published_at?: string
 }
 
 export type PromoChannel =
