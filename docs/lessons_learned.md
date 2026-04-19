@@ -12,9 +12,9 @@
 
 ### Audit Workflow Refinement
 
-**Subagent triage needs explicit symptom patterns.** Clean-code subagent returned 50+ findings; manually categorizing as Blocking/Improvement/Nitpick required understanding what "undocumented" vs. "real DRY issue" means. Pattern: *"In `/audit` Clean Code section, add a symptom-to-bucket mapping table: 'Blocking' = code solving non-existent problem / duplicated 3+ times / doing 2+ jobs; 'Improvement' = undocumented / fragile / magic number; 'Nitpick' = naming / style."*
+**Subagent triage needs explicit symptom patterns.** Clean-code subagent returned 50+ findings; manually categorizing as Blocking/Improvement/Nitpick required understanding what "undocumented" vs. "real DRY issue" means. ✅ **FIXED**: Updated `/audit` workflow with Symptom Patterns column mapping specific language to buckets (Blocking = "code solving non-existent problem" / "duplicated 3+ times" / "doing 2+ jobs"; Improvement = "undocumented" / "fragile" / "magic number"; Nitpick = "naming" / "style").
 
-**NEXT.md staleness goes undetected.** Phase C was marked "Ready to Build" but already complete. Audit should grep for stale status markers. Pattern: *"In `/audit` UX & Aesthetic section, add: Grep `NEXT.md` and `docs/` for 'Ready to Build | In progress | Pending | Blocked'. Cross-check against git history. Any mismatch is debt."*
+**NEXT.md staleness goes undetected.** Phase C was marked "Ready to Build" but already complete. Audit should grep for stale status markers. ✅ **FIXED**: Added "Documentation Freshness" check to `/audit` UX section: grep for stale status markers, cross-check against git history, update if mismatch found.
 
 ---
 
