@@ -142,4 +142,40 @@ describe('runPublish — with approved draft', () => {
     expect(result.errors).toBe(1)
     expect(result.published).toBe(0)
   })
+
+  it('calls createMailchimpDraft and marks email draft as published', async () => {
+    const mockWrite = vi.fn()
+    const mockMailchimp = vi.fn().mockResolvedValue('camp_abc123')
+
+    vi.doMock('../copy-store.js', () => ({
+      readEventCopy: vi.fn().mockReturnValue([
+        makeDraft({ channel: 'email', status: 'approved' }),
+      ]),
+      writeCopyDraft: mockWrite,
+    }))
+    vi.doMock('../mailchimp-client.js', () => ({
+      createMailchimpDraft: mockMailchimp,
+    }))
+
+    process.env.MAILCHIMP_API_KEY = 'testkey-us1'
+    process.env.MAILCHIMP_SERVER_PREFIX = 'us1'
+    process.env.MAILCHIMP_AUDIENCE_ID = 'list123'
+
+    const { runPublish } = await import('../publisher.js')
+    const result = await runPublish(makeEvent(), '/fake/promos', {})
+
+    expect(result.published).toBe(1)
+    expect(result.errors).toBe(0)
+    expect(mockMailchimp).toHaveBeenCalledWith(
+      expect.stringContaining('Announce open enrollment'),
+      'Exciting news! AI Basics is open.',
+      'list123',
+      'testkey-us1',
+      'us1',
+    )
+    expect(mockWrite).toHaveBeenCalledWith(
+      '/fake/promos',
+      expect.objectContaining({ status: 'published', published_at: expect.any(String) }),
+    )
+  })
 })
