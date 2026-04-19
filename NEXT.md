@@ -6,10 +6,7 @@
 
 ## 🚀 Ready to Build NOW
 
-**One phase, no blockers:**
-
-- **Phase C: Design System Integration** (commit skill + apply brand tokens to calendar) — 2 hours
-  - Plan: [`docs/plans/2026-04-18-phase-6-publish.md`](docs/plans/2026-04-18-phase-6-publish.md) (Part C)
+No unblocked phases remaining. All local-executable work is complete.
 
 ---
 
@@ -32,6 +29,6 @@ See [Phase 4 plan](docs/plans/2026-04-16-phase-4-vercel-slack.md#chunk-c1-vercel
 | Slack notifications + approval buttons | ✅ |
 | AI copy generation + DM dispatch | ✅ |
 | **Auto-publishing (LinkedIn + Mailchimp)** | ✅ |
-| **Design system** | 🚀 Ready |
+| **Design system** | ✅ |
 | Vercel + approval UI | ⏳ Pending Vercel access |
 | Leader personal LinkedIn OAuth | 📋 Future (Phase 7) |

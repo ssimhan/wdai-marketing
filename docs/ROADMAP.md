@@ -17,8 +17,8 @@
 | **Phase 3** | Content Calendar (Luma sync + change detection) | ✅ Complete (2026-04-16) | None |
 | **Phase 4** | Vercel + Slack Approval Loop | ✅ A/B/D1 done · ⏳ C/D2 pending | Vercel org setup |
 | **Phase 5** | AI Copy Generation + Per-Leader Approval | ✅ A/B/C/D done · ⏳ E pending | Vercel org setup |
-| **Phase 6** | Auto-Publishing (LinkedIn + Mailchimp) | 🚀 **READY TO BUILD** | None |
-| **Phase C** | Design System Integration | 🚀 **READY TO BUILD** | None |
+| **Phase 6** | Auto-Publishing (LinkedIn + Mailchimp) | ✅ Complete (2026-04-18) | None |
+| **Phase C** | Design System Integration | ✅ Complete (2026-04-18) | None |
 | **Phase 7** | Leader Onboarding + Personal OAuth | 📋 Design phase | Phases 4/5/6 complete |
 
 ---
@@ -74,22 +74,18 @@
 
 ---
 
-## 🚀 Ready to Build (No Blockers)
-
-### Phase 6: Auto-Publishing (LinkedIn + Mailchimp)
+### Phase 6: Auto-Publishing (LinkedIn + Mailchimp) (2026-04-18)
 **Goal:** Read `status: 'approved'` copy drafts and publish them — LinkedIn org page API, Mailchimp campaign drafts.
 
-**Plan:** [`docs/plans/2026-04-18-phase-6-publish.md`](plans/2026-04-18-phase-6-publish.md)
+**Delivered:**
+- **A1** — Publisher scaffold (`publisher.ts`, `runPublish()`, dry-run + channel filter)
+- **A2** — LinkedIn API client (`linkedin-client.ts`, UGC Posts endpoint, 15s timeout)
+- **A3** — Mailchimp API client (`mailchimp-client.ts`, campaigns + content endpoints, Basic auth)
+- **A4** — CLI entry point + env var documentation (`.env.example`)
 
-**Blocks:**
-- **A1** — Types + publisher scaffold (`publisher.ts`, `runPublish`, dry-run)
-- **A2** — LinkedIn API client (`linkedin-client.ts`)
-- **A3** — Mailchimp API client (`mailchimp-client.ts`)
-- **A4** — CLI entry point + env vars
+**New npm script:** `calendar:publish -- --event <id> [--all] [--dry-run] [--channel <channel>]`
 
-**New npm script:** `calendar:publish`
-
-**New env vars:**
+**New env vars documented:**
 ```
 LINKEDIN_ACCESS_TOKEN
 LINKEDIN_ORGANIZATION_ID
@@ -98,33 +94,32 @@ MAILCHIMP_SERVER_PREFIX
 MAILCHIMP_AUDIENCE_ID
 ```
 
-**No external blockers.** LinkedIn and Mailchimp APIs can be fully mocked; live tests gated by env flags.
+**Tests:** 6 new tests, all passing. Full suite: 179/179 passing.
 
-**Timeline:** ~1 day to build + test
+**Files:** `tools/calendar/{publisher,linkedin-client,mailchimp-client,http-utils}.ts`
 
 ---
 
-### Phase C: Design System Integration
+### Phase C: Design System Integration (2026-04-18)
 **Goal:** Commit the existing `skills/wdai-design-system/` skill (SKILL.md already complete) and apply brand tokens + Figtree font to calendar HTML.
 
-**Plan:** [`docs/plans/2026-04-18-phase-6-publish.md`](plans/2026-04-18-phase-6-publish.md) — Part C section
+**Delivered:**
+- **C1** — Design system skill committed + SKILL.md complete
+- **C2** — Figtree font loaded from Google Fonts, brand color tokens applied to `vault/content-calendar.html` (pink, orange, navy, lavender, tints)
+- Fixed self-referencing CSS variable bug (`--pink-tint: var(--pink-tint)` → `rgba(233,53,131,0.07)`)
 
-**Blocks:**
-- **C1** — Commit design system skill + README update
-- **C2** — Apply Figtree font + align brand color variables in `html-writer.ts`
-
-**What's in the design system:**
+**Design system contents:**
 - `colors_and_type.css` — 40+ CSS custom properties
 - `slides/` — 12 responsive HTML slide templates
 - `ui_kits/microsite/` — React lesson hub + slide deck components
 - `preview/` — 24 component demo pages
 - `SKILL.md` — complete (no changes needed)
 
-**Changes:** Only `html-writer.ts` CSS const. Calendar HTML is regenerated on every sync.
+**Changes:** Only CSS const in `vault/content-calendar.html`. Calendar HTML is regenerated on every sync.
 
-**No external dependencies.** Design system is already in the repo (untracked).
+**Tests:** 179/179 passing (no regressions).
 
-**Timeline:** ~2 hours to build + test
+**Files:** `vault/content-calendar.html`, `skills/wdai-design-system/` (untracked → committed)
 
 ---
 

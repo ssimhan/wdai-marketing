@@ -1,5 +1,43 @@
 # Project History
 
+## 2026-04-18 — Phase 6 + Design System Build + Audit/Fix/Kaizen Closeout
+
+### Accomplishments
+
+- **Phase 6 fully built** — Auto-publishing to LinkedIn org page (UGC API, 15s timeout) and Mailchimp (campaigns + content API, Basic auth). CLI: `npm run calendar:publish -- --event <id> [--all] [--dry-run] [--channel <channel>]`. 6 new tests, all passing.
+- **Design System integrated** — Figtree font loaded from Google Fonts, brand color tokens applied to calendar HTML (pink, orange, navy, lavender), hover/expand states use design token tints. Fixed self-referencing CSS variable bug that broke hover states.
+- **HTTP client utilities extracted** — DEBT-004: timeout/AbortController pattern was duplicated across linkedin-client and mailchimp-client. Extracted shared `httpFetch()` to `http-utils.ts`. Both clients refactored, 0 regressions.
+- **CLI entry point hardened** — DEBT-005: publisher.ts used fragile substring matching (`process.argv[1].includes('publisher')`). Replaced with ESM-safe `fileURLToPath()` + exact path comparison. Tested.
+- **Audit workflow improvements identified** — `/kaizen` session identified 4 friction points in `/audit` workflow: CSS validation missing, entry point guard not checked, NEXT.md staleness undetected, subagent triage guidance absent. Patterns documented in gotchas.md + lessons_learned.md.
+
+### Key Learnings
+
+- Audit + Fix loop catches code-quality debt that unit tests miss (DRY violations, fragile patterns)
+- Self-referencing CSS variables are silent P0s — must be validated in audit
+- Entry point detection patterns matter for CLI durability — substring matching breaks under renaming
+- Kaizen identifies systematic improvements to workflows — real wins in next session
+
+### Test Coverage
+
+- 179/179 tests passing (no regressions)
+- 4 skipped (live API tests, environment-gated)
+
+### Files Modified
+
+- `tools/calendar/{linkedin-client,mailchimp-client,http-utils}.ts` — HTTP utilities extracted
+- `tools/calendar/publisher.ts` — Entry point guard hardened
+- `vault/content-calendar.html` — CSS variables fixed, Figtree font + brand tokens applied
+- `docs/{lessons_learned,PROJECT_HISTORY,ROADMAP}.md` — Closeout docs updated
+- `.agent/gotchas.md` — Two new failure patterns documented
+- `BUGS.md` — DEBT-004/005 resolved, all items moved to Resolved section
+
+### Next Steps
+
+- **Phase 7: Leader Personal LinkedIn OAuth** — (deferred until Phases 4/5/6 stable in production)
+- **Phase 4/5 Vercel blocks** — Awaiting Helen's org setup
+
+---
+
 ## 2026-04-18 — Phase 6 + Design System Planning Session
 
 ### Accomplishments

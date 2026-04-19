@@ -1,5 +1,23 @@
 # Lessons Learned
 
+## 2026-04-18 — Phase 6 + Design System Build + Audit/Fix: Workflow Improvements
+
+### Code Quality & Testing
+
+**Audit + Fix loop catches debt early, then fixes atomically.** Found DEBT-004 (timeout duplication) and DEBT-005 (fragile entry point) via clean-code subagent review. Both were Low severity, but fixing atomically meant: extract utility → update callers → test. No risk of partial refactoring. Pattern: *"Run `/audit` → let subagent find code-quality issues → triage by severity → fix each in `/fix` loop."*
+
+**Self-referencing CSS variables are a silent P0.** Found `--pink-tint: var(--pink-tint)` which silently resolved to nothing, making all hover states invisible. Audit checklist had no CSS validation. Pattern: *"In `/audit` P0 Standards, add: Grep for self-referencing CSS vars (`var(--varname): var(--varname)`) and undefined fallbacks. Any hit is invisible UI — P0."*
+
+**Entry point guard patterns matter for CLI durability.** DEBT-005: `process.argv[1]?.includes('publisher')` breaks if file is renamed or wrapped. ESM-safe pattern `fileURLToPath(import.meta.url)` + exact match is better. Pattern: *"In `/audit` P0 Standards, add: For any CLI tool, verify entry point uses ESM-safe (`import.meta.url`) or CommonJS-safe (`require.main === module`) detection, not substring matching."*
+
+### Audit Workflow Refinement
+
+**Subagent triage needs explicit symptom patterns.** Clean-code subagent returned 50+ findings; manually categorizing as Blocking/Improvement/Nitpick required understanding what "undocumented" vs. "real DRY issue" means. Pattern: *"In `/audit` Clean Code section, add a symptom-to-bucket mapping table: 'Blocking' = code solving non-existent problem / duplicated 3+ times / doing 2+ jobs; 'Improvement' = undocumented / fragile / magic number; 'Nitpick' = naming / style."*
+
+**NEXT.md staleness goes undetected.** Phase C was marked "Ready to Build" but already complete. Audit should grep for stale status markers. Pattern: *"In `/audit` UX & Aesthetic section, add: Grep `NEXT.md` and `docs/` for 'Ready to Build | In progress | Pending | Blocked'. Cross-check against git history. Any mismatch is debt."*
+
+---
+
 ## 2026-04-18 — Phase 6 + Design System Planning: Multi-Phase Design in One Session
 
 ### Architectural Insights

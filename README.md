@@ -41,13 +41,15 @@ The system runs autonomously — no one needs to open Claude Code for the pipeli
      → DMs each responsible leader with their copy draft + Approve button
           ↓ HUMAN TOUCHPOINT 2: each leader approves (or edits) in Slack
 
-[3] Auto-publish (Phase 6 — planned)
-     → posts to WDAI LinkedIn
-     → creates Mailchimp drafts (auto-send optional)
+[3] Auto-publish (Phase 6 ✅ complete)
+     → posts approved copy to WDAI LinkedIn org page (UGC API)
+     → creates Mailchimp campaign drafts with email content
+     → CLI: npm run calendar:publish -- --event <id> [--all] [--dry-run] [--channel <channel>]
 
 [4] Vercel (Phase 4+5 ✅ serverless endpoint complete; manual auth-gated site pending)
      → Slack interactions serverless endpoint live: receives button clicks, updates status
      → vault/content-calendar.html ready for deployment as team-readable web page (requires Vercel auth setup)
+     → Design system integrated: Figtree font + brand color tokens applied (Phase C ✅ complete)
 ```
 
 **The two human touchpoints are the only manual steps.** Everything before and after is automated.
